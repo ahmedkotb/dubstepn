@@ -14,7 +14,10 @@
 
 body {
   background-color: #fff;
-  color: #333;
+  color: #444;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  font-size: 1.0em;
+  line-height: 1.4;
 }
 
 div.clear {
@@ -29,6 +32,7 @@ div#main {
 
 div#nav {
   margin-top: 10px;
+  font-family: "Century Gothic", "Avant Garde Gothic", "Avant Garde", "URW Gothic L", "Helvetica", sans-serif;
 }
 
 div#nav h1 {

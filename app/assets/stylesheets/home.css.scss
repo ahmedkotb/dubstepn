@@ -12,19 +12,19 @@ div#left_column article h2 {
   font-size: 1.7em;
   font-weight: bold;
   margin: 0 0 10px 0;
+  color: #222;
 }
 
 div#left_column article h3 {
-  font-size: 1.0em;
+  font-size: 1.3em;
   font-weight: bold;
-  margin: 0px 0 5px 0;
+  margin: 0 0 10px 0;
+  color: #444;
 }
 
 div#left_column article p {
   text-align: justify;
-  font-size: 0.9em;
-  margin: 0 0 15px 0;
-  line-height: 1.5;
+  margin: 0 0 20px 0;
 }
 
 div#right_column {
@@ -46,9 +46,7 @@ div#right_column article h2 {
 
 div#right_column article p {
   text-align: justify;
-  font-size: 0.9em;
-  margin: 0;
-  line-height: 1.4;
+  margin: 0 0 20px 0;
 }
 
 div#right_column ul {
