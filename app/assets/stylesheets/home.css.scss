@@ -1,3 +1,63 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+div#left_column {
+  float: right;
+  width: 640px;
+  padding: 0 40px 0 0;
+}
+
+div#left_column article {
+  margin-bottom: 40px;
+}
+
+div#left_column article h2 {
+  font-size: 1.7em;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+div#left_column article h3 {
+  font-size: 1.0em;
+  font-weight: bold;
+  margin: 0px 0 5px 0;
+}
+
+div#left_column article p {
+  font-size: 0.9em;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+}
+
+div#right_column {
+  float: right;
+  width: 280px;
+}
+
+div#right_column article {
+  margin-bottom: 40px;
+}
+
+div#right_column article h2 {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  color: #666;
+  text-transform: uppercase;
+}
+
+div#right_column article p {
+  text-align: justify;
+  font-size: 0.9em;
+  margin: 0;
+  line-height: 1.4;
+}
+
+div#right_column ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+div#right_column li {
+  font-size: 0.9em;
+  line-height: 1.5;
+}
