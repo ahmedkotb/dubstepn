@@ -77,6 +77,24 @@ div#main header div#top_border {
   border-bottom: 1px solid #dddddd;
 }
 
+div#main p.notice {
+  background-color: #fff9bf;
+  border: 1px solid #e8de6f;
+  padding: 5px 10px 5px 10px;
+  -moz-box-shadow: 0px 1px 3px #ddd;
+  -webkit-box-shadow: 0px 1px 3px #ddd;
+  box-shadow: 0px 1px 3px #ddd;
+}
+
+div#main p.error {
+  background-color: #ffdede;
+  border: 1px solid #f2aaaa;
+  padding: 5px 10px 5px 10px;
+  -moz-box-shadow: 0px 1px 3px #ddd;
+  -webkit-box-shadow: 0px 1px 3px #ddd;
+  box-shadow: 0px 1px 3px #ddd;
+}
+
 div#main div#content a {
   text-decoration: none;
   color: #9e2020;
@@ -92,5 +110,5 @@ div#main footer {
 }
 
 div#main footer div#bottom_border {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }

@@ -20,6 +20,12 @@
         <div class="clear"> </div>
         <div id="top_border"> </div>
       </header>
+      <% if flash[:notice] %>
+        <p class="notice"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <p class="error"><%= flash[:error] %></p>
+      <% end %>
       <div id="content">
         <%= yield %>
       </div>

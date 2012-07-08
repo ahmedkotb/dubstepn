@@ -1,7 +1,11 @@
 include ApplicationHelper
+require 'date'
+require 'digest'
 require 'open-uri'
 
 class HomeController < ApplicationController
+  before_filter :authenticate, :only => [:admin]
+
   def index
   end
 
@@ -12,4 +16,29 @@ class HomeController < ApplicationController
 
   def admin
   end
+
+  def login
+  end
+
+  def credentials
+    if params[:password]
+      if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
+        session[:login_time] = DateTime.now
+        flash[:notice] = "You are now logged in."
+        return redirect_to "/admin"
+      end
+    end
+    flash[:error] = "The password was incorrect."
+    return redirect_to "/login"
+  end
+
+  private
+    def authenticate
+      if session[:login_time] == nil
+        return redirect_to "/login"
+      end
+      if session[:login_time].advance(:hours => 1) < DateTime.now
+        return redirect_to "/login"
+      end
+    end
 end
