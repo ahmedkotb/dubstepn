@@ -143,6 +143,10 @@ div#main p.error {
   box-shadow: 0px 1px 3px #ddd;
 }
 
+div#main div#content {
+  margin: 40px 0 40px 0;
+}
+
 div#main div#content a {
   text-decoration: none;
   color: #9e2020;

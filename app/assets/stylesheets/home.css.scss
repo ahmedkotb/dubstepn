@@ -57,6 +57,14 @@ div#main div#content div#left_column article {
   margin: 40px 0 40px 0;
 }
 
+div#main div#content div#left_column article:first-child {
+  margin: 0 0 40px 0;
+}
+
+div#main div#content div#left_column article:last-child {
+  margin: 40px 0 0 0;
+}
+
 div#main div#content div#left_column article h2 {
   font-size: 1.7em;
   font-weight: bold;
@@ -97,11 +105,19 @@ div#main div#content div#right_column article {
   margin: 40px 0 40px 0;
 }
 
+div#main div#content div#right_column article:first-child {
+  margin: 0 0 40px 0;
+}
+
+div#main div#content div#right_column article:last-child {
+  margin: 40px 0 0 0;
+}
+
 div#main div#content div#right_column article h2 {
   font-size: 0.9em;
   font-weight: bold;
-  margin: 5px 0 5px 0;
   color: #666;
+  margin: 0;
   text-transform: uppercase;
 }
 
