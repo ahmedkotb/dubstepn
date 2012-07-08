@@ -105,6 +105,34 @@ div#main div#content a:hover {
   color: #de2626;
 }
 
+div#main div#content h2 {
+  font-size: 1.7em;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  padding: 5px 0 5px 0;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+}
+
+div#main div#content hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 5px 0 5px 0;
+}
+
+div#main div#content h3 {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 20px 0 20px 0;
+  color: #333;
+}
+
+div#main div#content p {
+  text-align: justify;
+  margin: 20px 0 20px 0;
+}
+
 div#main footer {
   font-size: 0.8em;
   color: #666;

@@ -1,8 +1,8 @@
 <h2>Admin Panel</h2>
-<p><a href="/logout">Sign out</a></p>
+<p><a href="/logout">Log out</a></p>
 
 <h3>Posts</h3>
-<div id="posts">
+<p>
   <% for post in @posts %>
     <div class="post">
       <div class="post_title"><a href="/posts/<%= post.id %>"><%= post.title %></a></div>
@@ -13,4 +13,4 @@
       <div class="clear"> </div>
     </div>
   <% end %>
-</div>
+</p>
