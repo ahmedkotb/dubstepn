@@ -20,7 +20,7 @@ div#left_column article h2 {
 div#left_column article hr {
   border: none;
   border-top: 1px solid #eee;
-  margin: 0;
+  margin: 0 0 20px 0;
 }
 
 div#left_column article h3 {
@@ -32,7 +32,7 @@ div#left_column article h3 {
 
 div#left_column article p {
   text-align: justify;
-  margin: 5px 0 20px 0;
+  margin: 10px 0 20px 0;
 }
 
 div#left_column article div.article_footer {
@@ -60,7 +60,7 @@ div#right_column article h2 {
 
 div#right_column article p {
   text-align: justify;
-  margin: 5px 0 20px 0;
+  margin: 10px 0 20px 0;
   font-size: 0.9em;
   line-height: 1.5;
 }
@@ -68,7 +68,7 @@ div#right_column article p {
 div#right_column ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 10px 0 20px 0;
 }
 
 div#right_column li {
