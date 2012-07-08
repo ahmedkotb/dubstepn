@@ -15,6 +15,9 @@ class HomeController < ApplicationController
   end
 
   def admin
+    #Post.create(:title => "First Post", :content => "Here is some content!", :visible => true)
+
+    @posts = Post.all
   end
 
   def login
@@ -22,7 +25,7 @@ class HomeController < ApplicationController
 
   def logout
     session[:login_time] = nil
-        flash[:notice] = "You are now logged out."
+    flash[:notice] = "You are now logged out."
     return redirect_to "/"
   end
 

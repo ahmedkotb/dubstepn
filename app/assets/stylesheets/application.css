@@ -30,8 +30,9 @@ div#main {
 }
 
 div#main header h1 {
-  width: 480px;
+  display: block;
   float: left;
+  width: 480px;
   padding: 10px 0 0 0;
   margin: 0;
   color: #333;
@@ -111,4 +112,13 @@ div#main footer {
 
 div#main footer div#bottom_border {
   border-bottom: 1px solid #ddd;
+}
+
+div#main footer a {
+  text-decoration: none;
+  color: #9e2020;
+}
+
+div#main footer a:hover {
+  color: #de2626;
 }

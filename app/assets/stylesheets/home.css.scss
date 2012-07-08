@@ -1,4 +1,4 @@
-/* MISC */
+/* ADMIN */
 
 input#password_field {
   padding: 5px;
@@ -21,6 +21,28 @@ input#login_button {
 
 input#login_button:hover {
   background-color: #f7f7f7;
+}
+
+div.post_title {
+  display: block;
+  float: left;
+  width: 200px;
+}
+
+div.post_modifier {
+  display: block;
+  float: left;
+  width: 32px;
+}
+
+div.post_modifier img {
+  position: relative;
+  top: 2px;
+  opacity: 0.5;
+}
+
+div.post_modifier img:hover {
+  opacity: 1.0;
 }
 
 /* LEFT COLUMN */
@@ -52,7 +74,7 @@ div#left_column article h3 {
   font-size: 1.3em;
   font-weight: bold;
   margin: 20px 0 10px 0;
-  color: #666;
+  color: #333;
 }
 
 div#left_column article p {

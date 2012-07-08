@@ -1,1 +1,16 @@
+<h2>Admin Panel</h2>
 <p><a href="/logout">Sign out</a></p>
+
+<h3>Posts</h3>
+<div id="posts">
+  <% for post in @posts %>
+    <div class="post">
+      <div class="post_title"><a href="/posts/<%= post.id %>"><%= post.title %></a></div>
+      <div class="post_modifier"><a href="#"><%= image_tag "up.png" %></a></div>
+      <div class="post_modifier"><a href="#"><%= image_tag "down.png" %></a></div>
+      <div class="post_modifier"><a href="#"><%= image_tag "edit.png" %></a></div>
+      <div class="post_modifier"><a href="#"><%= image_tag "delete.png" %></a></div>
+      <div class="clear"> </div>
+    </div>
+  <% end %>
+</div>
