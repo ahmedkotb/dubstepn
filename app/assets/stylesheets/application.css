@@ -26,24 +26,32 @@ div.clear {
 
 div#main {
   width: 960px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px auto 0 auto;
 }
 
-div#nav {
-  margin-top: 10px;
-}
-
-div#nav h1 {
-  display: block;
+div#main header h1 {
+  width: 480px;
   float: left;
-  width: 500px;
   padding: 10px 0 0 0;
   margin: 0;
   color: #111;
 }
 
-div#nav a {
+div#main header h1 a#title_link {
+  text-decoration: none;
+  color: #111;
+}
+
+div#main header h1 a#title_link:hover {
+  color: #de2626;
+}
+
+div#main header div#nav {
+  width: 480px;
+  float: right;
+}
+
+div#main header div#nav a {
   display: block;
   float: right;
   width: 120px;
@@ -51,40 +59,38 @@ div#nav a {
   text-align: center;
   text-decoration: none;
   font-weight: bold;
-  color: #333;
   font-size: 0.9em;
   text-transform: uppercase;
+  color: #333;
 }
 
-div#nav a.active {
+div#main header div#nav a.active {
   border-bottom: 2px solid #666;
 }
 
-div#nav a:hover {
+div#main header div#nav a:hover {
   border-bottom: 2px solid #daa520;
 }
 
-div#top_border {
+div#main header div#top_border {
   border-top: 1px solid #666;
   border-bottom: 1px solid #dddddd;
-  margin-bottom: 40px;
 }
 
-div#bottom_border {
-  border-bottom: 1px solid #dddddd;
-}
-
-div#footer {
-  padding: 10px 0 10px 0;
-  font-size: 0.8em;
-  color: #666;
-}
-
-a {
+div#main div#content a {
   text-decoration: none;
   color: #9e2020;
 }
 
-a:hover {
+div#main div#content a:hover {
+  color: #de2626;
+}
+
+div#main footer {
+  font-size: 0.8em;
   color: #666;
+}
+
+div#main footer div#bottom_border {
+  border-bottom: 1px solid #dddddd;
 }

@@ -9,19 +9,24 @@
   </head>
   <body>
     <div id="main">
-      <div id="nav">
-        <h1>dubstep&rsquo;n</h1>
-        <a href="/resume.pdf">Resume</a>
-        <a href="/projects">Projects</a>
-        <a class="active" href="/">Blog</a>
+      <header>
+        <h1><a href="/" id="title_link">dubstep&rsquo;n</a></h1>
+        <div id="nav">
+          <a href="/resume.pdf">Resume</a>
+          <a href="/projects">Projects</a>
+          <a class="active" href="/">Blog</a>
+          <div class="clear"> </div>
+        </div>
         <div class="clear"> </div>
+        <div id="top_border"> </div>
+      </header>
+      <div id="content">
+        <%= yield %>
       </div>
-      <div id="top_border"> </div>
-      <%= yield %>
-      <div id="bottom_border"> </div>
-      <div id="footer">
-        &copy; <%= Time.new.year %> Stephan Boyer - All Rights Reserved.
-      </div>
+      <footer>
+        <div id="bottom_border"> </div>
+        <p>&copy; <%= Time.new.year %> Stephan Boyer &mdash; All Rights Reserved.</p>
+      </footer>
     </div>
   </body>
 </html>
