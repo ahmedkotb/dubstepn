@@ -49,3 +49,9 @@ group :development, :test do
     gem 'execjs'
   end
 end
+
+# production web server
+gem 'thin'
+
+# mysql
+activerecord-mysql2-adapter`
