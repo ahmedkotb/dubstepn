@@ -14,7 +14,7 @@
 
 body {
   background-color: #fff;
-  color: #444;
+  color: #333;
   font-family: "PT Sans", "Helvetica Neue", "Arial", sans-serif;
   font-size: 1.0em;
   line-height: 1.4;
@@ -34,12 +34,12 @@ div#main header h1 {
   float: left;
   padding: 10px 0 0 0;
   margin: 0;
-  color: #111;
+  color: #333;
 }
 
 div#main header h1 a#title_link {
   text-decoration: none;
-  color: #111;
+  color: #333;
 }
 
 div#main header h1 a#title_link:hover {

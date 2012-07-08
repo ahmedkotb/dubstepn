@@ -20,6 +20,12 @@ class HomeController < ApplicationController
   def login
   end
 
+  def logout
+    session[:login_time] = nil
+        flash[:notice] = "You are now logged out."
+    return redirect_to "/"
+  end
+
   def credentials
     if params[:password]
       if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
