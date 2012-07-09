@@ -1,8 +1,8 @@
-span.private {
-  opacity: 0.5;
+div#main div#content div#left_column h3#tag_filter_heading {
+  margin-top: 0;
 }
 
-h3#tag_filter_heading {
+div#main div#content div#left_column p#no_posts {
   margin-top: 0;
 }
 
@@ -25,10 +25,8 @@ div#main div#content div#left_column article h2 {
   margin: 0;
 }
 
-div#main div#content div#left_column article hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 5px 0 5px 0;
+div#main div#content div#left_column article h2 span.private {
+  opacity: 0.5;
 }
 
 div#main div#content div#left_column article h3 {
