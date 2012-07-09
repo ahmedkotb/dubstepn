@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       @posts = @posts.select { |post| post.tags.split(",").include?(params[:tag]) }
     end
     for post in @posts
-      post.content = markdown(post.content).gsub("<pre>", "<pre class=\"brush: python\">")
+      post.content = markdown(post.content).gsub("<pre>", "<pre class=\"brush: python\">").gsub("<code>", "").gsub("</code>", "")
     end
     @logged_in = is_logged_in
   end
@@ -23,7 +23,7 @@ class HomeController < ApplicationController
       flash[:error] = "That post does not exist."
       return redirect_to "/"
     end
-    @post.content = markdown(@post.content).gsub("<pre>", "<pre class=\"brush: python\">")
+    @post.content = markdown(@post.content).gsub("<pre>", "<pre class=\"brush: python\">").gsub("<code>", "").gsub("</code>", "")
   end
 
   def resume
