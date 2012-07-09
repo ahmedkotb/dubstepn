@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   end
 
   def admin
-    #Post.create(:title => "First Post", :content => "Here is some content!", :visible => true)
+    #Post.create(:title => "First Post", :content => "Here is some content!", :tags => "programming", :visible => true)
 
     @posts = Post.all
   end
