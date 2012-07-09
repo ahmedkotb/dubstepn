@@ -50,10 +50,6 @@ class HomeController < ApplicationController
       flash[:error] = "Title cannot be empty."
       return redirect_to "/edit_post/"+params[:post_id]
     end
-    if params[:post_content].strip.size == 0
-      flash[:error] = "Content cannot be empty."
-      return redirect_to "/edit_post/"+params[:post_id]
-    end
     post = Post.find(params[:post_id].to_i)
     post.title = params[:post_title]
     post.content = params[:post_content]

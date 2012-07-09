@@ -7,10 +7,10 @@
   <%= raw(post.content) %>
   <div class="article_footer">Tags:
     <% tags = post.tags.split(",") %>
-    <% for tag in tags.first(tags.size-1) %>
-      <a href="/tag/<%= u tag %>"><%= tag %></a>,
-    <% end %>
     <% if tags.size > 0 %>
+      <% for tag in tags.first(tags.size-1) %>
+        <a href="/tag/<%= u tag %>"><%= tag %></a>,
+      <% end %>
       <a href="/tag/<%= u tags.last %>"><%= tags.last %></a>
     <% end %>
   </div>
