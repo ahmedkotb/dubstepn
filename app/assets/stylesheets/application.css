@@ -134,6 +134,11 @@ div#main div#content div#left_column {
 
 /* RIGHT COLUMN */
 
+div#main div#content div#right_column {
+  float: right;
+  width: 280px;
+}
+
 div#main div#content div#right_column article {
   margin: 40px 0 40px 0;
 }
