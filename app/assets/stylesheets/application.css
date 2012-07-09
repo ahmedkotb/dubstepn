@@ -132,52 +132,6 @@ div#main div#content div#left_column {
   padding: 0 40px 0 0;
 }
 
-div#main div#content div#left_column article {
-  margin: 40px 0 40px 0;
-}
-
-div#main div#content div#left_column article:first-child {
-  margin-top: 0;
-}
-
-div#main div#content div#left_column article:last-child {
-  margin-bottom: 0;
-}
-
-div#main div#content div#left_column article h2 {
-  font-size: 1.7em;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-}
-
-div#main div#content div#left_column article hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 5px 0 5px 0;
-}
-
-div#main div#content div#left_column article h3 {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 20px 0 20px 0;
-  color: #333;
-}
-
-div#main div#content div#left_column article p {
-  text-align: justify;
-  margin: 20px 0 20px 0;
-}
-
-div#main div#content div#left_column article div.article_footer {
-  color: #666;
-}
-
-div#main div#content div#right_column {
-  float: right;
-  width: 280px;
-}
-
 /* RIGHT COLUMN */
 
 div#main div#content div#right_column article {

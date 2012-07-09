@@ -5,7 +5,7 @@
     <h2><a href="/post/<%= post.id %>"><%= post.title %></a> <span class="private">(hidden)</span></h2>
   <% end %>
   <%= raw(post.content) %>
-  <div class="article_footer">Tags:
+  <p class="article_footer">Tags:
     <% tags = post.tags.split(",") %>
     <% if tags.size > 0 %>
       <% for tag in tags.first(tags.size-1) %>
@@ -15,8 +15,9 @@
     <% else %>
       none
     <% end %>
-  </div>
-  <div class="article_footer"><%= post.created_at.strftime("%A, %B %e, %Y") %></div>
+    <br />
+    <%= post.created_at.strftime("%A, %B %e, %Y") %>
+  </p>
   <p>
     <% if full %>
       <div id="disqus_thread"></div>
