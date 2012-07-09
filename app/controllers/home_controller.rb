@@ -57,7 +57,7 @@ class HomeController < ApplicationController
     post.visible = !!params[:post_visible]
     post.save!
     flash[:notice] = "The changes have been saved."
-    return redirect_to "/admin"
+    return redirect_to "/edit_post/"+post.id.to_s
   end
 
   def delete_post_action
