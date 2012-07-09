@@ -120,6 +120,7 @@ div#main header div#banner_label div#banner_text a:hover {
 }
 
 div#main header img#banner {
+  display: block;
   -moz-box-shadow: 0px 1px 3px #ddd;
   -webkit-box-shadow: 0px 1px 3px #ddd;
   box-shadow: 0px 1px 3px #ddd;
