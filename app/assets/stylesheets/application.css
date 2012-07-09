@@ -13,9 +13,6 @@
  *= require "shCoreDefault"
  */
 
-/* fix for syntaxhighlighter*/
-.syntaxhighlighter { overflow-y: hidden !important; }
-
 /*
  *  Global styles
  */
