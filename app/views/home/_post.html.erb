@@ -12,6 +12,8 @@
         <a href="/tag/<%= u tag %>"><%= tag %></a>,
       <% end %>
       <a href="/tag/<%= u tags.last %>"><%= tags.last %></a>
+    <% else %>
+      none
     <% end %>
   </div>
   <div class="article_footer"><%= post.created_at.strftime("%A, %B %e, %Y") %></div>
