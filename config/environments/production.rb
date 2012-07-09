@@ -49,7 +49,7 @@ Dubstepn::Application.configure do
   extra_assets = Dir.entries("app/assets/stylesheets")+Dir.entries("app/assets/javascripts")
   extra_assets.delete(".")
   extra_assets.delete("..")
-  extra_assets.map! { |name| name.gsub(".scss", "").gsub(".coffee", "") }
+  extra_assets.map! { |name| name.gsub(".scss", "").gsub(".coffee", "").gsub(".erb", "") }
   config.assets.precompile += extra_assets
 
   # Disable delivery errors, bad email addresses will be ignored
