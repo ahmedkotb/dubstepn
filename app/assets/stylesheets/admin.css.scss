@@ -1,0 +1,80 @@
+div#main div#content input#password_field {
+  padding: 5px;
+  border: 1px solid #ccc;
+  -moz-box-shadow: inset 0 0 5px #ccc;
+  -webkit-box-shadow: inset 0 0 5px #ccc;
+  box-shadow: inset 0 0 5px #ccc;
+}
+
+div#main div#content input#login_button {
+  padding: 5px 10px 5px 10px;
+  color: #333;
+  background-color: #eee;
+  -moz-box-shadow: 0px 1px 3px #ddd;
+  -webkit-box-shadow: 0px 1px 3px #ddd;
+  box-shadow: 0px 1px 3px #ddd;
+  border: 1px solid #ccc;
+  text-shadow: 1px 1px 0px #fff;
+}
+
+div#main div#content input#login_button:hover {
+  background-color: #f7f7f7;
+}
+
+div#main div#content div.post_title {
+  display: block;
+  float: left;
+  width: 200px;
+}
+
+div#main div#content div.post_visible {
+  display: block;
+  float: left;
+  width: 100px;
+}
+
+div#main div#content div.post_modifier {
+  display: block;
+  float: left;
+  width: 24px;
+}
+
+div#main div#content div.post_modifier img {
+  position: relative;
+  top: 2px;
+  opacity: 0.5;
+}
+
+div#main div#content div.post_modifier img:hover {
+  opacity: 1.0;
+}
+
+div#main div#content div#confirm_delete {
+  display: none;
+}
+
+div#confirm_delete_container p {
+  text-align: center;
+}
+
+span#post_name {
+  font-weight: bold;
+}
+
+input#post_id_field {
+}
+
+input#confirm_delete_button {
+  padding: 5px 10px 5px 10px;
+  color: #333;
+  background-color: #eee;
+  -moz-box-shadow: 0px 1px 3px #ddd;
+  -webkit-box-shadow: 0px 1px 3px #ddd;
+  box-shadow: 0px 1px 3px #ddd;
+  border: 1px solid #ccc;
+  text-shadow: 1px 1px 0px #fff;
+}
+
+input#confirm_delete_button:hover {
+  background-color: #f7f7f7;
+}

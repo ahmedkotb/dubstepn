@@ -1,13 +1,28 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag    "admin" %>
+  <%= javascript_include_tag "admin" %>
+<% end %>
+
+<% require 'json' %>
+
 <h2>Admin Panel</h2>
-<p><a href="/logout">Log out</a></p>
+<p><a href="#" id="logout_button">Log out</a></p>
+<%= form_tag("/logout", :method => "post", :class => "hidden", :id => "logout_form") do %>
+  <input type="submit" value="Submit" />
+<% end %>
 
 <h3>Posts</h3>
+<p><a href="#" id="create_post_button">New Post</a></p>
+<%= form_tag("/create_post", :method => "post", :class => "hidden", :id => "create_post_form") do %>
+  <input type="submit" value="Submit" />
+<% end %>
 <p>
   <% for post in @posts %>
     <div class="post">
-      <div class="post_title"><a href="/posts/<%= post.id %>"><%= post.title %></a></div>
-      <div class="post_modifier"><a href="#"><%= image_tag "edit.png" %></a></div>
-      <div class="post_modifier"><a href="#"><%= image_tag "delete.png" %></a></div>
+      <div class="post_title"><a href="/post/<%= post.id %>"><%= post.title %></a></div>
+      <div class="post_visible"><%= if post.visible then "Visible" else "Hidden" end %></div>
+      <div class="post_modifier"><a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png" %></a></div>
+      <div class="post_modifier"><a class="delete_button" id="delete_button_<%= post.id %>" href="#confirm_delete"><%= image_tag "delete.png" %></a></div>
       <div class="clear"> </div>
     </div>
   <% end %>
@@ -15,3 +30,17 @@
     There are no posts.
   <% end %>
 </p>
+
+<div id="confirm_delete">
+  <div id="confirm_delete_container">
+    <p>Delete <span id="post_name"> </span>?</p>
+    <%= form_tag("/delete_post", :method => "post") do %>
+      <input type="hidden" name="post_id" id="post_id_field" />
+      <p><input type="submit" value="Confirm Delete" id="confirm_delete_button" /></p>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  var posts = <%= raw(@posts.to_json) %>;
+</script>

@@ -1,0 +1,6 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag    "index" %>
+  <%= javascript_include_tag "index" %>
+<% end %>
+
+<%= render :partial => "post", :locals => { :post => @post, :full => true } %>

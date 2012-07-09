@@ -1,0 +1,37 @@
+<article>
+  <% if post.visible %>
+    <h2><a href="/post/<%= post.id %>"><%= post.title %></a></h2>
+  <% else %>
+    <h2><a href="/post/<%= post.id %>"><%= post.title %></a> <span class="private">(hidden)</span></h2>
+  <% end %>
+  <%= raw(post.content) %>
+  <div class="article_footer">Tags:
+    <% tags = post.tags.split(",") %>
+    <% for tag in tags.first(tags.size-1) %>
+      <a href="/tag/<%= u tag %>"><%= tag %></a>,
+    <% end %>
+    <% if tags.size > 0 %>
+      <a href="/tag/<%= u tags.last %>"><%= tags.last %></a>
+    <% end %>
+  </div>
+  <div class="article_footer"><%= post.created_at.strftime("%A, %B %e, %Y") %></div>
+  <p>
+    <% if full %>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'dubstepn'; // required: replace example with your forum shortname
+          var disqus_identifier = 'post_<%= post.id %>';
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <% end %>
+  </p>
+</article>
