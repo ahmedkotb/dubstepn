@@ -10,7 +10,7 @@
   <p class="article_footer">
     <%= post.created_at.strftime("%A, %B %e, %Y") %>
     <% if logged_in %>
-      <a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png" %></a>
+      <a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png", :class => "edit_post_icon" %></a>
     <% end %>
     <br />
     Tags:
@@ -41,6 +41,8 @@
       </script>
       <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <% else %>
+      <a href="/post/<%= post.id %>#disqus_thread">Link</a>
     <% end %>
   </p>
 </article>

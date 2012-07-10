@@ -50,3 +50,14 @@ div#main div#content div#left_column article p {
 div#main div#content div#left_column article p.article_footer {
   color: #666;
 }
+
+div#main div#content div#left_column article p.article_footer img.edit_post_icon {
+  position: relative;
+  top: 2px;
+  left: 10px;
+  opacity: 0.5;
+}
+
+div#main div#content div#left_column article p.article_footer img.edit_post_icon:hover {
+  opacity: 1.0;
+}

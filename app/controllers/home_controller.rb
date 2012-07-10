@@ -69,7 +69,7 @@ class HomeController < ApplicationController
     post = Post.find(params[:post_id].to_i)
     post.title = params[:post_title]
     post.content = params[:post_content]
-    post.tags = params[:post_tags].split(",").map { |tag| tag.strip }.join(",")
+    post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.join(",")
     post.visible = !!params[:post_visible]
     post.save!
     flash[:notice] = "The changes have been saved."
