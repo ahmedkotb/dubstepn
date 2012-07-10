@@ -77,6 +77,7 @@ class HomeController < ApplicationController
   end
 
   def delete_post_action
+    remove_routes("edit_post")
     if !is_logged_in
       return redirect_to "/login"
     end
@@ -125,6 +126,12 @@ class HomeController < ApplicationController
         else
           session[:routes].push([name, request.fullpath])
         end
+      end
+    end
+
+    def remove_routes(*blacklist)
+      if session[:routes] != nil
+        session[:routes].select! { |pair| !blacklist.include?(pair[0])}
       end
     end
 
