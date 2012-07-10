@@ -3,4 +3,4 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
-<%= render :partial => "post", :locals => { :post => @post, :full => true } %>
+<%= render :partial => "post", :locals => { :post => @post, :full => true, :logged_in => @logged_in } %>

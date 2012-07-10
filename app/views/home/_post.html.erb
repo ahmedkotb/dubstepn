@@ -4,9 +4,14 @@
   <% else %>
     <h2><a href="/post/<%= post.id %>"><%= post.title %></a> <span class="private">(hidden)</span></h2>
   <% end %>
-  <%= raw(post.content) %>
+  <div class="post_content">
+    <%= raw(post.content) %>
+  </div>
   <p class="article_footer">
     <%= post.created_at.strftime("%A, %B %e, %Y") %>
+    <% if logged_in %>
+      <a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png" %></a>
+    <% end %>
     <br />
     Tags:
     <% tags = post.tags.split(",") %>
