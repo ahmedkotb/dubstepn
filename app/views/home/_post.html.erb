@@ -31,7 +31,7 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'dubstepn'; // required: replace example with your forum shortname
-            var disqus_identifier = 'post_<%= post.id %>';
+            var disqus_identifier = 'post_<%= post.id+20 %>';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function() {
@@ -43,7 +43,7 @@
         <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       <% else %>
-        <a href="/post/<%= post.id %>#disqus_thread" data-disqus-identifier="post_<%= post.id %>">Comments</a>
+        <a href="/post/<%= post.id %>#disqus_thread" data-disqus-identifier="post_<%= post.id+20 %>">Comments</a>
       <% end %>
     <% end %>
   </p>
