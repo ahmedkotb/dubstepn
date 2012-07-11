@@ -51,7 +51,8 @@
             <h2>Tags</h2>
             <p>
               <% for tag in @sorted_tags.last(150).shuffle %>
-                <a href="/tag/<%= u tag %>" style="font-size: <%= 2.0*(Float(@tags_hash[tag])/Float(@tags_hash[@sorted_tags.last]))**0.5 %>em !important;"><%= tag %>&nbsp;&nbsp;</a>
+                <% prominence = Float(@tags_hash[tag])/Float(@tags_hash[@sorted_tags.last]) %>
+                <a href="/tag/<%= u tag %>" style="font-size: <%= 2.0*(prominence**0.5) %>em !important; opacity: <%= prominence**0.5 %>;"><%= tag %>&nbsp;&nbsp;</a>
               <% end %>
             </p>
           </article>
