@@ -40,6 +40,14 @@
             <p>I'm a computer science student at MIT, with a love for type theory and a newfound interest in declarative and functional programming. My programming experience ranges from assembly to Haskell, from microcontrollers to supercomputers. Blogging, however, is completely new to me.</p>
           </article>
           <article>
+            <h2>Recent Posts</h2>
+            <ul>
+              <% for post in @posts.first(5) %>
+                <li><a href="/post/<%= post.id %>"><%= post.title %></a></li>
+              <% end %>
+            </ul>
+          </article>
+          <article>
             <h2>My Projects Featured On</h2>
             <ul>
               <li><a href='http://watch.discoverychannel.ca/daily-planet/february-2012/daily-planet---february-01-2012/#clip611513'>The Discovery Channel</a></li>

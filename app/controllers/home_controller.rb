@@ -6,11 +6,12 @@ require 'open-uri'
 class HomeController < ApplicationController
   def index
     record_route("index")
-    @posts = Post.order("created_at DESC").all
     if params[:tag]
-      @posts = @posts.select { |post| post.tags.split(",").include?(params[:tag]) }
+      @filtered_posts = @posts.select { |post| post.tags.split(",").include?(params[:tag]) }
+    else
+      @filtered_posts = @posts
     end
-    for post in @posts
+    for post in @filtered_posts
       post.content = markdown(post.content).gsub("<pre><code>", "<pre class=\"brush: python; toolbar: false;\">").gsub("</code></pre>", "</pre>")
     end
     @logged_in = is_logged_in
@@ -38,7 +39,6 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    @posts = Post.order("created_at DESC").all
   end
 
   def edit_post
@@ -133,7 +133,15 @@ class HomeController < ApplicationController
 
     def remove_routes(*blacklist)
       if session[:routes] != nil
-        session[:routes].select! { |pair| blacklist.select { |route| (pair[0] =~ Regexp.new(route)) != nil }.empty? }
+        session[:routes].select! { |pair|
+          blacklist.select { |route|
+            if route.instance_of?(Regexp)
+              (pair[0] =~ route) != nil
+            else
+              pair[0] == route
+            end
+          }.empty?
+        }
       end
     end
 
@@ -141,7 +149,13 @@ class HomeController < ApplicationController
       if session[:routes] != nil
         while session[:routes].size > 0
           pair = session[:routes].pop
-          if blacklist.select { |route| (pair[0] =~ Regexp.new(route)) != nil }.empty?
+          if blacklist.select { |route|
+            if route.instance_of?(Regexp)
+              (pair[0] =~ route) != nil
+            else
+              pair[0] == route
+            end
+          }.empty?
             return redirect_to pair[1]
           end
         end
