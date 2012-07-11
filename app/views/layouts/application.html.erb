@@ -48,6 +48,14 @@
             </ul>
           </article>
           <article>
+            <h2>Tags</h2>
+            <p>
+              <% for tag in @sorted_tags.last(150).shuffle %>
+                <a href="/tag/<%= u tag %>" style="font-size: <%= 2.0*(Float(@tags_hash[tag])/Float(@tags_hash[@sorted_tags.last]))**0.5 %>em !important;"><%= tag %>&nbsp;&nbsp;</a>
+              <% end %>
+            </p>
+          </article>
+          <article>
             <h2>My Projects Featured On</h2>
             <ul>
               <li><a href='http://watch.discoverychannel.ca/daily-planet/february-2012/daily-planet---february-01-2012/#clip611513'>The Discovery Channel</a></li>
