@@ -106,7 +106,7 @@ class HomeController < ApplicationController
   def logout_action
     session[:login_time] = nil
     flash[:notice] = "You are now logged out."
-    remove_routes("admin", "edit_post\\[.*\\]")
+    remove_routes("admin", /edit_post\[.*\]/)
     return backtrack("login")
   end
 
