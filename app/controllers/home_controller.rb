@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   end
 
   def post
-    record_route("post")
+    record_route("post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
     if !@post.visible && !is_logged_in
       flash[:error] = "That post does not exist."
@@ -45,7 +45,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    record_route("edit_post")
+    record_route("edit_post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
   end
 
@@ -73,11 +73,11 @@ class HomeController < ApplicationController
     post.visible = !!params[:post_visible]
     post.save!
     flash[:notice] = "The changes have been saved."
-    return backtrack("login", "edit_post")
+    return backtrack("login", "edit_post["+params[:post_id].to_i.to_s+"]")
   end
 
   def delete_post_action
-    remove_routes("edit_post")
+    remove_routes("edit_post["+params[:post_id].to_i.to_s+"]")
     if !is_logged_in
       return redirect_to "/login"
     end
@@ -95,17 +95,19 @@ class HomeController < ApplicationController
       if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
         session[:login_time] = DateTime.now
         flash[:notice] = "You are now logged in."
-        return backtrack("login")
+        remove_routes("login")
+        return backtrack
       end
     end
     flash[:error] = "The password was incorrect."
-    return backtrack("login")
+    return backtrack
   end
 
   def logout_action
     session[:login_time] = nil
     flash[:notice] = "You are now logged out."
-    return backtrack("login", "admin", "edit_post")
+    remove_routes("admin", "edit_post\\[.*\\]")
+    return backtrack("login")
   end
 
   private
@@ -131,7 +133,7 @@ class HomeController < ApplicationController
 
     def remove_routes(*blacklist)
       if session[:routes] != nil
-        session[:routes].select! { |pair| !blacklist.include?(pair[0])}
+        session[:routes].select! { |pair| blacklist.select { |route| (pair[0] =~ Regexp.new(route)) != nil }.empty? }
       end
     end
 
@@ -139,7 +141,7 @@ class HomeController < ApplicationController
       if session[:routes] != nil
         while session[:routes].size > 0
           pair = session[:routes].pop
-          if !blacklist.include?(pair[0])
+          if blacklist.select { |route| (pair[0] =~ Regexp.new(route)) != nil }.empty?
             return redirect_to pair[1]
           end
         end
