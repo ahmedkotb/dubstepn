@@ -1,3 +1,3 @@
 class Post < ActiveRecord::Base
-  attr_accessible :title, :content, :tags, :visible
+  attr_accessible :title, :content, :tags, :visible, :parent
 end
