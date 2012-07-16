@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     record_route("index")
     @posts = Post.order("created_at DESC").all
     if params[:tag]
-      @filtered_posts = @posts.select { |post| post.tags.split(",").include?(params[:tag]) }
+      @filtered_posts = @posts#.select { |post| post.tags.split(",").include?(params[:tag]) }
     else
       @filtered_posts = @posts
     end
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   def post
     record_route("post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
-    if !@post.visible && !is_logged_in
+    if !@post.is_public && !is_logged_in
       flash[:error] = "That post does not exist."
       return backtrack("login")
     end
@@ -54,7 +54,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    post = Post.create(:title => "New Post", :content => "", :tags => "", :visible => false)
+    post = Post.create(:title => "New Post", :content => "", :is_public => false, :parent => nil)
     flash[:notice] = "New post created."
     return redirect_to "/edit_post/"+post.id.to_s
   end
@@ -70,8 +70,7 @@ class HomeController < ApplicationController
     post = Post.find(params[:post_id].to_i)
     post.title = params[:post_title]
     post.content = params[:post_content]
-    post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.join(",")
-    post.visible = !!params[:post_visible]
+    post.is_public = !!params[:post_is_public]
     post.save!
     flash[:notice] = "The changes have been saved."
     return backtrack("login", "edit_post["+params[:post_id].to_i.to_s+"]")

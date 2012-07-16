@@ -1,5 +1,5 @@
 <article>
-  <% if post.visible %>
+  <% if post.is_public %>
     <h2><a href="/post/<%= post.id %>"><%= post.title %></a></h2>
   <% else %>
     <h2><a href="/post/<%= post.id %>"><%= post.title %></a> <span class="private">(hidden)</span></h2>
@@ -12,17 +12,6 @@
     <% if logged_in %>
       <a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png", :class => "post_footer_icon" %></a>
       <a id="delete_button_<%= post.id %>" class="delete_button" href="#confirm_delete"><%= image_tag "delete.png", :class => "post_footer_icon" %></a>
-    <% end %>
-    <br />
-    Tags:
-    <% tags = post.tags.split(",") %>
-    <% if tags.size > 0 %>
-      <% for tag in tags.first(tags.size-1) %>
-        <a href="/tag/<%= u tag %>"><%= tag %></a>,
-      <% end %>
-      <a href="/tag/<%= u tags.last %>"><%= tags.last %></a>
-    <% else %>
-      none
     <% end %>
   </p>
   <p>
