@@ -11,26 +11,7 @@
   <input type="submit" value="Submit" />
 <% end %>
 
-<h3>Posts</h3>
 <p><a href="#" id="create_post_button">New Post</a></p>
 <%= form_tag("/create_post", :method => "post", :class => "hidden", :id => "create_post_form") do %>
   <input type="submit" value="Submit" />
 <% end %>
-<p>
-  <% for post in @posts %>
-    <div class="post">
-      <div class="post_title"><a href="/post/<%= post.id %>"><%= post.title %></a></div>
-      <div class="post_visible"><%= if post.visible then "Visible" else "Hidden" end %></div>
-      <div class="post_modifier"><a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png" %></a></div>
-      <div class="post_modifier"><a class="delete_button" id="delete_button_<%= post.id %>" href="#confirm_delete"><%= image_tag "delete.png" %></a></div>
-      <div class="clear"> </div>
-    </div>
-  <% end %>
-  <% if @posts.size == 0 %>
-    There are no posts.
-  <% end %>
-</p>
-
-<script>
-  var posts = <%= raw(@posts.to_json) %>;
-</script>
