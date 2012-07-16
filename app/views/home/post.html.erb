@@ -4,3 +4,17 @@
 <% end %>
 
 <%= render :partial => "post", :locals => { :post => @post, :full => true, :logged_in => @logged_in } %>
+
+<div id="confirm_delete">
+  <div id="confirm_delete_container">
+    <p>Delete <span id="post_name"> </span>?</p>
+    <%= form_tag("/delete_post", :method => "post") do %>
+      <input type="hidden" name="post_id" id="post_id_field" />
+      <p><input type="submit" value="Confirm Delete" id="confirm_delete_button" /></p>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  var posts = [<%= raw(@post.to_json) %>];
+</script>
