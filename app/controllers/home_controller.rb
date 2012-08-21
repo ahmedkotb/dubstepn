@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     record_route("index")
     @posts = Post.order("created_at DESC").all
     if params[:tag]
-      @filtered_posts = @posts#.select { |post| post.tags.split(",").include?(params[:tag]) }
+      @filtered_posts = @posts.select { |post| post.tags.map{ |tag| tag.name }.include?(params[:tag]) }
     else
       @filtered_posts = @posts
     end
