@@ -10,6 +10,8 @@ Dubstepn::Application.routes.draw do
   get "/admin" => "home#admin"
   get "/edit_post/:post_id" => "home#edit_post"
   post "/create_post" => "home#create_post_action"
+  post "/move_up" => "home#move_up_action"
+  post "/move_down" => "home#move_down_action"
   post "/edit_post" => "home#edit_post_action"
   post "/delete_post" => "home#delete_post_action"
 

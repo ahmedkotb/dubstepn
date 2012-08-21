@@ -56,6 +56,50 @@ class HomeController < ApplicationController
     return redirect_to "/edit_post/"+post.id.to_s
   end
 
+  def move_up_action
+    if !is_logged_in
+      return redirect_to "/login"
+    end
+    post1 = Post.find(params[:post_id].to_i)
+    post2 = Post.where("id > ?", post1.id).order("id ASC").first
+    if post1 && post2
+      post1_title = post1.title
+      post1_content = post1.content
+      post1_is_public = post1.is_public
+      post1.title = post2.title
+      post1.content = post2.content
+      post1.is_public = post2.is_public
+      post2.title = post1_title
+      post2.content = post1_content
+      post2.is_public = post1_is_public
+      post1.save!
+      post2.save!
+    end
+    return backtrack("login")
+  end
+
+  def move_down_action
+    if !is_logged_in
+      return redirect_to "/login"
+    end
+    post1 = Post.find(params[:post_id].to_i)
+    post2 = Post.where("id < ?", post1.id).order("id DESC").first
+    if post1 && post2
+      post1_title = post1.title
+      post1_content = post1.content
+      post1_is_public = post1.is_public
+      post1.title = post2.title
+      post1.content = post2.content
+      post1.is_public = post2.is_public
+      post2.title = post1_title
+      post2.content = post1_content
+      post2.is_public = post1_is_public
+      post1.save!
+      post2.save!
+    end
+    return backtrack("login")
+  end
+
   def edit_post_action
     if !is_logged_in
       return redirect_to "/login"

@@ -21,6 +21,8 @@
     <div class="post">
       <div class="post_title"><a href="/post/<%= post.id %>"><%= post.title %></a></div>
       <div class="post_is_public"><%= if post.is_public then "Public" else "Hidden" end %></div>
+      <div class="post_modifier"><a class="move_up_button" id="move_up_button_<%= post.id %>" href="#"><%= image_tag "up.png" %></a></div>
+      <div class="post_modifier"><a class="move_down_button" id="move_down_button_<%= post.id %>" href="#"><%= image_tag "down.png" %></a></div>
       <div class="post_modifier"><a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png" %></a></div>
       <div class="post_modifier"><a class="delete_button" id="delete_button_<%= post.id %>" href="#confirm_delete"><%= image_tag "delete.png" %></a></div>
       <div class="clear"> </div>
@@ -35,10 +37,19 @@
   <div id="confirm_delete_container">
     <p>Delete <span id="post_name"> </span>?</p>
     <%= form_tag("/delete_post", :method => "post") do %>
-      <input type="hidden" name="post_id" id="post_id_field" />
+      <input type="hidden" name="post_id" class="post_id_field" />
       <p><input type="submit" value="Confirm Delete" id="confirm_delete_button" /></p>
     <% end %>
   </div>
+</div>
+
+<div class="hidden">
+  <%= form_tag("/move_up", :method => "post", :id => "move_up_form") do %>
+    <input type="hidden" name="post_id" class="post_id_field" />
+  <% end %>
+  <%= form_tag("/move_down", :method => "post", :id => "move_down_form") do %>
+    <input type="hidden" name="post_id" class="post_id_field" />
+  <% end %>
 </div>
 
 <script>
