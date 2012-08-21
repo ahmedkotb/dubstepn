@@ -75,18 +75,3 @@ span#post_name {
 
 input#post_id_field {
 }
-
-input#confirm_delete_button {
-  padding: 5px 10px 5px 10px;
-  color: #333;
-  background-color: #eee;
-  -moz-box-shadow: 0px 1px 3px #ddd;
-  -webkit-box-shadow: 0px 1px 3px #ddd;
-  box-shadow: 0px 1px 3px #ddd;
-  border: 1px solid #ccc;
-  text-shadow: 1px 1px 0px #fff;
-}
-
-input#confirm_delete_button:hover {
-  background-color: #f7f7f7;
-}
