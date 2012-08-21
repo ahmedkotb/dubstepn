@@ -59,6 +59,10 @@ class HomeController < ApplicationController
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("id > ?", post1.id).order("id ASC").first
     if post1 && post2
+      post1_tag_names = post1.tags.map { |tag| tag.name }
+      post2_tag_names = post2.tags.map { |tag| tag.name }
+      post1.tags.destroy_all
+      post2.tags.destroy_all
       post1_title = post1.title
       post1_content = post1.content
       post1_content_html = post1.content_html
@@ -71,6 +75,12 @@ class HomeController < ApplicationController
       post2.content = post1_content
       post2.content_html = post1_content_html
       post2.is_public = post1_is_public
+      for tag_name in post1_tag_names
+        post2.tags.create :name => tag_name
+      end
+      for tag_name in post2_tag_names
+        post1.tags.create :name => tag_name
+      end
       post1.save!
       post2.save!
     end
@@ -84,6 +94,10 @@ class HomeController < ApplicationController
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("id < ?", post1.id).order("id DESC").first
     if post1 && post2
+      post1_tag_names = post1.tags.map { |tag| tag.name }
+      post2_tag_names = post2.tags.map { |tag| tag.name }
+      post1.tags.destroy_all
+      post2.tags.destroy_all
       post1_title = post1.title
       post1_content = post1.content
       post1_content_html = post1.content_html
@@ -96,6 +110,12 @@ class HomeController < ApplicationController
       post2.content = post1_content
       post2.content_html = post1_content_html
       post2.is_public = post1_is_public
+      for tag_name in post1_tag_names
+        post2.tags.create :name => tag_name
+      end
+      for tag_name in post2_tag_names
+        post1.tags.create :name => tag_name
+      end
       post1.save!
       post2.save!
     end
