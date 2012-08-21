@@ -46,6 +46,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
+    record_route("admin")
     post = Post.create(:title => "New Post", :content => "", :content_html => "", :is_public => false)
     post.tags.create :name => "home"
     flash[:notice] = "New post created."
@@ -56,6 +57,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
+    record_route("admin")
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("id > ?", post1.id).order("id ASC").first
     if post1 && post2
@@ -91,6 +93,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
+    record_route("admin")
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("id < ?", post1.id).order("id DESC").first
     if post1 && post2
@@ -147,6 +150,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
+    record_route("admin")
     post = Post.find(params[:post_id].to_i)
     flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
     post.destroy
