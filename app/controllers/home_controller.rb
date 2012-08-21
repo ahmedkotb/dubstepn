@@ -51,7 +51,8 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    post = Post.create(:title => "New Post", :content => "", :is_public => false, :parent => nil)
+    post = Post.create(:title => "New Post", :content => "", :is_public => false)
+    post.tags.create :name => "home"
     flash[:notice] = "New post created."
     return redirect_to "/edit_post/"+post.id.to_s
   end
