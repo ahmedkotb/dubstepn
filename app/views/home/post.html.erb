@@ -3,7 +3,7 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
-<%= render :partial => "post", :locals => { :post => @post, :full => true, :logged_in => @logged_in } %>
+<%= render :partial => "post", :locals => { :post => @post, :comments_mode => :comments, :date_mode => :date, :title_link => true } %>
 
 <div id="confirm_delete">
   <div id="confirm_delete_container">

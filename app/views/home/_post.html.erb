@@ -1,31 +1,27 @@
+<%
+  # locals:
+  #   post            boolean
+  #   comments_mode   [:comments, :comments_count, nil]
+  #   date_mode       [:date, nil]
+  #   title_link      boolean
+%>
 <article>
-  <% if post.is_public %>
-    <h2><a href="/post/<%= post.id %>"><%= post.title %></a></h2>
+  <% if title_link %>
+    <h2><a href="/post/<%= post.id %>"><%= post.title %><%= if post.is_public then "" else " <span class=\"private\">(hidden)</span>" end %></a></h2>
   <% else %>
-    <h2><a href="/post/<%= post.id %>"><%= post.title %></a> <span class="private">(hidden)</span></h2>
+    <h2><%= post.title %><%= if post.is_public then "" else " <span class=\"private\">(hidden)</span>" end %></h2>
   <% end %>
   <div class="post_content">
     <%= raw(post.content) %>
   </div>
-  <p class="post_footer">
-    <%= post.created_at.strftime("%A, %B %e, %Y") %>
-    <% if logged_in %>
-      <a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png", :class => "post_footer_icon" %></a>
-      <a id="delete_button_<%= post.id %>" class="delete_button" href="#confirm_delete"><%= image_tag "delete.png", :class => "post_footer_icon" %></a>
-      <br />
-      Tags:
-      <% tags = post.tags %>
-      <% if tags.size > 0 %>
-        <% for tag in tags.first(tags.size-1) %>
-          <a href="/tag/<%= u tag.name %>"><%= tag.name %></a>,
-        <% end %>
-        <a href="/tag/<%= u tags.last.name %>"><%= tags.last.name %></a>
-      <% else %>
-        none
-      <% end %>
-    <% end %>
-  </p>
-  <p>
-    comments...
-  </p>
+  <% if date_mode == :date %>
+    <p class="post_footer">
+      <%= post.created_at.strftime("%A, %B %e, %Y") %>
+    </p>
+  <% end %>
+  <% if comments_mode == :comments %>
+    <p>comments...</p>
+  <% elsif comments_mode == :comments_count %>
+    <p>number of comments...</p>
+  <% end %>
 </article>

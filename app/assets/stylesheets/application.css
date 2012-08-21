@@ -178,6 +178,10 @@ div#main div#content div#right_column article:last-child {
   margin: 40px 0 0 0;
 }
 
+div#main div#content div#right_column article:first-child:last-child {
+  margin: 0;
+}
+
 div#main div#content div#right_column article h2 {
   font-size: 0.9em;
   font-weight: bold;
