@@ -1,0 +1,42 @@
+div#main div#content div.post_title {
+  display: block;
+  float: left;
+  width: 450px;
+}
+
+div#main div#content div.post_is_public {
+  display: block;
+  float: left;
+  width: 100px;
+}
+
+div#main div#content div.post_modifier {
+  display: block;
+  float: left;
+  width: 24px;
+}
+
+div#main div#content div.post_modifier img {
+  position: relative;
+  top: 2px;
+  opacity: 0.5;
+}
+
+div#main div#content div.post_modifier img:hover {
+  opacity: 1.0;
+}
+
+div#main div#content div#confirm_delete {
+  display: none;
+}
+
+div#confirm_delete_container p {
+  text-align: center;
+}
+
+span#post_name {
+  font-weight: bold;
+}
+
+input#post_id_field {
+}

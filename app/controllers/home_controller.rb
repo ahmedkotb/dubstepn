@@ -37,6 +37,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
+    @posts = Post.order("id DESC").all
   end
 
   def edit_post
