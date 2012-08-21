@@ -11,6 +11,7 @@
   <p><input type="hidden"                                     name="post_id" value="<%= @post.id %>" /></p>
   <p><input type="text" placeholder="Title"                   name="post_title" value="<%= @post.title %>" /></p>
   <p><textarea cols="40" placeholder="Content" rows="5"       name="post_content"><%= @post.content %></textarea></p>
+  <p><input type="text" placeholder="Tags"                    name="post_tags" value="<%= @post.tags.map { |tag| tag.name }.join(", ") %>"/></p>
   <p><input type="checkbox"                                   name="post_is_public" id="post_is_public" <%= if @post.is_public then "checked" else "" end %> /> <label for="post_is_public">Public</label></p>
   <p><input type="submit" value="Save" id="save_button" /></p>
 <% end %>

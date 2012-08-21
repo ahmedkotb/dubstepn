@@ -7,11 +7,8 @@ class HomeController < ApplicationController
   def index
     record_route("index")
     @posts = Post.order("created_at DESC").all
-    if params[:tag]
-      @filtered_posts = @posts.select { |post| post.tags.map{ |tag| tag.name }.include?(params[:tag]) }
-    else
-      @filtered_posts = @posts
-    end
+    tag = if params[:tag] then params[:tag] else "home" end
+    @filtered_posts = @posts.select { |post| post.tags.map{ |tag| tag.name }.include?(tag) }
     for post in @filtered_posts
       post.content = markdown(post.content).gsub("<pre><code>", "<pre class=\"brush: python; toolbar: false;\">").gsub("</code></pre>", "</pre>")
     end
@@ -68,8 +65,10 @@ class HomeController < ApplicationController
       return redirect_to "/edit_post/"+params[:post_id]
     end
     post = Post.find(params[:post_id].to_i)
+    post.tags.destroy_all
     post.title = params[:post_title]
     post.content = params[:post_content]
+    post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| post.tags.create :name => name }
     post.is_public = !!params[:post_is_public]
     post.save!
     flash[:notice] = "The changes have been saved."

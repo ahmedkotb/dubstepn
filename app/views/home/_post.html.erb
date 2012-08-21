@@ -12,17 +12,17 @@
     <% if logged_in %>
       <a href="/edit_post/<%= post.id %>"><%= image_tag "edit.png", :class => "post_footer_icon" %></a>
       <a id="delete_button_<%= post.id %>" class="delete_button" href="#confirm_delete"><%= image_tag "delete.png", :class => "post_footer_icon" %></a>
-    <% end %>
-    <br />
-    Tags:
-    <% tags = post.tags %>
-    <% if tags.size > 0 %>
-      <% for tag in tags.first(tags.size-1) %>
-        <a href="/tag/<%= u tag.name %>"><%= tag.name %></a>,
+      <br />
+      Tags:
+      <% tags = post.tags %>
+      <% if tags.size > 0 %>
+        <% for tag in tags.first(tags.size-1) %>
+          <a href="/tag/<%= u tag.name %>"><%= tag.name %></a>,
+        <% end %>
+        <a href="/tag/<%= u tags.last.name %>"><%= tags.last.name %></a>
+      <% else %>
+        none
       <% end %>
-      <a href="/tag/<%= u tags.last.name %>"><%= tags.last.name %></a>
-    <% else %>
-      none
     <% end %>
   </p>
   <p>
