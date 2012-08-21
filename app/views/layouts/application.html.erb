@@ -14,8 +14,16 @@
         <h1><a href="/" id="title_link">stephan boyer</a></h1>
         <div id="nav">
           <a href="/resume">Resume</a>
-          <a href="/projects">Projects</a>
-          <a class="active" href="/">Blog</a>
+          <% if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "project" %>
+            <a class="active" href="/projects">Projects</a>
+          <% else %>
+            <a href="/projects">Projects</a>
+          <% end %>
+          <% if params[:controller] == "home" && params[:action] == "index" && params[:tag] != "project" %>
+            <a class="active" href="/">Blog</a>
+          <% else %>
+            <a href="/">Blog</a>
+          <% end %>
           <div class="clear"> </div>
         </div>
         <div class="clear"> </div>
