@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
 
   private
     def get_layout_fields
-      @recent_posts = Post.order("id DESC").all.first(5)
+      @recent_posts = Post.order("id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?("home") }.first(5)
     end
 end

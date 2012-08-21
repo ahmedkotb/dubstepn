@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821055446) do
+ActiveRecord::Schema.define(:version => 20120821200207) do
 
   create_table "posts", :force => true do |t|
     t.text     "title",      :null => false
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20120821055446) do
     t.boolean  "is_public",  :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "parent_id"
   end
 
   create_table "posts_tags", :id => false, :force => true do |t|
