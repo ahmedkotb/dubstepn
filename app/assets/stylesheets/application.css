@@ -73,6 +73,7 @@ body p {
 body input, textarea {
   margin: 0;
   vertical-align: top;
+  outline: none;
 }
 
 body input[type=text], input[type=password] {
