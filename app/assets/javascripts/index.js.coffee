@@ -7,7 +7,7 @@ $(document).ready(() ->
     for post in posts
       do (post) ->
         if post.id == id
-          $("span#post_name").html(post.title)
+          $("span#post_name").html(post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"))
           $("input#post_id_field").val(post.id)
   )
 

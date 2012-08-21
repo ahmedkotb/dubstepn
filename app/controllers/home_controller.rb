@@ -72,7 +72,7 @@ class HomeController < ApplicationController
     post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| post.tags.create :name => name }
     post.is_public = !!params[:post_is_public]
     post.save!
-    flash[:notice] = "The changes have been saved."
+    flash[:notice] = "The changes to the post entitled \""+post.title+"\" have been saved."
     return backtrack("login", "edit_post["+params[:post_id].to_i.to_s+"]")
   end
 
@@ -81,8 +81,9 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    flash[:notice] = "The post has been deleted."
-    Post.destroy(params[:post_id].to_i)
+    post = Post.find(params[:post_id].to_i)
+    flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
+    post.destroy
     return backtrack("login")
   end
 
