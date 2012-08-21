@@ -6,7 +6,7 @@ require 'open-uri'
 class HomeController < ApplicationController
   def index
     record_route("index")
-    @posts = Post.order("created_at DESC").all
+    @posts = Post.order("id DESC").all
     tag = if params[:tag] then params[:tag] else "home" end
     @filtered_posts = @posts.select { |post| post.tags.map{ |tag| tag.name }.include?(tag) }
     for post in @filtered_posts
