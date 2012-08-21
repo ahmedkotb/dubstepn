@@ -5,6 +5,7 @@
   #   date_mode       [:date, nil]
   #   title_link      boolean
 %>
+
 <article>
   <% if title_link %>
     <h2><a href="/post/<%= post.id %>"><%= post.title %><%= if post.is_public then "" else " <span class=\"private\">(hidden)</span>" end %></a></h2>
