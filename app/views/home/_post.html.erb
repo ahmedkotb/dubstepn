@@ -13,7 +13,7 @@
     <h2><%= post.title %><%= if post.is_public then "" else " <span class=\"private\">(hidden)</span>" end %></h2>
   <% end %>
   <div class="post_content">
-    <%= raw(post.content) %>
+    <%= raw(post.content_html) %>
   </div>
   <% if date_mode == :date %>
     <p class="post_footer">

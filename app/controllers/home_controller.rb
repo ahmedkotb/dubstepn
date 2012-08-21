@@ -8,9 +8,6 @@ class HomeController < ApplicationController
     record_route("index")
     tag = if params[:tag] then params[:tag] else "home" end
     @filtered_posts = Post.order("id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?(tag) }
-    for post in @filtered_posts
-      post.content = markdown(post.content).gsub("<pre><code>", "<pre class=\"brush: python; toolbar: false;\">").gsub("</code></pre>", "</pre>").gsub("<h6>", "<p>").gsub("</h6>", "</p>").gsub("<h5>", "<p>").gsub("</h5>", "</p>").gsub("<h4>", "<h6>").gsub("</h4>", "</h6>").gsub("<h3>", "<h5>").gsub("</h3>", "</h5>").gsub("<h2>", "<h4>").gsub("</h2>", "</h4>").gsub("<h1>", "<h3>").gsub("</h1>", "</h3>")
-    end
     @logged_in = is_logged_in
   end
 
@@ -21,7 +18,6 @@ class HomeController < ApplicationController
       flash[:error] = "That post does not exist."
       return backtrack("login")
     end
-    @post.content = markdown(@post.content).gsub("<pre><code>", "<pre class=\"brush: python; toolbar: false;\">").gsub("</code></pre>", "</pre>").gsub("<h6>", "<p>").gsub("</h6>", "</p>").gsub("<h5>", "<p>").gsub("</h5>", "</p>").gsub("<h4>", "<h6>").gsub("</h4>", "</h6>").gsub("<h3>", "<h5>").gsub("</h3>", "</h5>").gsub("<h2>", "<h4>").gsub("</h2>", "</h4>").gsub("<h1>", "<h3>").gsub("</h1>", "</h3>")
   end
 
   def resume
@@ -50,7 +46,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    post = Post.create(:title => "New Post", :content => "", :is_public => false)
+    post = Post.create(:title => "New Post", :content => "", :content_html => "", :is_public => false)
     post.tags.create :name => "home"
     flash[:notice] = "New post created."
     return redirect_to "/edit_post/"+post.id.to_s
@@ -65,12 +61,15 @@ class HomeController < ApplicationController
     if post1 && post2
       post1_title = post1.title
       post1_content = post1.content
+      post1_content_html = post1.content_html
       post1_is_public = post1.is_public
       post1.title = post2.title
       post1.content = post2.content
+      post1.content_html = post2.content_html
       post1.is_public = post2.is_public
       post2.title = post1_title
       post2.content = post1_content
+      post2.content_html = post1_content_html
       post2.is_public = post1_is_public
       post1.save!
       post2.save!
@@ -87,12 +86,15 @@ class HomeController < ApplicationController
     if post1 && post2
       post1_title = post1.title
       post1_content = post1.content
+      post1_content_html = post1.content_html
       post1_is_public = post1.is_public
       post1.title = post2.title
       post1.content = post2.content
+      post1.content_html = post2.content_html
       post1.is_public = post2.is_public
       post2.title = post1_title
       post2.content = post1_content
+      post2.content_html = post1_content_html
       post2.is_public = post1_is_public
       post1.save!
       post2.save!
@@ -112,6 +114,7 @@ class HomeController < ApplicationController
     post.tags.destroy_all
     post.title = params[:post_title]
     post.content = params[:post_content]
+    post.content_html = markdown(post.content).gsub("<pre><code>", "<pre class=\"brush: python; toolbar: false;\">").gsub("</code></pre>", "</pre>").gsub("<h6>", "<p>").gsub("</h6>", "</p>").gsub("<h5>", "<p>").gsub("</h5>", "</p>").gsub("<h4>", "<h6>").gsub("</h4>", "</h6>").gsub("<h3>", "<h5>").gsub("</h3>", "</h5>").gsub("<h2>", "<h4>").gsub("</h2>", "</h4>").gsub("<h1>", "<h3>").gsub("</h1>", "</h3>")
     post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| post.tags.create :name => name }
     post.is_public = !!params[:post_is_public]
     post.save!
