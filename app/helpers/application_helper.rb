@@ -26,7 +26,7 @@ module ApplicationHelper
         session[:routes] = [[name, request.fullpath]]
       else
         session[:routes].push([name, request.fullpath])
-        session[:routes] = session[:routes][-5, 5]
+        session[:routes] = session[:routes].last(5)
       end
     end
   end
