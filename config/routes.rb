@@ -21,4 +21,14 @@ Dubstepn::Application.routes.draw do
   get "/login" => "home#login"
   post "/login" => "home#login_action"
   post "/logout" => "home#logout_action"
+
+  # legacy routes
+  match "/p/self-balancing-electric-unicycle.html" => redirect("/post/17")
+  match "/2011/11/algebraic-data-types.html" => redirect("/post/18")
+  match "/2011/10/monads-part-2.html" => redirect("/post/10")
+  match "/2011/10/monads.html" => redirect("/post/9")
+  match "/2011/09/uniqueness-types-and-godel.html" => redirect("/post/8")
+  match "/2011/08/kicked-in-monads.html" => redirect("/post/7")
+  match "/2011/08/great-war.html" => redirect("/post/6")
+  match "/2011/08/welcome.html" => redirect("/post/5")
 end
