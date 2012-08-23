@@ -3,6 +3,8 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
+<% content_for :title, "stephan boyer" %>
+
 <% if params[:tag] %>
   <h3 id="tag_filter_heading">Tag filter:&nbsp;&nbsp;<a href="/tag/<%= params[:tag] %>"><%= params[:tag] %></a></h3>
 <% end %>
