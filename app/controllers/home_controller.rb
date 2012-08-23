@@ -51,7 +51,7 @@ class HomeController < ApplicationController
       return redirect_to "/login"
     end
     record_route("admin")
-    post = Post.create(:title => "New Post", :content => "", :content_html => "", :is_public => false, :sort_id => 1)
+    post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :is_public => false, :sort_id => 1)
     post.tags.create :name => "home"
     post.sort_id = post.id
     post.save!
