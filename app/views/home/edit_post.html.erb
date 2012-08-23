@@ -3,10 +3,8 @@
   <%= javascript_include_tag "edit_post" %>
 <% end %>
 
-<h2>Admin Panel</h2>
-<p><a href="/admin">Go to Admin Panel</a></p>
+<h2><a href="/admin">Admin Panel</a></h2>
 
-<h3>Edit Post</h3>
 <%= form_tag("/edit_post", :method => "post") do %>
   <p><input type="hidden"                                     name="post_id" value="<%= @post.id %>" /></p>
   <p><input type="text" placeholder="Title"                   name="post_title" value="<%= @post.title %>" /></p>
