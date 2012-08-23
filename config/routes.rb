@@ -34,7 +34,7 @@ Dubstepn::Application.routes.draw do
 
   # make sure all routes have www
   constraints(:host => "stephanboyer.com") do
-    root :to => redirect("http://www.stephanboyer.com")
-    match '/*path', :to => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }
+    match "/" => redirect("http://www.stephanboyer.com")
+    match "/*path" => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }
   end
 end
