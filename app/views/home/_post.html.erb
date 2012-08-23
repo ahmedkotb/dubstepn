@@ -21,8 +21,16 @@
     </p>
   <% end %>
   <% if comments_mode == :comments %>
-    <p>comments...</p>
+    <% if Rails.env.production? %>
+      <p><span class="disabled">&lt;comments (prod)&gt;</span></p>
+    <% else %>
+      <p><span class="disabled">&lt;comments (dev)&gt;</span></p>
+    <% end %>
   <% elsif comments_mode == :comments_count %>
-    <p>number of comments...</p>
+    <% if Rails.env.production? %>
+      <p><span class="disabled">&lt;number of comments (prod)&gt;</span></p>
+    <% else %>
+      <p><span class="disabled">&lt;number of comments (dev)&gt;</span></p>
+    <% end %>
   <% end %>
 </article>
