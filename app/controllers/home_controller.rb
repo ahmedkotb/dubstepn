@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     record_route("index")
     posts_per_page = 5
     @tag = if params[:tag] then params[:tag] else "home" end
-    @filtered_posts = Post.order("id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?(@tag) }
+    @filtered_posts = Post.order("sort_id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?(@tag) }
     @page = params[:page].to_i
     @pages = (@filtered_posts.size+posts_per_page-1)/posts_per_page
     @filtered_posts = @filtered_posts[(@page-1)*posts_per_page, posts_per_page]
@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
-    @posts = Post.order("id DESC").all
+    @posts = Post.order("sort_id DESC").all
   end
 
   def edit_post
@@ -63,30 +63,11 @@ class HomeController < ApplicationController
     end
     record_route("admin")
     post1 = Post.find(params[:post_id].to_i)
-    post2 = Post.where("id > ?", post1.id).order("id ASC").first
+    post2 = Post.where("sort_id > ?", post1.sort_id).order("sort_id ASC").first
     if post1 && post2
-      post1_tag_names = post1.tags.map { |tag| tag.name }
-      post2_tag_names = post2.tags.map { |tag| tag.name }
-      post1.tags.destroy_all
-      post2.tags.destroy_all
-      post1_title = post1.title
-      post1_content = post1.content
-      post1_content_html = post1.content_html
-      post1_is_public = post1.is_public
-      post1.title = post2.title
-      post1.content = post2.content
-      post1.content_html = post2.content_html
-      post1.is_public = post2.is_public
-      post2.title = post1_title
-      post2.content = post1_content
-      post2.content_html = post1_content_html
-      post2.is_public = post1_is_public
-      for tag_name in post1_tag_names
-        post2.tags.create :name => tag_name
-      end
-      for tag_name in post2_tag_names
-        post1.tags.create :name => tag_name
-      end
+      post1_sort_id = post1.sort_id
+      post1.sort_id = post2.sort_id
+      post2.sort_id = post1_sort_id
       post1.save!
       post2.save!
     end
@@ -99,30 +80,11 @@ class HomeController < ApplicationController
     end
     record_route("admin")
     post1 = Post.find(params[:post_id].to_i)
-    post2 = Post.where("id < ?", post1.id).order("id DESC").first
+    post2 = Post.where("sort_id < ?", post1.sort_id).order("sort_id DESC").first
     if post1 && post2
-      post1_tag_names = post1.tags.map { |tag| tag.name }
-      post2_tag_names = post2.tags.map { |tag| tag.name }
-      post1.tags.destroy_all
-      post2.tags.destroy_all
-      post1_title = post1.title
-      post1_content = post1.content
-      post1_content_html = post1.content_html
-      post1_is_public = post1.is_public
-      post1.title = post2.title
-      post1.content = post2.content
-      post1.content_html = post2.content_html
-      post1.is_public = post2.is_public
-      post2.title = post1_title
-      post2.content = post1_content
-      post2.content_html = post1_content_html
-      post2.is_public = post1_is_public
-      for tag_name in post1_tag_names
-        post2.tags.create :name => tag_name
-      end
-      for tag_name in post2_tag_names
-        post1.tags.create :name => tag_name
-      end
+      post1_sort_id = post1.sort_id
+      post1.sort_id = post2.sort_id
+      post2.sort_id = post1_sort_id
       post1.save!
       post2.save!
     end
