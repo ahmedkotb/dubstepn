@@ -18,6 +18,13 @@
   <p id="no_posts">There are no results.</p>
 <% end %>
 
+<% if @page > 1 %>
+  <a href="/page/<%= @page-1 %>">Prev Page</a>
+<% end %>
+<% if @page < @pages %>
+  <a href="/page/<%= @page+1 %>">Next Page</a>
+<% end %>
+
 <div id="confirm_delete">
   <div id="confirm_delete_container">
     <p>Delete <span id="post_name"> </span>?</p>

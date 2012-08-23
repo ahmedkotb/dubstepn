@@ -1,6 +1,7 @@
 Dubstepn::Application.routes.draw do
   # public routes
-  get "/" => "home#index"
+  get "/" => "home#index", :page => "1"
+  get "/page/:page" => "home#index"
   get "/post/:post_id" => "home#post"
   get "/tag/:tag" => "home#index"
   get "/projects" => "home#index", :tag => "project"
