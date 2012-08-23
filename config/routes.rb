@@ -3,6 +3,7 @@ Dubstepn::Application.routes.draw do
   get "/" => "home#index", :page => "1"
   get "/page/:page" => "home#index"
   get "/post/:post_id" => "home#post"
+  get "/tag/:tag" => "home#index", :page => "1"
   get "/tag/:tag/:page" => "home#index"
   get "/projects" => "home#index", :tag => "project", :page => "1"
   get "/resume" => "home#resume"
