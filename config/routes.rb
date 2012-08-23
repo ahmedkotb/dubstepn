@@ -2,7 +2,7 @@ Dubstepn::Application.routes.draw do
   # make sure all routes have www
   constraints(:host => "stephanboyer.com") do
     match "/" => redirect("http://www.stephanboyer.com")
-    match "/*path" => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }
+    match "/*path" => redirect("http://www.stephanboyer.com#{request.fullpath}")
   end
 
   # public routes
