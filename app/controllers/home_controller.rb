@@ -163,7 +163,7 @@ class HomeController < ApplicationController
 
   def login_action
     if params[:password]
-      if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172" || Digest::MD5.hexdigest(params[:password]) == "cc2082e36f4360730052ffe0906c29dc"
+      if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
         session[:login_time] = DateTime.now
         flash[:notice] = "You are now logged in."
         remove_routes("login")
