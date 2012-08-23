@@ -42,7 +42,7 @@
     <% end %>
   <% elsif comments_mode == :comments_count %>
     <% if Rails.env.production? %>
-      <p><a href="/post/<%= post.id %>#disqus_thread" data-disqus-identifier="<%= post.id %>">comments</a></p>
+      <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %>/post/<%= post.id %>#disqus_thread" data-disqus-identifier="<%= post.id %>">comments</a></p>
     <% else %>
       <p><span class="disabled">&lt;number of comments (dev)&gt;</span></p>
     <% end %>
