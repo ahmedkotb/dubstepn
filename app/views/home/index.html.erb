@@ -18,19 +18,36 @@
   <p id="no_posts">There are no results.</p>
 <% end %>
 
-<% if @page > 1 %>
-  <a href="/page/1">First Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="/page/<%= @page-1 %>">Prev Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<% if @tag == "home" %>
+  <% if @page > 1 %>
+    <a href="/page/1">First Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/page/<%= @page-1 %>">Prev Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <% else %>
+    <span class="disabled">First Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="disabled">Prev Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  <% end %>
+  <% if @page < @pages %>
+    <a href="/page/<%= @page+1 %>">Next Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/page/<%= @pages %>">Last Page</a>
+  <% else %>
+    <span class="disabled">Next Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="disabled">Last Page</span>
+  <% end %>
 <% else %>
-  <span class="disabled">First Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-  <span class="disabled">Prev Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-<% end %>
-<% if @page < @pages %>
-  <a href="/page/<%= @page+1 %>">Next Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="/page/<%= @pages %>">Last Page</a>
-<% else %>
-  <span class="disabled">Next Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-  <span class="disabled">Last Page</span>
+  <% if @page > 1 %>
+    <a href="/tag/<%= @tag %>/1">First Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/tag/<%= @tag %>/<%= @page-1 %>">Prev Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <% else %>
+    <span class="disabled">First Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="disabled">Prev Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  <% end %>
+  <% if @page < @pages %>
+    <a href="/tag/<%= @tag %>/<%= @page+1 %>">Next Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/tag/<%= @tag %>/<%= @pages %>">Last Page</a>
+  <% else %>
+    <span class="disabled">Next Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="disabled">Last Page</span>
+  <% end %>
 <% end %>
 
 <div id="confirm_delete">

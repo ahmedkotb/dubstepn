@@ -6,9 +6,9 @@ require 'open-uri'
 class HomeController < ApplicationController
   def index
     record_route("index")
-    tag = if params[:tag] then params[:tag] else "home" end
     posts_per_page = 5
-    @filtered_posts = Post.order("id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?(tag) }
+    @tag = if params[:tag] then params[:tag] else "home" end
+    @filtered_posts = Post.order("id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?(@tag) }
     @page = params[:page].to_i
     @pages = (@filtered_posts.size+posts_per_page-1)/posts_per_page
     @filtered_posts = @filtered_posts[(@page-1)*posts_per_page, posts_per_page]
