@@ -29,6 +29,10 @@ body {
   display: none;
 }
 
+span.disabled {
+  color: #666;
+}
+
 div.clear {
   clear: both;
 }
