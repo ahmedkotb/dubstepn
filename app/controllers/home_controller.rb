@@ -5,7 +5,6 @@ require 'open-uri'
 
 class HomeController < ApplicationController
   def index
-    return render :text => request.inspect
     record_route("index")
     posts_per_page = 5
     @tag = if params[:tag] then params[:tag] else "home" end
