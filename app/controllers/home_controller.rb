@@ -42,6 +42,7 @@ class HomeController < ApplicationController
     if !is_logged_in
       return redirect_to "/login"
     end
+    record_route("admin")
     record_route("edit_post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
   end
