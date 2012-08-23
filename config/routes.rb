@@ -1,10 +1,8 @@
 Dubstepn::Application.routes.draw do
   # make sure all routes have www
-  if Rails.env.production?
-    constraints(:host => "stephanboyer.com") do
-      match "/" => redirect("http://www.stephanboyer.com")
-      match "/*path" => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }, :format => false
-    end
+  constraints(:host => "stephanboyer.com") do
+    match "/" => redirect("http://www.stephanboyer.com")
+    match "/*path" => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }, :format => false
   end
 
   # public routes
