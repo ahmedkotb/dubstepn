@@ -3,6 +3,7 @@ $(document).ready(() ->
   # hook the logout button
   $("a#logout_button").click(() ->
     $("form#logout_form").submit()
+    return false
   )
 
   # hook the move_up button
@@ -13,6 +14,7 @@ $(document).ready(() ->
         if post.id == id
           $("input.post_id_field").val(post.id)
     $("form#move_up_form").submit()
+    return false
   )
 
   # hook the move_down button
@@ -23,11 +25,13 @@ $(document).ready(() ->
         if post.id == id
           $("input.post_id_field").val(post.id)
     $("form#move_down_form").submit()
+    return false
   )
 
   # hook the create_post button
   $("a#create_post_button").click(() ->
     $("form#create_post_form").submit()
+    return false
   )
   
   # make sure we delete the right post
@@ -38,6 +42,7 @@ $(document).ready(() ->
         if post.id == id
           $("span#post_name").html(post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"))
           $("input.post_id_field").val(post.id)
+    return false
   )
 
   # apply fancybox to the delete links
