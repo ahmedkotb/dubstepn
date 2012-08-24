@@ -5,8 +5,8 @@
 
 <% content_for :title, "stephan boyer" %>
 
-<% if params[:tag] %>
-  <h3 id="tag_filter_heading">Tag filter:&nbsp;&nbsp;<a href="/tag/<%= params[:tag] %>"><%= params[:tag] %></a></h3>
+<% if @tag_name != "home" %>
+  <h3 id="tag_filter_heading">Tag filter:&nbsp;&nbsp;<a href="/tag/<%= @tag_name %>"><%= @tag_name %></a></h3>
 <% end %>
 
 <% no_posts = true %>
@@ -20,34 +20,27 @@
   <p id="no_posts">There are no results.</p>
 <% end %>
 
-<% if @tag == "home" %>
-  <% if @page > 1 %>
+<% if @page > 1 %>
+  <% if @tag_name == "home" %>
     <a href="/page/1">First Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="/page/<%= @page-1 %>">Prev Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
   <% else %>
-    <span class="disabled">First Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="disabled">Prev Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/tag/<%= @tag_name %>/1">First Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/tag/<%= @tag_name %>/<%= @page-1 %>">Prev Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
   <% end %>
-  <% if @page < @pages %>
+<% else %>
+  <span class="disabled">First Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  <span class="disabled">Prev Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+<% end %>
+<% if @page < @pages %>
+  <% if @tag_name == "home" %>
     <a href="/page/<%= @page+1 %>">Next Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="/page/<%= @pages %>">Last Page</a>
   <% else %>
-    <span class="disabled">Next Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="disabled">Last Page</span>
+    <a href="/tag/<%= @tag_name %>/<%= @page+1 %>">Next Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/tag/<%= @tag_name %>/<%= @pages %>">Last Page</a>
   <% end %>
 <% else %>
-  <% if @page > 1 %>
-    <a href="/tag/<%= @tag %>/1">First Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="/tag/<%= @tag %>/<%= @page-1 %>">Prev Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <% else %>
-    <span class="disabled">First Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="disabled">Prev Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-  <% end %>
-  <% if @page < @pages %>
-    <a href="/tag/<%= @tag %>/<%= @page+1 %>">Next Page</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="/tag/<%= @tag %>/<%= @pages %>">Last Page</a>
-  <% else %>
-    <span class="disabled">Next Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="disabled">Last Page</span>
-  <% end %>
+  <span class="disabled">Next Page</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  <span class="disabled">Last Page</span>
 <% end %>

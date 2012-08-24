@@ -7,12 +7,17 @@ class HomeController < ApplicationController
   def index
     record_route("index")
     posts_per_page = 5
-    @tag = if params[:tag] then params[:tag] else "home" end
-    @filtered_posts = Post.order("sort_id DESC").select { |post| post.tags.map{ |tag| tag.name }.include?(@tag) }
-    @page = params[:page].to_i
-    @pages = (@filtered_posts.size+posts_per_page-1)/posts_per_page
-    @filtered_posts = @filtered_posts[(@page-1)*posts_per_page, posts_per_page]
     @logged_in = is_logged_in
+    @tag_name = if params[:tag] then params[:tag] else "home" end
+    @tag = Tag.where(:name => @tag_name).first
+    @page = params[:page].to_i
+    if @logged_in
+      posts_with_tag = if @tag then @tag.posts else nil end
+    else
+      posts_with_tag = if @tag then @tag.posts.where(:is_public => true) else nil end
+    end
+    @filtered_posts = if posts_with_tag then posts_with_tag.order("sort_id DESC").limit(posts_per_page).offset((@page-1)*posts_per_page) else [] end
+    @pages = if posts_with_tag then (posts_with_tag.size+posts_per_page-1)/posts_per_page else 0 end
   end
 
   def post
@@ -51,7 +56,7 @@ class HomeController < ApplicationController
       return redirect_to "/login"
     end
     post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :is_public => false, :sort_id => 1)
-    post.tags.create :name => "home"
+    post.tags = [Tag.get_tag_by_name("home")]
     post.sort_id = post.id
     post.save!
     flash[:notice] = "New post created."
@@ -99,11 +104,13 @@ class HomeController < ApplicationController
       return redirect_to "/edit_post/"+params[:post_id]
     end
     post = Post.find(params[:post_id].to_i)
-    post.tags.destroy_all
+    while !post.tags.empty?
+      Tag.unlink_tag_from_post(post, post.tags.first)
+    end
     post.title = params[:post_title]
     post.content = params[:post_content]
     post.content_html = markdown(post.content).gsub("<pre><code>", "<pre class=\"brush: python; toolbar: false;\">").gsub("</code></pre>", "</pre>").gsub("<h6>", "<p>").gsub("</h6>", "</p>").gsub("<h5>", "<p>").gsub("</h5>", "</p>").gsub("<h4>", "<h6>").gsub("</h4>", "</h6>").gsub("<h3>", "<h5>").gsub("</h3>", "</h5>").gsub("<h2>", "<h4>").gsub("</h2>", "</h4>").gsub("<h1>", "<h3>").gsub("</h1>", "</h3>")
-    post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| post.tags.create :name => name }
+    post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| Tag.get_tag_by_name(name) }
     post.is_public = !!params[:post_is_public]
     post.save!
     flash[:notice] = "The changes to the post entitled \""+post.title+"\" have been saved."
@@ -117,6 +124,9 @@ class HomeController < ApplicationController
     end
     post = Post.find(params[:post_id].to_i)
     flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
+    while !post.tags.empty?
+      Tag.unlink_tag_from_post(post, post.tags.first)
+    end
     post.destroy
     return backtrack("login")
   end
