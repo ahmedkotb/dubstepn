@@ -36,6 +36,15 @@
   <% end %>
 </p>
 
+<h3>Tags</h3>
+<p>
+  <% for tag in @tags %>
+    <div class="post">
+      <div class="pos_title"><a href="/tag/<%= tag.name %>"><%= tag.name %></a></div>
+    </div>
+  <% end %>
+</p>
+
 <div id="confirm_delete">
   <div id="confirm_delete_container">
     <p>Delete <span id="post_name"> </span>?</p>

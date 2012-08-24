@@ -41,6 +41,7 @@ class HomeController < ApplicationController
       return redirect_to "/login"
     end
     @posts = Post.order("sort_id DESC").all
+    @tags = Tag.all
   end
 
   def edit_post
