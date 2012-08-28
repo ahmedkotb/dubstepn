@@ -44,3 +44,6 @@ gem 'jquery-rails'
 
 # production web server
 gem 'thin'
+
+# mysql
+gem 'mysql2'
