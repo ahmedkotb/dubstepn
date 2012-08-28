@@ -42,13 +42,5 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-# these two gems are the javascript runtime for linux
-group :development, :test do
-  if RUBY_PLATFORM.include? 'linux'
-    gem 'therubyracer'
-    gem 'execjs'
-  end
-end
-
 # production web server
 gem 'thin'
