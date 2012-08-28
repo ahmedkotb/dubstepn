@@ -249,10 +249,9 @@ div#main header div#nav {
 }
 
 div#main header div#nav a {
-  display: block;
+  display: inline-block;
   float: right;
-  width: 120px;
-  padding: 20px 0 20px 0;
+  padding: 20px 20px 20px 20px;
   text-align: right;
   text-decoration: none;
   font-weight: bold;
@@ -262,6 +261,10 @@ div#main header div#nav a {
   -moz-text-shadow: 0px 1px 3px #ddd;
   -webkit-text-shadow: 0px 1px 3px #ddd;
   text-shadow: 0px 1px 3px #ddd;
+}
+
+div#main header div#nav a:first-child {
+  padding: 20px 0 20px 20px;
 }
 
 div#main header div#nav a.active {
