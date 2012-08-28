@@ -3,6 +3,6 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
-<% content_for :title, "stephan boyer | "+@post.title %>
+<% content_for :title, @post.title+" | stephan boyer" %>
 
 <%= render :partial => "post", :locals => { :post => @post, :comments_mode => :comments, :date_mode => :date, :title_link => true } %>
