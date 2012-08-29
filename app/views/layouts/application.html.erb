@@ -17,22 +17,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <script type="text/javascript">
-      (function() {
-        var old_onload = window.onload;
-        window.onload = function() {
-          var xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = function() { };
-          xhr.open('POST', 'http://mit-6170-analytics.herokuapp.com/visit/3/'+encodeURIComponent(window.location.href), true);
-          xhr.send('');
-          if (typeof variable === 'undefined') {
-            if (old_onload != null) {
-              old_onload();
-            }
-          }
-        };
-      })();
-    </script>
   </head>
   <body>
     <div id="main">
