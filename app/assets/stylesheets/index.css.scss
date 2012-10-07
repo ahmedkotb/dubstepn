@@ -1,28 +1,5 @@
-div#main div#content div#left_column h3#tag_filter_heading {
-  margin-top: 0;
-}
-
-div#main div#content div#left_column p#no_posts {
-  margin-top: 0;
-}
-
 div#main div#content div#left_column article {
   margin: 40px 0 40px 0;
-}
-
-div#main div#content div#left_column article:first-child {
-  margin-top: 0;
-}
-
-div#main div#content div#left_column article:last-child {
-  margin-bottom: 0;
-}
-
-div#main div#content div#left_column article h2 {
-  font-size: 1.7em;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
 }
 
 div#main div#content div#left_column article h2 span.private {
@@ -35,28 +12,6 @@ div#main div#content div#left_column article div.post_content img, embed {
   box-shadow: 0px 0px 10px #aaa;
 }
 
-div#main div#content div#left_column article h3 {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 20px 0 20px 0;
-  color: #333;
-}
-
-div#main div#content div#left_column article p {
-  text-align: justify;
-  margin: 20px 0 20px 0;
-}
-
 div#main div#content div#left_column article p.post_footer {
   color: #666;
-}
-
-div#main div#content div#left_column article p.post_footer img.post_footer_icon {
-  position: relative;
-  top: 3px;
-  opacity: 0.5;
-}
-
-div#main div#content div#left_column article p.post_footer img.post_footer_icon:hover {
-  opacity: 1.0;
 }

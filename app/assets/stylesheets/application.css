@@ -21,9 +21,20 @@
 body {
   background-color: #fff;
   color: #333;
-  font-family: "PT Sans", "Helvetica Neue", "Arial", sans-serif;
-  font-size: 1.0em;
+  font-family: "Helvetica Neue", "Helvetica", "PT Sans", "Arial", sans-serif;
   line-height: 1.4;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 300;
+  font-size: 0.95em;
+}
+
+:first-child {
+  margin-top: 0 !important;
+}
+
+:last-child {
+  margin-bottom: 0 !important;
 }
 
 .hidden {
@@ -43,55 +54,59 @@ body a {
   color: #9e2020;
 }
 
+body h1 a, body h2 a, body h3 a, body h4 a, body h5 a, body h6 a {
+  color: #333;
+}
+
 body a:hover {
   color: #de2626;
 }
 
+body p {
+  margin: 20px 0 20px 0;
+}
+
 body h2 {
-  font-size: 1.7em;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-  padding: 5px 0 5px 0;
-  border-top: 1px dashed #ccc;
-  border-bottom: 1px dashed #ccc;
+  font-size: 1.6em;
+  font-weight: 500;
+  margin: 20px 0 20px 0;
+  padding: 0;
   -moz-text-shadow: 0px 1px 3px #ddd;
   -webkit-text-shadow: 0px 1px 3px #ddd;
   text-shadow: 0px 1px 3px #ddd;
 }
 
 body h3 {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 20px 0 20px 0;
-  color: #333;
-  -moz-text-shadow: 0px 1px 3px #ddd;
-  -webkit-text-shadow: 0px 1px 3px #ddd;
-  text-shadow: 0px 1px 3px #ddd;
-}
-
-body p {
-  text-align: justify;
-  margin: 20px 0 20px 0;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 40px 0 20px 0;
+  -moz-text-shadow: 0px 1px 3px #eee;
+  -webkit-text-shadow: 0px 1px 3px #eee;
+  text-shadow: 0px 1px 3px #eee;
 }
 
 body input, textarea {
   margin: 0;
   vertical-align: top;
   outline: none;
+  color: #333;
 }
 
 body input[type=text], input[type=password] {
   padding: 4px 8px;
   border: 1px solid #bbb;
-  font-family: "PT Sans", "Helvetica Neue", "Arial", sans-serif;
+  color: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  font-size: inherit;
   -moz-box-shadow:    inset 0px 0px 10px #ccc;
   -webkit-box-shadow: inset 0px 0px 10px #ccc;
   box-shadow:         inset 0px 0px 10px #ccc;
   -moz-border-radius: 4px;
   border-radius:      4px;
-  font-size: 1em;
-  line-height: 1.4;
 }
 
 body input[type=checkbox] {
@@ -103,20 +118,30 @@ body input[type=checkbox] {
 body textarea {
   padding: 4px 8px;
   border: 1px solid #bbb;
-  font-family: "PT Sans", "Helvetica Neue", "Arial", sans-serif;
+  color: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  font-size: inherit;
   -moz-box-shadow:    inset 0px 0px 10px #ccc;
   -webkit-box-shadow: inset 0px 0px 10px #ccc;
   box-shadow:         inset 0px 0px 10px #ccc;
   -moz-border-radius: 4px;
   border-radius:      4px;
   resize: vertical;
-  font-size: 1em;
-  line-height: 1.4;
 }
 
 body input[type=submit] {
   padding: 4px 20px;
-  font-family: "PT Sans", "Helvetica Neue", "Arial", sans-serif;
+  color: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  font-size: inherit;
   -moz-border-radius: 4px;
   border-radius:      4px;
   background-color: #ed1c24;
@@ -132,8 +157,6 @@ body input[type=submit] {
   -webkit-box-shadow: inset 0px 0px 1px #fff;
   box-shadow:         inset 0px 0px 1px #fff;
   cursor: pointer;
-  font-size: 1em;
-  line-height: 1.4;
 }
 
 body input[type=submit]:hover {
@@ -159,58 +182,39 @@ body input[type=submit]:active {
 /* LEFT COLUMN */
 
 div#main div#content div#left_column {
-  float: right;
+  float: left;
   width: 640px;
-  padding: 0 40px 0 0;
+  margin: 0 40px 0 0;
 }
 
 /* RIGHT COLUMN */
 
 div#main div#content div#right_column {
-  float: right;
+  float: left;
   width: 280px;
 }
 
 div#main div#content div#right_column article {
-  margin: 40px 0 40px 0;
-}
-
-div#main div#content div#right_column article:first-child {
-  margin: 0 0 40px 0;
-}
-
-div#main div#content div#right_column article:last-child {
-  margin: 40px 0 0 0;
-}
-
-div#main div#content div#right_column article:first-child:last-child {
-  margin: 0;
+  margin: 24px 0;
 }
 
 div#main div#content div#right_column article h2 {
   font-size: 0.9em;
-  font-weight: bold;
+  font-weight: 500;
   color: #666;
-  margin: 0;
+  margin: 5px 0;
   text-transform: uppercase;
 }
 
-div#main div#content div#right_column article p {
-  text-align: justify;
-  margin: 10px 0 20px 0;
-  font-size: 0.9em;
+div#main div#content div#right_column article div.post_content {
+  font-size: 0.85em;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 div#main div#content div#right_column ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 10px 0 20px 0;
-}
-
-div#main div#content div#right_column li {
-  font-size: 0.9em;
-  line-height: 1.5;
+  list-style-type: square;
+  padding: 0 0 0 16px;
 }
 
 /*
@@ -219,7 +223,8 @@ div#main div#content div#right_column li {
 
 div#main {
   width: 960px;
-  margin: 10px auto 0 auto;
+  margin: 0 auto;
+  padding: 10px 0 20px 0;
 }
 
 div#main header h1 {
@@ -228,7 +233,7 @@ div#main header h1 {
   width: 480px;
   padding: 5px 0 0 0;
   margin: 0;
-  color: #333;
+  font-weight: 300;
   -moz-text-shadow: 0px 1px 3px #ddd;
   -webkit-text-shadow: 0px 1px 3px #ddd;
   text-shadow: 0px 1px 3px #ddd;
@@ -251,11 +256,11 @@ div#main header div#nav {
 div#main header div#nav a {
   display: inline-block;
   float: right;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   text-align: right;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9em;
+  font-weight: 400;
+  font-size: 0.8em;
   text-transform: uppercase;
   color: #333;
   -moz-text-shadow: 0px 1px 3px #ddd;
@@ -264,14 +269,10 @@ div#main header div#nav a {
 }
 
 div#main header div#nav a:first-child {
-  padding: 20px 0 20px 20px;
+  padding-right: 0;
 }
 
-div#main header div#nav a.active {
-  color: #9e2020;
-}
-
-div#main header div#nav a:hover {
+div#main header div#nav a:hover, div#main header div#nav a.active {
   color: #de2626;
 }
 
@@ -280,41 +281,6 @@ div#main header img#banner {
   -moz-box-shadow:    0px 1px 10px #ccc;
   -webkit-box-shadow: 0px 1px 10px #ccc;
   box-shadow:         0px 1px 10px #ccc;
-}
-
-div#main header div#banner_container {
-  position: relative;
-}
-
-div#main header div#banner_label {
-  display: block;
-  width: 250px;
-  padding: 10px 20px 10px 20px;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  background-color: #000;
-  opacity: 0.8;
-}
-
-div#main header div#banner_label div#banner_title {
-  color: #f2f2f2;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-
-div#main header div#banner_label div#banner_text {
-  color: #f2f2f2;
-}
-
-div#main header div#banner_label div#banner_text a {
-  text-decoration: none;
-  color: #de2626;
-}
-
-div#main header div#banner_label div#banner_text a:hover {
-  color: #fa4d4d;
 }
 
 div#main p.notice {
@@ -340,19 +306,10 @@ div#main div#content {
 }
 
 div#main footer {
-  font-size: 0.8em;
+  font-size: 0.85em;
   color: #666;
 }
 
 div#main footer div#bottom_border {
   border-bottom: 1px dashed #ddd;
-}
-
-div#main footer a {
-  text-decoration: none;
-  color: #9e2020;
-}
-
-div#main footer a:hover {
-  color: #de2626;
 }
