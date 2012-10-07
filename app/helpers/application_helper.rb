@@ -45,20 +45,10 @@ module ApplicationHelper
     end
   end
 
-  def backtrack(*blacklist)
-    if session[:routes] != nil
-      while session[:routes].size > 0
-        pair = session[:routes].pop
-        if blacklist.select { |route|
-          if route.instance_of?(Regexp)
-            (pair[0] =~ route) != nil
-          else
-            pair[0] == route
-          end
-        }.empty?
-          return redirect_to pair[1]
-        end
-      end
+  def backtrack()
+    if session[:routes] && session[:routes].size > 0
+      pair = session[:routes].pop
+      return redirect_to pair[1]
     end
     return redirect_to "/"
   end

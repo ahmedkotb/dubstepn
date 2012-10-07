@@ -4,16 +4,15 @@ require 'digest'
 require 'open-uri'
 
 class HomeController < ApplicationController
+  before_filter :record_route_url
   secure_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :login, :login_action, :logout_action]
   restricted_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :logout_action]
   before_filter :insecure_page
   before_filter :secure_page, :only => secure_actions
   skip_before_filter :insecure_page, :only => secure_actions
   before_filter :require_login, :only => restricted_actions
-  before_filter :record_route_url
 
   def index
-    record_route("index")
     posts_per_page = 5
     @logged_in = is_logged_in
     @tag_name = if params[:tag] then params[:tag] else "home" end
@@ -29,28 +28,25 @@ class HomeController < ApplicationController
   end
 
   def post
-    record_route("post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
     if !@post.is_public && !is_logged_in
       flash[:error] = "That post does not exist."
-      return backtrack("login")
+      remove_routes(/.*login.*/)
+      return backtrack
     end
   end
 
   def resume
-    record_route("resume")
     data = open("http://s3.amazonaws.com/dubstepn/resume.pdf").read
     send_data data, :type => "application/pdf", :disposition => "inline"
   end
 
   def admin
-    record_route("admin")
     @posts = Post.order("sort_id DESC").all
     @tags = Tag.all
   end
 
   def edit_post
-    record_route("edit_post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
   end
 
@@ -73,7 +69,8 @@ class HomeController < ApplicationController
       post1.save!
       post2.save!
     end
-    return backtrack("login")
+    remove_routes(/.*login.*/)
+    return backtrack
   end
 
   def move_down_action
@@ -86,7 +83,8 @@ class HomeController < ApplicationController
       post1.save!
       post2.save!
     end
-    return backtrack("login")
+    remove_routes(/.*login.*/)
+    return backtrack
   end
 
   def edit_post_action
@@ -105,22 +103,23 @@ class HomeController < ApplicationController
     post.is_public = !!params[:post_is_public]
     post.save!
     flash[:notice] = "The changes to the post entitled \""+post.title+"\" have been saved."
-    return backtrack("login", "edit_post["+params[:post_id].to_i.to_s+"]")
+    remove_routes(/.*login.*/, /.*edit_post.*/)
+    return backtrack
   end
 
   def delete_post_action
-    remove_routes("edit_post["+params[:post_id].to_i.to_s+"]")
+    remove_routes(/.*edit_post.*/)
     post = Post.find(params[:post_id].to_i)
     flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
     while !post.tags.empty?
       Tag.unlink_tag_from_post(post, post.tags.first)
     end
     post.destroy
-    return backtrack("login")
+    remove_routes(/.*login.*/)
+    return backtrack
   end
 
   def login
-    record_route("login")
   end
 
   def login_action
@@ -128,7 +127,7 @@ class HomeController < ApplicationController
       if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
         session[:login_time] = DateTime.now
         flash[:notice] = "You are now logged in."
-        remove_routes("login")
+        remove_routes(/.*login.*/)
         return backtrack
       end
     end
@@ -139,15 +138,13 @@ class HomeController < ApplicationController
   def logout_action
     session[:login_time] = nil
     flash[:notice] = "You are now logged out."
-    remove_routes("admin", /edit_post\[.*\]/)
-    return backtrack("login")
+    remove_routes(/.*login.*/, /.*admin.*/, /.*edit_post.*/)
+    return backtrack
   end
 
 private
   def record_route_url
-    if request.get?
-      record_route(request.url)
-    end
+    record_route(request.url)
   end
 
   def secure_page
