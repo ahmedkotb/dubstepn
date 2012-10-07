@@ -5,9 +5,11 @@ require 'open-uri'
 
 class HomeController < ApplicationController
   secure_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :login, :login_action, :logout_action]
+  restricted_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :logout_action]
   before_filter :insecure_page
   before_filter :secure_page, :only => secure_actions
   skip_before_filter :insecure_page, :only => secure_actions
+  before_filter :require_login, :only => restricted_actions
 
   def index
     record_route("index")
@@ -42,25 +44,16 @@ class HomeController < ApplicationController
 
   def admin
     record_route("admin")
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     @posts = Post.order("sort_id DESC").all
     @tags = Tag.all
   end
 
   def edit_post
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     record_route("edit_post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
   end
 
   def create_post_action
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :is_public => false, :sort_id => 1)
     post.tags = [Tag.get_tag_by_name("home")]
     post.sort_id = post.id
@@ -70,9 +63,6 @@ class HomeController < ApplicationController
   end
 
   def move_up_action
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("sort_id > ?", post1.sort_id).order("sort_id ASC").first
     if post1 && post2
@@ -86,9 +76,6 @@ class HomeController < ApplicationController
   end
 
   def move_down_action
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("sort_id < ?", post1.sort_id).order("sort_id DESC").first
     if post1 && post2
@@ -102,9 +89,6 @@ class HomeController < ApplicationController
   end
 
   def edit_post_action
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     if params[:post_title].strip.size == 0
       flash[:error] = "Title cannot be empty."
       return redirect_to "/edit_post/"+params[:post_id]
@@ -125,9 +109,6 @@ class HomeController < ApplicationController
 
   def delete_post_action
     remove_routes("edit_post["+params[:post_id].to_i.to_s+"]")
-    if !is_logged_in
-      return redirect_to "/login"
-    end
     post = Post.find(params[:post_id].to_i)
     flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
     while !post.tags.empty?
@@ -162,7 +143,6 @@ class HomeController < ApplicationController
   end
 
 private
-
   def secure_page
     if Rails.env.production? && request.protocol != "https://"
       return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
@@ -175,4 +155,9 @@ private
     end
   end
 
+  def require_login
+    if !is_logged_in
+      return redirect_to "/login"
+    end
+  end
 end
