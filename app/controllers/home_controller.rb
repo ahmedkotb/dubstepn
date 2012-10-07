@@ -133,6 +133,7 @@ class HomeController < ApplicationController
   end
 
   def login
+    return render :text => "#{request.url}, #{request.port}"
     if Rails.env.production? && request.protocol != "https://"
       return redirect_to "https://#{request.url[(request.port.size-1)..(-1)]}"
     end
