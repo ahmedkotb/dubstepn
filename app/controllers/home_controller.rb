@@ -10,6 +10,7 @@ class HomeController < ApplicationController
   before_filter :secure_page, :only => secure_actions
   skip_before_filter :insecure_page, :only => secure_actions
   before_filter :require_login, :only => restricted_actions
+  before_filter :record_route_url
 
   def index
     record_route("index")
@@ -143,6 +144,12 @@ class HomeController < ApplicationController
   end
 
 private
+  def record_route_url
+    if request.get?
+      record_route(request.url)
+    end
+  end
+
   def secure_page
     if Rails.env.production? && request.protocol != "https://"
       return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
