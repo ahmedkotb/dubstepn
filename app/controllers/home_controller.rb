@@ -38,7 +38,7 @@ class HomeController < ApplicationController
   def admin
     record_route("admin")
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     @posts = Post.order("sort_id DESC").all
     @tags = Tag.all
@@ -46,7 +46,7 @@ class HomeController < ApplicationController
 
   def edit_post
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     record_route("edit_post["+params[:post_id].to_i.to_s+"]")
     @post = Post.find(params[:post_id].to_i)
@@ -54,7 +54,7 @@ class HomeController < ApplicationController
 
   def create_post_action
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :is_public => false, :sort_id => 1)
     post.tags = [Tag.get_tag_by_name("home")]
@@ -66,7 +66,7 @@ class HomeController < ApplicationController
 
   def move_up_action
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("sort_id > ?", post1.sort_id).order("sort_id ASC").first
@@ -82,7 +82,7 @@ class HomeController < ApplicationController
 
   def move_down_action
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("sort_id < ?", post1.sort_id).order("sort_id DESC").first
@@ -98,7 +98,7 @@ class HomeController < ApplicationController
 
   def edit_post_action
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     if params[:post_title].strip.size == 0
       flash[:error] = "Title cannot be empty."
@@ -121,7 +121,7 @@ class HomeController < ApplicationController
   def delete_post_action
     remove_routes("edit_post["+params[:post_id].to_i.to_s+"]")
     if !is_logged_in
-      return redirect_to "https://#{request.host}/login"
+      return redirect_to "/login"
     end
     post = Post.find(params[:post_id].to_i)
     flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
@@ -133,6 +133,9 @@ class HomeController < ApplicationController
   end
 
   def login
+    if request.protocol != "https://"
+      return redirect_to "https://#{request.host}/login"
+    end
     record_route("login")
   end
 
