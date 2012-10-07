@@ -133,7 +133,7 @@ class HomeController < ApplicationController
   end
 
   def login
-    if request.protocol != "https://"
+    if Rails.env.production? && request.protocol != "https://"
       return redirect_to "https://#{request.host}/login"
     end
     record_route("login")
