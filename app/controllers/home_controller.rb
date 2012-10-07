@@ -4,6 +4,11 @@ require 'digest'
 require 'open-uri'
 
 class HomeController < ApplicationController
+  secure_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :login, :login_action, :logout_action]
+  before_filter :insecure_page
+  before_filter :secure_page, :only => secure_actions
+  skip_before_filter :insecure_page, :only => secure_actions
+
   def index
     record_route("index")
     posts_per_page = 5
@@ -133,9 +138,6 @@ class HomeController < ApplicationController
   end
 
   def login
-    if Rails.env.production? && request.protocol != "https://"
-      return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
-    end
     record_route("login")
   end
 
@@ -158,4 +160,19 @@ class HomeController < ApplicationController
     remove_routes("admin", /edit_post\[.*\]/)
     return backtrack("login")
   end
+
+private
+
+  def secure_page
+    if Rails.env.production? && request.protocol != "https://"
+      return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
+    end
+  end
+
+  def insecure_page
+    if Rails.env.production? && request.protocol != "http://"
+      return redirect_to "http://#{request.url[(request.protocol.size)..(-1)]}"
+    end
+  end
+
 end
