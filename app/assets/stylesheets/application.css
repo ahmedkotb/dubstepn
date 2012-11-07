@@ -312,3 +312,7 @@ div#main footer {
 div#main footer div#bottom_border {
   border-bottom: 1px dashed #ddd;
 }
+
+div.fancybox-inner {
+  height: auto !important;
+}
