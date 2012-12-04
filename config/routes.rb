@@ -13,6 +13,7 @@ Dubstepn::Application.routes.draw do
   get "/tag/:tag/:page" => "home#index"
   get "/projects" => "home#index", :tag => "project", :page => "1"
   get "/resume" => "home#resume"
+  get "/resume.pdf" => "home#resume"
 
   # admin panel
   get "/admin" => "home#admin"

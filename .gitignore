@@ -14,5 +14,8 @@
 /log/*.log
 /tmp
 
+# Ignore Mac OS X files
+.DS_Store
+
 # Ignore compiled assets
-/public/assets
+/public/assets/*
