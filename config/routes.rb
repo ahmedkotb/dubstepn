@@ -31,6 +31,8 @@ Dubstepn::Application.routes.draw do
 
   # legacy routes
   match "/p/self-balancing-electric-unicycle.html" => redirect("/post/17")
+  match "/unicycle" => redirect("/post/17")
+  match "/bullet" => redirect("/post/17")
   match "/2011/11/algebraic-data-types.html" => redirect("/post/18")
   match "/2011/10/monads-part-2.html" => redirect("/post/10")
   match "/2011/10/monads.html" => redirect("/post/9")
