@@ -12,14 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require "jquery.fancybox"
 //= require "shCore"
 //= require "shBrushPython"
 
 $(document).ready(function() {
-  // load the fancybox
-  $(".fancybox").fancybox();
-
   // syntax highlight everything
   SyntaxHighlighter.all();
 });
