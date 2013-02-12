@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require "XRegExp"
 //= require "shCore"
+//= require "shBrushPlain"
 //= require "shBrushPython"
 
 $(document).ready(function() {

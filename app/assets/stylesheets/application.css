@@ -10,7 +10,9 @@
  *
  *= require_self
  *= require "normalize"
+ *= require "shCore"
  *= require "shCoreDefault"
+ *= require "shThemeDefault"
  */
 
 /*
@@ -26,6 +28,14 @@ body {
   font-variant: normal;
   font-weight: 300;
   font-size: 0.95em;
+}
+
+body code {
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  color: #000;
 }
 
 :first-child {
