@@ -12,6 +12,7 @@ Dubstepn::Application.routes.draw do
   get "/tag/:tag" => "home#index", :page => "1"
   get "/tag/:tag/:page" => "home#index"
   get "/projects" => "home#index", :tag => "project", :page => "1"
+  get "/theory" => "home#index", :tag => "theory", :page => "1"
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
 
