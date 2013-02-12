@@ -37,7 +37,7 @@
             <a href="/theory">Theory</a>
           <% end %>
 
-          <% if params[:controller] == "home" && params[:action] == "index" && params[:tag] != "project" %>
+          <% if params[:controller] == "home" && params[:action] == "index" && (!params[:tag] || params[:tag] == "") %>
             <a class="active" href="/">Front Page</a>
           <% else %>
             <a href="/">Front Page</a>
