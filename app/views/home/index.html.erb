@@ -5,7 +5,7 @@
 
 <% content_for :title, "Stephan Boyer" %>
 
-<% if @tag_name != "home" %>
+<% if @tag_name != "home" && @tag_name != "theory" && @tag_name != "project" %>
   <h3 id="tag_filter_heading">Tag filter:&nbsp;&nbsp;<a href="/tag/<%= @tag_name %>"><%= @tag_name %></a></h3>
 <% end %>
 
