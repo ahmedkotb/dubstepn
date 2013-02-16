@@ -10,6 +10,8 @@ div#main div#content div#left_column article div.post_content img, embed {
   -moz-box-shadow: 0px 0px 10px #aaa;
   -webkit-box-shadow: 0px 0px 10px #aaa;
   box-shadow: 0px 0px 10px #aaa;
+  display: block;
+  margin: 40px auto !important;
 }
 
 div#main div#content div#left_column article p.post_footer {
