@@ -2,8 +2,8 @@
 <html>
   <head>
     <title><%= yield :title %></title>
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Oswald:400,700,300" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="<%= request.protocol -%>cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <% if Rails.env.production? %>
       <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -13,7 +13,7 @@
         (function () {
           var s = document.createElement('script'); s.async = true;
           s.type = 'text/javascript';
-          s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+          s.src = '<%= request.protocol -%>' + disqus_shortname + '.disqus.com/count.js';
           (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
       </script>
