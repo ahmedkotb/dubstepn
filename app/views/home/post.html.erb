@@ -3,6 +3,16 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
-<% content_for :title, @post.title+" | Stephan Boyer" %>
+<% if @post && (@post.is_public || @logged_in) %>
+  <% content_for :title, @post.title + " | Stephan Boyer" %>
+<% else %>
+  <% content_for :title, "Stephan Boyer" %>
+<% end %>
 
-<%= render :partial => "post", :locals => { :post => @post, :comments_mode => :comments, :date_mode => :date, :title_link => true } %>
+<% if @post && (@post.is_public || @logged_in) %>
+  <%= render :partial => "post", :locals => { :post => @post, :comments_mode => :comments, :date_mode => :date, :title_link => true } %>
+<% else %>
+  <article>
+    <h2>Sorry, there&rsquo;s nothing here.</h2>
+  </article>
+<% end %>

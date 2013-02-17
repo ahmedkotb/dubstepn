@@ -1,0 +1,238 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require "bootstrap.min"
+ *= require "shCore"
+ *= require "shCoreDefault"
+ *= require "shThemeDefault"
+ */
+
+/*
+ *  Global styles
+ */
+
+body#bootstrap_override {
+  a {
+    color: #9e2020;
+  }
+
+  a:hover {
+    color: #de2626;
+    text-decoration: none;
+  }
+
+  p, ul, ol, form, table {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  img, video, embed {
+    border: 12px solid #ddd;
+    margin: 20px 0;
+  }
+
+  ul {
+    list-style-type: square;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  header {
+    background-color: #000;
+    border-bottom: 1px solid #fff;
+    padding: 10px 0;
+    color: #888;
+
+    * {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 1em;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1 {
+      font-family: "Oswald", sans-serif;
+      font-weight: 300;
+      font-size: 1.5em;
+      text-transform: uppercase;
+
+      a#title_link {
+        color: #fff;
+        font-weight: 400;
+      }
+
+      a:hover {
+        color: #de2626;
+      }
+
+      a#title_link:hover {
+        color: #de2626;
+      }
+    }
+
+    #nav {
+      text-align: right;
+
+      a {
+        display: inline-block;
+        padding: 0 20px;
+        font-family: "Oswald", sans-serif;
+        font-weight: 300;
+        font-size: 1.5em;
+        text-transform: uppercase;
+      }
+
+      a:last-child {
+        padding-right: 0;
+      }
+
+      a.active {
+        color: #ddd;
+      }
+
+      a:hover {
+        color: #de2626;
+      }
+
+      a.active:hover {
+        color: #de2626;
+      }
+    }
+  }
+
+  #content {
+    padding: 40px 0;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    article > *:first-child {
+      margin-top: 0;
+    }
+
+    article > *:last-child {
+      margin-bottom: 0;
+    }
+
+    #sidebar {
+      h2 {
+        font-family: "Oswald", sans-serif;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        margin-bottom: 0;
+      }
+
+      h2:first-child {
+        margin-top: 0;
+      }
+
+      h2:last-child {
+        margin-bottom: 0;
+      }
+
+      article {
+        padding: 16px 0;
+      }
+
+      article:first-child {
+        padding-top: 0;
+      }
+
+      article:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    #articles {
+      h2, h3, h4, h5, h6 {
+        font-family: "Oswald", sans-serif;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      h3, h4, h5, h6 {
+        margin-top: 32px;
+      }
+
+      article {
+        padding: 32px 0 32px 32px;
+        border-top: 1px dashed #ddd;
+        border-left: 1px solid #ddd;
+      }
+
+      article:first-child {
+        padding-top: 0;
+        border-top: none;
+      }
+
+      article:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    #pagination_container {
+      margin-top: 40px;
+    }
+
+    #pagination_container .pagination, #pagination_container ul {
+      margin: 0;
+    }
+  }
+
+  footer {
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 32px 0;
+    color: #b0b0b0;
+    text-align: center;
+  }
+
+  footer > *:first-child {
+    margin-top: 0;
+  }
+
+  footer > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  body {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  #sidebar {
+    display: none !important;
+  }
+
+  #content, div#header_container, div#footer_container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  article {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+}

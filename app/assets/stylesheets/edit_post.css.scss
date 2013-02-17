@@ -1,8 +1,10 @@
-input[type=text] {
-  width: 622px;
-}
+body#bootstrap_override {
+  p > input, p > textarea {
+    margin: 0;
+    width: 100%;
+  }
 
-textarea {
-  width: 622px;
-  height: 300px;
+  p > textarea {
+    height: 400px;
+  }
 }

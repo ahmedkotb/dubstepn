@@ -10,13 +10,11 @@
   <% if title_link %>
     <h2><a href="/post/<%= post.id %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></h2>
   <% else %>
-    <h2><%= post.title %><%= if post.is_public then "" else raw(" <span class=\"private\">(hidden)</span>") end %></h2>
+    <h2><%= post.title %><%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %></h2>
   <% end %>
-  <div class="post_content">
-    <%= raw(post.content_html) %>
-  </div>
+  <%= raw(post.content_html) %>
   <% if date_mode == :date %>
-    <p class="post_footer">
+    <p class="muted">
       <%= post.created_at.strftime("%A, %B %e, %Y") %>
     </p>
   <% end %>
@@ -37,13 +35,13 @@
       <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     <% else %>
-      <p><span class="disabled">&lt;comments&gt;</span></p>
+      <p><span class="muted">&lt;comments&gt;</span></p>
     <% end %>
   <% elsif comments_mode == :comments_count %>
     <% if Rails.env.production? %>
       <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %>/post/<%= post.id %>#disqus_thread">comments</a></p>
     <% else %>
-      <p><span class="disabled">&lt;number of comments&gt;</span></p>
+      <p><span class="muted">&lt;number of comments&gt;</span></p>
     <% end %>
   <% end %>
 </article>

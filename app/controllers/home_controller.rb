@@ -4,11 +4,10 @@ require 'digest'
 require 'open-uri'
 
 class HomeController < ApplicationController
-  before_filter :record_route_url
   secure_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :login, :login_action, :logout_action]
   restricted_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :logout_action]
-  before_filter :insecure_page
   before_filter :secure_page, :only => secure_actions
+  before_filter :insecure_page
   skip_before_filter :insecure_page, :only => secure_actions
   before_filter :require_login, :only => restricted_actions
 
@@ -28,11 +27,11 @@ class HomeController < ApplicationController
   end
 
   def post
-    @post = Post.find(params[:post_id].to_i)
-    if !@post.is_public && !is_logged_in
-      flash[:error] = "That post does not exist."
-      remove_routes(/.*login.*/)
-      return backtrack
+    @logged_in = is_logged_in
+    @post = nil
+    begin
+      @post = Post.find(params[:post_id].to_i)
+    rescue
     end
   end
 
@@ -69,8 +68,7 @@ class HomeController < ApplicationController
       post1.save!
       post2.save!
     end
-    remove_routes(/.*login.*/)
-    return backtrack
+    return redirect_to "/admin"
   end
 
   def move_down_action
@@ -83,8 +81,7 @@ class HomeController < ApplicationController
       post1.save!
       post2.save!
     end
-    remove_routes(/.*login.*/)
-    return backtrack
+    return redirect_to "/admin"
   end
 
   def edit_post_action
@@ -103,20 +100,17 @@ class HomeController < ApplicationController
     post.is_public = !!params[:post_is_public]
     post.save!
     flash[:notice] = "The changes to the post entitled \""+post.title+"\" have been saved."
-    remove_routes(/.*login.*/, /.*edit_post.*/)
-    return backtrack
+    return redirect_to "/admin"
   end
 
   def delete_post_action
-    remove_routes(/.*edit_post.*/)
     post = Post.find(params[:post_id].to_i)
     flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
     while !post.tags.empty?
       Tag.unlink_tag_from_post(post, post.tags.first)
     end
     post.destroy
-    remove_routes(/.*login.*/)
-    return backtrack
+    return redirect_to "/admin"
   end
 
   def login
@@ -127,26 +121,20 @@ class HomeController < ApplicationController
       if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
         session[:login_time] = DateTime.now
         flash[:notice] = "You are now logged in."
-        remove_routes(/.*login.*/)
-        return backtrack
+        return redirect_to "/admin"
       end
     end
     flash[:error] = "The password was incorrect."
-    return backtrack
+    return redirect_to "/login"
   end
 
   def logout_action
     session[:login_time] = nil
     flash[:notice] = "You are now logged out."
-    remove_routes(/.*login.*/, /.*admin.*/, /.*edit_post.*/)
-    return backtrack
+    return redirect_to "/"
   end
 
 private
-  def record_route_url
-    record_route(request.url)
-  end
-
   def secure_page
     if Rails.env.production? && request.protocol != "https://"
       return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"

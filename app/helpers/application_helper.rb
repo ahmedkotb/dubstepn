@@ -40,37 +40,4 @@ module ApplicationHelper
     end
     return true
   end
-
-  def record_route(name)
-    if request.get?
-      if session[:routes] == nil
-        session[:routes] = [[name, request.fullpath]]
-      else
-        session[:routes].push([name, request.fullpath])
-        session[:routes] = session[:routes].last(5)
-      end
-    end
-  end
-
-  def remove_routes(*blacklist)
-    if session[:routes] != nil
-      session[:routes].select! { |pair|
-        blacklist.select { |route|
-          if route.instance_of?(Regexp)
-            (pair[0] =~ route) != nil
-          else
-            pair[0] == route
-          end
-        }.empty?
-      }
-    end
-  end
-
-  def backtrack()
-    if session[:routes] && session[:routes].size > 0
-      pair = session[:routes].pop
-      return redirect_to pair[1]
-    end
-    return redirect_to "/"
-  end
 end

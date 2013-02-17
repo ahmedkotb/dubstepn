@@ -2,8 +2,22 @@
 <html>
   <head>
     <title><%= yield :title %></title>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <% if Rails.env.production? %>
+      <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stephanboyer'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+      </script>
+    <% end %>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-34278795-1']);
@@ -19,82 +33,69 @@
     <%= csrf_meta_tags %>
     <%= yield :head %>
   </head>
-  <body>
-    <div id="main">
-      <header>
-        <h1><a href="/" id="title_link">stephan boyer</a></h1>
-        <div id="nav">
-          <a href="/resume">Resume</a>
-
-          <% if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "project" %>
-            <a class="active" href="/projects">Projects</a>
-          <% else %>
-            <a href="/projects">Projects</a>
-          <% end %>
-
-          <% if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "theory" %>
-            <a class="active" href="/theory">Theory</a>
-          <% else %>
-            <a href="/theory">Theory</a>
-          <% end %>
-
-          <% if params[:controller] == "home" && params[:action] == "index" && (!params[:tag] || params[:tag] == "") %>
-            <a class="active" href="/">Front Page</a>
-          <% else %>
-            <a href="/">Front Page</a>
-          <% end %>
-          <div class="clear"> </div>
+  <body id="bootstrap_override">
+    <header>
+      <div class="container">
+        <div id="header_container">
+          <div class="row">
+            <div class="span5">
+              <h1><a href="/" id="title_link">stephan boyer</a> <%= yield :nav %></h1>
+            </div>
+            <div class="span7">
+              <div id="nav">
+                <% if params[:controller] == "home" && params[:action] == "index" && (!params[:tag] || params[:tag] == "") %><a class="active" href="/">Home</a><% else %><a href="/">Home</a><% end %><% if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "theory" %><a class="active" href="/theory">Theory</a><% else %><a href="/theory">Theory</a><% end %><% if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "projects" %><a class="active" href="/projects">Projects</a><% else %><a href="/projects">Projects</a><% end %><a href="/resume">Resume</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="clear"> </div>
-        <%= image_tag "banner.jpg", :id => "banner" %>
-      </header>
-      <% if flash[:notice] %>
-        <p class="notice"><%= flash[:notice] %></p>
-      <% end %>
-      <% if flash[:error] %>
-        <p class="error"><%= flash[:error] %></p>
-      <% end %>
-      <div id="content">
-        <div id="left_column">
-          <%= yield %>
-        </div>
-        <div id="right_column">
-          <article>
-            <h2>Recent Posts</h2>
-            <div class="post_content">
+      </div>
+    </header>
+
+    <div class="container" id="content">
+      <div class="row">
+        <div class="span4">
+          <div id="sidebar">
+            <article>
+              <h2>Recent Posts</h2>
               <ul>
                 <% for post in @recent_posts %>
                   <li><a href="/post/<%= post.id %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></li>
                 <% end %>
               </ul>
-            </div>
-          </article>
-          <% for post in @sidebar_posts %>
-            <% if post.is_public || @logged_in %>
-              <%= render :partial => "post", :locals => { :post => post, :comments_mode => nil, :date_mode => :nil, :title_link => false } %>
+            </article>
+            <% for post in @sidebar_posts %>
+              <% if post.is_public || @logged_in %>
+                <%= render :partial => "post", :locals => { :post => post, :comments_mode => nil, :date_mode => :nil, :title_link => false } %>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-        <div class="clear"> </div>
+        <div class="span8">
+          <% if flash[:notice] %>
+            <div class="alert alert-block">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+          <% if flash[:error] %>
+            <div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:error] %>
+            </div>
+          <% end %>
+          <div id="articles">
+            <%= yield %>
+          </div>
+        </div>
       </div>
-      <footer>
-        <div id="bottom_border"> </div>
-        <p>&copy; <%= Time.new.year %> Stephan Boyer&mdash;All Rights Reserved.&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin">Admin</a>.</p>
-      </footer>
     </div>
-    <% if Rails.env.production? %>
-    <script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-      var disqus_shortname = 'stephanboyer'; // required: replace example with your forum shortname
 
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-      }());
-      </script>
-    <% end %>
+    <div class="container">
+      <div id="footer_container">
+        <footer>
+          <p>&copy; <%= Time.new.year %> Stephan Boyer&mdash;All Rights Reserved.&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin">Admin</a>.</p>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>

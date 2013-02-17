@@ -1,5 +1,5 @@
 Dubstepn::Application.routes.draw do
-  # make sure all routes have www
+  # make sure all routes have the www subdomain
   constraints(:host => "stephanboyer.com") do
     match "/" => redirect("http://www.stephanboyer.com")
     match "/*path" => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }, :format => false
@@ -7,12 +7,7 @@ Dubstepn::Application.routes.draw do
 
   # public routes
   get "/" => "home#index", :page => "1"
-  get "/page/:page" => "home#index"
   get "/post/:post_id" => "home#post"
-  get "/tag/:tag" => "home#index", :page => "1"
-  get "/tag/:tag/:page" => "home#index"
-  get "/projects" => "home#index", :tag => "project", :page => "1"
-  get "/theory" => "home#index", :tag => "theory", :page => "1"
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
 
@@ -41,4 +36,8 @@ Dubstepn::Application.routes.draw do
   match "/2011/08/kicked-in-monads.html" => redirect("/post/7")
   match "/2011/08/great-war.html" => redirect("/post/6")
   match "/2011/08/welcome.html" => redirect("/post/5")
+
+  # filters
+  get "/:tag" => "home#index", :page => "1"
+  get "/:tag/:page" => "home#index"
 end

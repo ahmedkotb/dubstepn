@@ -5,12 +5,13 @@
 
 <% content_for :title, "Login | Stephan Boyer" %>
 
-<h2>This page requires administrative priveledges.</h2>
-<p>Please enter your credentials:</p>
-<%= form_tag("/login", :method => "post") do %>
-  <p>
-    <input type="password" placeholder="Password" name="password" id="password_field" />
-    &nbsp;
-    <input type="submit" value="Login" id="login_button" />
-  </p>
-<% end %>
+<article>
+  <h2>This page requires administrative priveledges.</h2>
+  <%= form_tag("/login", :method => "post", :class => "form-inline") do %>
+    <p>Please enter your credentials:</p>
+    <p>
+      <input type="password" placeholder="Password" name="password" id="password_field" />
+      <button type="submit" class="btn">Log In</button>
+    </p>
+  <% end %>
+</article>
