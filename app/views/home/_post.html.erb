@@ -39,7 +39,7 @@
     <% end %>
   <% elsif comments_mode == :comments_count %>
     <% if Rails.env.production? %>
-      <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %>/post/<%= post.id %>#disqus_thread">comments</a></p>
+      <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %>/post/<%= post.id %>#disqus_thread">Comments</a></p>
     <% else %>
       <p><span class="muted">&lt;number of comments&gt;</span></p>
     <% end %>
