@@ -20,6 +20,10 @@
  */
 
 body#bootstrap_override {
+  .hidden {
+    display: none;
+  }
+  
   a {
     color: #9e2020;
   }
