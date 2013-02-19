@@ -55,7 +55,7 @@ class HomeController < ApplicationController
     for post in posts
       rss << "    <item>\r\n"
       rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
-      rss << "      <description>" + post.content_html.encode(:xml => :text) + "</description>\r\n"
+      rss << "      <description>" + post.title.encode(:xml => :text) + "</description>\r\n"
       rss << "      <link>http://www.stephanboyer.com/post/" + post.id.to_s + "</link>\r\n"
       rss << "      <guid>" + post.id.to_s + "</guid>\r\n"
       rss << "      <pubdate>" + post.created_at.strftime("%A, %B %e, %Y").encode(:xml => :text) + "</pubdate>\r\n"
