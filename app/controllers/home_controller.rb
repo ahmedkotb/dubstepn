@@ -59,7 +59,7 @@ class HomeController < ApplicationController
       rss << "      <description>" + post.title.encode(:xml => :text) + "</description>\r\n"
       rss << "      <link>http://www.stephanboyer.com/post/" + post.id.to_s + "</link>\r\n"
       rss << "      <guid>http://www.stephanboyer.com/post/" + post.id.to_s + "</guid>\r\n"
-      rss << "      <pubDate>" + post.created_at.strftime("%A, %B %e, %Y").encode(:xml => :text) + "</pubDate>\r\n"
+      rss << "      <pubDate>" + post.created_at.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
       rss << "    </item>\r\n"
     end
     rss << "  </channel>\r\n"
