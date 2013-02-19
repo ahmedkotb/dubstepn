@@ -44,7 +44,7 @@ class HomeController < ApplicationController
     tag = Tag.where(:name => "home").first
     posts = tag.posts.where(:is_public => true).order("sort_id DESC")
     rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
-    rss << "<rss version=\"2.0\">\r\n"
+    rss << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
     rss << "  <channel>\r\n"
     rss << "    <title>Stephan Boyer</title>\r\n"
     rss << "    <description>Computer science et al.</description>\r\n"
@@ -52,13 +52,14 @@ class HomeController < ApplicationController
     rss << "    <language>en</language>\r\n"
     rss << "    <category>Computer science</category>\r\n"
     rss << "    <copyright>Copyright " + Time.new.year.to_s + " Stephan Boyer.  All Rights Reserved.</copyright>\r\n"
+    rss << "    <atom:link href=\"http://www.stephanboyer.com/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
     for post in posts
       rss << "    <item>\r\n"
       rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
       rss << "      <description>" + post.title.encode(:xml => :text) + "</description>\r\n"
       rss << "      <link>http://www.stephanboyer.com/post/" + post.id.to_s + "</link>\r\n"
-      rss << "      <guid>" + post.id.to_s + "</guid>\r\n"
-      rss << "      <pubdate>" + post.created_at.strftime("%A, %B %e, %Y").encode(:xml => :text) + "</pubdate>\r\n"
+      rss << "      <guid>http://www.stephanboyer.com/post/" + post.id.to_s + "</guid>\r\n"
+      rss << "      <pubDate>" + post.created_at.strftime("%A, %B %e, %Y").encode(:xml => :text) + "</pubDate>\r\n"
       rss << "    </item>\r\n"
     end
     rss << "  </channel>\r\n"
