@@ -40,6 +40,32 @@ class HomeController < ApplicationController
     send_data data, :type => "application/pdf", :disposition => "inline"
   end
 
+  def rss
+    tag = Tag.where(:name => "home").first
+    posts = tag.posts.where(:is_public => true).order("sort_id DESC")
+    rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
+    rss << "<rss version=\"2.0\">\r\n"
+    rss << "  <channel>\r\n"
+    rss << "    <title>Stephan Boyer</title>\r\n"
+    rss << "    <description>Computer science et al.</description>\r\n"
+    rss << "    <link>http://www.stephanboyer.com/</link>\r\n"
+    rss << "    <language>en</language>\r\n"
+    rss << "    <category>Computer science</category>\r\n"
+    rss << "    <copyright>Copyright " + Time.new.year.to_s + " Stephan Boyer.  All Rights Reserved.</copyright>\r\n"
+    for post in posts
+      rss << "    <item>\r\n"
+      rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
+      rss << "      <description>" + post.content_html.encode(:xml => :text) + "</description>\r\n"
+      rss << "      <link>http://www.stephanboyer.com/post/" + post.id.to_s + "</link>\r\n"
+      rss << "      <guid>" + post.id.to_s + "</guid>\r\n"
+      rss << "      <pubdate>" + post.created_at.strftime("%A, %B %e, %Y").encode(:xml => :text) + "</pubdate>\r\n"
+      rss << "    </item>\r\n"
+    end
+    rss << "  </channel>\r\n"
+    rss << "</rss>\r\n"
+    return render :xml => rss
+  end
+
   def admin
     @posts = Post.order("sort_id DESC").all
     @tags = Tag.all

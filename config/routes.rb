@@ -10,6 +10,8 @@ Dubstepn::Application.routes.draw do
   get "/post/:post_id" => "home#post"
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
+  get "/rss" => "home#rss"
+  get "/rss.xml" => "home#rss"
 
   # admin panel
   get "/admin" => "home#admin"
