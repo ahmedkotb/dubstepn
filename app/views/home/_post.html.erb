@@ -15,7 +15,7 @@
   <%= raw(post.content_html) %>
   <% if date_mode == :date %>
     <p class="muted">
-      <%= post.created_at.strftime("%A, %B %e, %Y") %>
+      Posted on <%= post.created_at.strftime("%B %e, %Y") %>.
     </p>
   <% end %>
   <% if comments_mode == :comments %>
