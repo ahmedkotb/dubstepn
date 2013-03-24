@@ -36,7 +36,7 @@
       <% if @page > 1 %>
         <li><a href="/<%= @tag_name -%>/1">&laquo;</a></li>
       <% else %>
-        <li class="disabled"><span>&laquo;</a></li>
+        <li class="disabled"><span>&laquo;</span></li>
       <% end %>
       <% for page in 1..@pages %>
         <% if page == @page %>
@@ -48,7 +48,7 @@
       <% if @page < @pages %>
         <li><a href="/<%= @tag_name -%>/<%= @pages -%>">&raquo;</a></li>
       <% else %>
-        <li class="disabled"><span>&raquo;</a></li>
+        <li class="disabled"><span>&raquo;</span></li>
       <% end %>
     </ul>
   </div>
