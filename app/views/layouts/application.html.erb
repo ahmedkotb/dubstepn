@@ -41,7 +41,11 @@
             </div>
             <div class="span7">
               <div id="nav">
-                <a <%= if params[:controller] == "home" && params[:action] == "index" && (!params[:tag] || params[:tag] == "") then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden"> </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden"> </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden"> </span><a href="/resume">Resume</a>
+                <a <%= if params[:controller] == "home" && params[:action] == "index" && (!params[:tag] || params[:tag] == "") then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
+                </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
+                </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
+                </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
+                </span><a href="/resume">Resume</a>
               </div>
             </div>
           </div>
