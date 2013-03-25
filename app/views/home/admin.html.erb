@@ -20,7 +20,7 @@
     </p>
 
     <h3>Posts</h3>
-    <ul>
+    <ul id="post_list">
       <% for post in @posts %>
         <li>
           <%= form_tag("/move_up", :method => "post", :style => "display: inline;") do %>
