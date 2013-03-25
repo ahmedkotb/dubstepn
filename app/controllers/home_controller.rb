@@ -23,7 +23,7 @@ class HomeController < ApplicationController
       posts_with_tag = if @tag then @tag.posts.where(:is_public => true) else nil end
     end
     @filtered_posts = if posts_with_tag then posts_with_tag.order("sort_id DESC").limit(posts_per_page).offset((@page-1)*posts_per_page) else [] end
-    @pages = if posts_with_tag then (posts_with_tag.size+posts_per_page-1)/posts_per_page else 0 end
+    @pages = if posts_with_tag then (posts_with_tag.size + posts_per_page-1)/posts_per_page else 0 end
   end
 
   def post
@@ -52,7 +52,7 @@ class HomeController < ApplicationController
     rss << "    <language>en</language>\r\n"
     rss << "    <category>Computer science</category>\r\n"
     rss << "    <copyright>Copyright " + Time.new.year.to_s + " Stephan Boyer.  All Rights Reserved.</copyright>\r\n"
-    rss << "    <atom:link href=\"http://www.stephanboyer.com/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+    rss << "    <atom:link href=\"http://www.stephanboyer.com/rss\" rel=\"self\" type=\"application/rss + xml\" />\r\n"
     for post in posts
       rss << "    <item>\r\n"
       rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
@@ -82,7 +82,7 @@ class HomeController < ApplicationController
     post.sort_id = post.id
     post.save!
     flash[:notice] = "New post created."
-    return redirect_to "/edit_post/"+post.id.to_s
+    return redirect_to "/edit_post/" + post.id.to_s
   end
 
   def move_up_action
@@ -114,7 +114,7 @@ class HomeController < ApplicationController
   def edit_post_action
     if params[:post_title].strip.size == 0
       flash[:error] = "Title cannot be empty."
-      return redirect_to "/edit_post/"+params[:post_id]
+      return redirect_to "/edit_post/" + params[:post_id]
     end
     post = Post.find(params[:post_id].to_i)
     while !post.tags.empty?
@@ -126,13 +126,13 @@ class HomeController < ApplicationController
     post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| Tag.get_tag_by_name(name) }
     post.is_public = !!params[:post_is_public]
     post.save!
-    flash[:notice] = "The changes to the post entitled \""+post.title+"\" have been saved."
-    return redirect_to "/admin"
+    flash[:notice] = "The changes to the post entitled \"" + post.title + "\" have been saved."
+    return redirect_to "/edit_post/" + params[:post_id]
   end
 
   def delete_post_action
     post = Post.find(params[:post_id].to_i)
-    flash[:notice] = "The post entitled \""+post.title+"\" has been deleted."
+    flash[:notice] = "The post entitled \"" + post.title + "\" has been deleted."
     while !post.tags.empty?
       Tag.unlink_tag_from_post(post, post.tags.first)
     end
