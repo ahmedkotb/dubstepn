@@ -40,6 +40,6 @@ Dubstepn::Application.routes.draw do
   match "/2011/08/welcome.html" => redirect("/post/5")
 
   # filters
-  get "/:tag" => "home#index", :page => "1"
   get "/:tag/:page" => "home#index"
+  get "/*tag" => "home#index", :page => "1" # catch-all
 end
