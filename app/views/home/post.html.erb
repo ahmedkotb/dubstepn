@@ -13,7 +13,8 @@
   <%= render :partial => "post", :locals => { :post => @post, :comments_mode => :comments, :date_mode => :date, :title_link => true } %>
 <% else %>
   <article>
-    <h2>Sorry, there&rsquo;s nothing here.</h2>
+    <h2>Sorry, that page doesn&rsquo;t exist.</h2>
+    <p>Make sure you typed the URL correctly.</p>
   </article>
 <% end %>
 

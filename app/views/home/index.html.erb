@@ -25,31 +25,34 @@
   <% end %>
   <% if no_posts %>
     <article>
-      <h2>Sorry, there&rsquo;s nothing here.</h2>
+      <h2>Sorry, that page doesn&rsquo;t exist.</h2>
+      <p>Make sure you typed the URL correctly.</p>
     </article>
   <% end %>
 </div>
 
-<div id="pagination_container">
-  <div class="pagination">
-    <ul>
-      <% if @page > 1 %>
-        <li><a href="/<%= @tag_name -%>/1">&laquo;</a></li>
-      <% else %>
-        <li class="disabled"><span>&laquo;</span></li>
-      <% end %>
-      <% for page in 1..@pages %>
-        <% if page == @page %>
-          <li class="active"><span><%= page %></span></li>
+<% if !no_posts %>
+  <div id="pagination_container">
+    <div class="pagination">
+      <ul>
+        <% if @page > 1 %>
+          <li><a href="/<%= @tag_name -%>/1">&laquo;</a></li>
         <% else %>
-          <li><a href="/<%= @tag_name -%>/<%= page -%>"><%= page %></a></li>
+          <li class="disabled"><span>&laquo;</span></li>
         <% end %>
-      <% end %>
-      <% if @page < @pages %>
-        <li><a href="/<%= @tag_name -%>/<%= @pages -%>">&raquo;</a></li>
-      <% else %>
-        <li class="disabled"><span>&raquo;</span></li>
-      <% end %>
-    </ul>
+        <% for page in 1..@pages %>
+          <% if page == @page %>
+            <li class="active"><span><%= page %></span></li>
+          <% else %>
+            <li><a href="/<%= @tag_name -%>/<%= page -%>"><%= page %></a></li>
+          <% end %>
+        <% end %>
+        <% if @page < @pages %>
+          <li><a href="/<%= @tag_name -%>/<%= @pages -%>">&raquo;</a></li>
+        <% else %>
+          <li class="disabled"><span>&raquo;</span></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
-</div>
+<% end %>
