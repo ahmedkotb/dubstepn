@@ -16,3 +16,19 @@
     <h2>Sorry, there&rsquo;s nothing here.</h2>
   </article>
 <% end %>
+
+<% if @previous || @next %>
+  <article>
+    <% if @previous %>
+      <div class="previous_post">
+        <a href="/post/<%= @previous.id -%>"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Previous</a>
+      </div>
+    <% end %>
+    <% if @next %>
+      <div class="next_post">
+        <a href="/post/<%= @next.id -%>">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></a>
+      </div>
+    <% end %>
+    <div class="clearfix"> </div>
+  </article>
+<% end %>

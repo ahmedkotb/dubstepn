@@ -29,8 +29,12 @@ class HomeController < ApplicationController
   def post
     @logged_in = is_logged_in
     @post = nil
+    @previous = nil
+    @next = nil
     begin
       @post = Post.find(params[:post_id].to_i)
+      @previous = Tag.where(:name => "home").first.posts.where("sort_id < ? AND is_public = ?", @post.sort_id, true).order("sort_id DESC").first
+      @next = Tag.where(:name => "home").first.posts.where("sort_id > ? AND is_public = ?", @post.sort_id, true).order("sort_id ASC").first
     rescue
     end
   end
