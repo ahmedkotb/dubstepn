@@ -260,3 +260,16 @@ body#bootstrap_override {
     padding-left: 0 !important;
   }
 }
+
+/* Google Custom Search */
+.gsc-control-cse {
+  padding: 0 !important;
+
+  input.gsc-input {
+    margin: 0;
+    height: 16px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+  }
+}
