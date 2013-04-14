@@ -28,9 +28,7 @@
     <p>
       Tags:&nbsp;
       <% for tag in post.tags %>
-        <% if tag.name != "home" || true %>
-          <a href="/<%= tag.name -%>"><span class="label label-important"><%= tag.name -%></span></a>
-        <% end %>
+        <a href="/<%= if tag.name == "home" then "" else tag.name -%>"><span class="label label-important"><%= tag.name -%></span></a>
       <% end %>
     </p>
   <% end %>
