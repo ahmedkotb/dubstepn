@@ -24,7 +24,7 @@
   <% end %>
 
   <% if previous_post || next_post %>
-    <p>
+    <div class="p">
       <% if previous_post %>
         <div class="previous_post">
           <a href="/post/<%= previous_post.id -%>">« <%= previous_post.title -%></a>
@@ -36,7 +36,7 @@
         </div>
       <% end %>
       <div class="clearfix"> </div>
-    </p>
+    </div>
   <% end %>
 
   <% if comments_mode == :full %>
