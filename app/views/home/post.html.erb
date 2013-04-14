@@ -10,7 +10,7 @@
 <% end %>
 
 <% if @post && (@post.is_public || @logged_in) %>
-  <%= render :partial => "post", :locals => { :post => @post, :previous_post => @previous, :next_post => @next, :comments_mode => :full, :date_mode => :date, :title_link => true } %>
+  <%= render :partial => "post", :locals => { :post => @post, :previous_post => @previous, :next_post => @next, :comments_mode => :full, :show_tags => true, :show_date => true, :title_link => true } %>
 <% else %>
   <article>
     <h2>Sorry, that page doesn&rsquo;t exist.</h2>

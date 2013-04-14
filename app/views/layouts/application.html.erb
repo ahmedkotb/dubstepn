@@ -67,7 +67,7 @@
             </article>
             <% for post in @sidebar_posts %>
               <% if post.is_public || @logged_in %>
-                <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :date_mode => :nil, :title_link => false } %>
+                <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_tags => false, :show_date => false, :title_link => false } %>
               <% end %>
             <% end %>
             <article>
