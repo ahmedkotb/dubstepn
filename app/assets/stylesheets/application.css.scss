@@ -266,10 +266,26 @@ body#bootstrap_override {
   padding: 0 !important;
 
   input.gsc-input {
-    margin: 0;
-    height: 16px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
+    margin-bottom: 0 !important;
+    height: 20px !important;
+    -moz-border-radius: 2px !important;
+    -webkit-border-radius: 2px !important;
+    border-radius: 2px !important;
+  }
+
+  input.gsc-search-button {
+    height: 24px !important;
+    -moz-border-radius: 2px !important;
+    -webkit-border-radius: 2px !important;
+    border-radius: 2px !important;
+  }
+
+  img {
+    display: inline !important;
+    border: none !important;
+    -moz-box-sizing: content-box !important;
+    -webkit-box-sizing: content-box !important;
+    -ms-box-sizing: content-box !important;
+    box-sizing: content-box !important;
   }
 }
