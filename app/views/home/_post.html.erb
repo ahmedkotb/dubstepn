@@ -1,7 +1,9 @@
 <%
   # locals:
-  #   post            boolean
-  #   comments_mode   [:comments, :comments_count, nil]
+  #   post            post
+  #   previous_post   [post, nil]
+  #   next_post       [post, nil]
+  #   comments_mode   [:full, :count, nil]
   #   date_mode       [:date, nil]
   #   title_link      boolean
 %>
@@ -12,13 +14,32 @@
   <% else %>
     <h2><%= post.title %><%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %></h2>
   <% end %>
+
   <%= raw(post.content_html) %>
+
   <% if date_mode == :date %>
     <p class="muted">
       Posted on <%= post.created_at.strftime("%B %e, %Y") %>.
     </p>
   <% end %>
-  <% if comments_mode == :comments %>
+
+  <% if previous_post || next_post %>
+    <p>
+      <% if previous_post %>
+        <div class="previous_post">
+          <a href="/post/<%= previous_post.id -%>">« <%= previous_post.title -%></a>
+        </div>
+      <% end %>
+      <% if next_post %>
+        <div class="next_post">
+          <a href="/post/<%= next_post.id -%>"><%= next_post.title -%> »</a>
+        </div>
+      <% end %>
+      <div class="clearfix"> </div>
+    </p>
+  <% end %>
+
+  <% if comments_mode == :full %>
     <% if Rails.env.production? %>
       <div id="disqus_thread"></div>
       <script type="text/javascript">
@@ -37,7 +58,7 @@
     <% else %>
       <p><span class="muted">&lt;comments&gt;</span></p>
     <% end %>
-  <% elsif comments_mode == :comments_count %>
+  <% elsif comments_mode == :count %>
     <% if Rails.env.production? %>
       <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %>/post/<%= post.id %>#disqus_thread">Comments</a></p>
     <% else %>

@@ -19,7 +19,7 @@
   <% no_posts = true %>
   <% for post in @filtered_posts %>
     <% if post.is_public || @logged_in %>
-      <%= render :partial => "post", :locals => { :post => post, :comments_mode => :comments_count, :date_mode => :date, :title_link => true } %>
+      <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :date_mode => :date, :title_link => true } %>
       <% no_posts = false %>
     <% end %>
   <% end %>

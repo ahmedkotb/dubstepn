@@ -10,26 +10,10 @@
 <% end %>
 
 <% if @post && (@post.is_public || @logged_in) %>
-  <%= render :partial => "post", :locals => { :post => @post, :comments_mode => :comments, :date_mode => :date, :title_link => true } %>
+  <%= render :partial => "post", :locals => { :post => @post, :previous_post => @previous, :next_post => @next, :comments_mode => :full, :date_mode => :date, :title_link => true } %>
 <% else %>
   <article>
     <h2>Sorry, that page doesn&rsquo;t exist.</h2>
     <p>Make sure you typed the URL correctly.</p>
-  </article>
-<% end %>
-
-<% if @previous || @next %>
-  <article>
-    <% if @previous %>
-      <div class="previous_post">
-        <a href="/post/<%= @previous.id -%>"><i class="icon-arrow-left"></i>&nbsp;&nbsp;<%= @previous.title -%></a>
-      </div>
-    <% end %>
-    <% if @next %>
-      <div class="next_post">
-        <a href="/post/<%= @next.id -%>"><%= @next.title -%>&nbsp;&nbsp;<i class="icon-arrow-right"></i></a>
-      </div>
-    <% end %>
-    <div class="clearfix"> </div>
   </article>
 <% end %>
