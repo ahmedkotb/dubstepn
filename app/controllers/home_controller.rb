@@ -52,9 +52,6 @@ class HomeController < ApplicationController
     robots << "Disallow: /admin\r\n"
     robots << "Disallow: /resume\r\n"
     robots << "Disallow: /sidebar\r\n"
-    Tag.where("name = ?", "sidebar").first.posts.each do |post|
-      robots << "Disallow: /post/" + post.id.to_s + "\r\n"
-    end
     return render :text => robots
   end
 
