@@ -5,8 +5,10 @@
 
 <% if @tag_name == "home" %>
   <% content_for :title, "Stephan Boyer" %>
+  <% content_for :description, "Computer science, software engineering, math, and music." %>
 <% else %>
   <% content_for :title, @tag_name.capitalize + " | Stephan Boyer" %>
+  <% content_for :description, "Computer science, software engineering, math, and music.  Category: " + @tag_name + "." %>
 <% end %>
 
 <% if @tag_name != "home" %>
