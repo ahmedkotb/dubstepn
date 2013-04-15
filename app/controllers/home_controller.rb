@@ -44,6 +44,20 @@ class HomeController < ApplicationController
     send_data data, :type => "application/pdf", :disposition => "inline"
   end
 
+  def robots
+    robots = ""
+    robots << "User-agent: *\r\n"
+    robots << "Sitemap: http://www.stephanboyer.com/sitemap.xml\r\n"
+    robots << "Disallow: /login\r\n"
+    robots << "Disallow: /admin\r\n"
+    robots << "Disallow: /resume\r\n"
+    robots << "Disallow: /sidebar\r\n"
+    Tag.where("name = ?", "sidebar").first.posts.each do |post|
+      robots << "Disallow: /post/" + post.id.to_s + "\r\n"
+    end
+    return render :text => robots
+  end
+
   def sitemap
     sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
     sitemap << "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\r\n"

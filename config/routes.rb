@@ -12,6 +12,8 @@ Dubstepn::Application.routes.draw do
   get "/resume.pdf" => "home#resume"
 
   # indexing and syndication
+  get "/robots" => "home#robots"
+  get "/robots.txt" => "home#robots"
   get "/sitemap" => "home#sitemap"
   get "/sitemap.xml" => "home#sitemap"
   get "/rss" => "home#rss"
