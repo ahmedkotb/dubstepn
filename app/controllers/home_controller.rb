@@ -44,6 +44,30 @@ class HomeController < ApplicationController
     send_data data, :type => "application/pdf", :disposition => "inline"
   end
 
+  def sitemap
+    sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
+    sitemap << "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\r\n"
+    sitemap << "  <url>\r\n"
+    sitemap << "    <loc>http://www.stephanboyer.com</loc>\r\n"
+    sitemap << "  </url>\r\n"
+    Tag.all.each do |tag|
+      if !["home", "sidebar"].include?(tag.name)
+        sitemap << "  <url>\r\n"
+        sitemap << "    <loc>http://www.stephanboyer.com/" + tag.name + "</loc>\r\n"
+        sitemap << "  </url>\r\n"
+      end
+    end
+    Post.all.each do |post|
+      if post.is_public && !post.tags.map { |tag| tag.name }.include?("sidebar")
+        sitemap << "  <url>\r\n"
+        sitemap << "    <loc>http://www.stephanboyer.com/post/" + post.id.to_s + "</loc>\r\n"
+        sitemap << "  </url>\r\n"
+      end
+    end
+    sitemap << "</urlset>\r\n"
+    return render :xml => sitemap
+  end
+
   def rss
     tag = Tag.where(:name => "home").first
     posts = tag.posts.where(:is_public => true).order("sort_id DESC")

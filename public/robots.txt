@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /sidebar
+
+Sitemap: http://www.stephanboyer.com/sitemap.xml

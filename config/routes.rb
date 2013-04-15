@@ -10,6 +10,10 @@ Dubstepn::Application.routes.draw do
   get "/post/:post_id" => "home#post"
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
+
+  # indexing and syndication
+  get "/sitemap" => "home#sitemap"
+  get "/sitemap.xml" => "home#sitemap"
   get "/rss" => "home#rss"
   get "/rss.xml" => "home#rss"
 
