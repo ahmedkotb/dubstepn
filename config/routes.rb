@@ -1,9 +1,11 @@
+include ApplicationHelper
+
 Dubstepn::Application.routes.draw do
   # make sure the host is www.stephanboyer.com, otherwise redirect
-  if Rails.env.production?
-    constraints(:host => /\A(?!www\.stephanboyer\.com)/) do
-      match "/" => redirect("http://www.stephanboyer.com")
-      match "/*path" => redirect { |params| "http://www.stephanboyer.com/#{params[:path]}" }, :format => false
+  if Rails.env.production? || true
+    constraints(:host => Regexp.new("\\A(?!" + APP_HOST.gsub(/\./, "\\.") + ")")) do
+      match "/" => redirect("http://" + APP_HOST)
+      match "/*path" => redirect { |params| "http://" + APP_HOST + "/#{params[:path]}" }, :format => false
     end
   end
 
@@ -18,8 +20,8 @@ Dubstepn::Application.routes.draw do
   get "/robots.txt" => "home#robots"
   get "/sitemap" => "home#sitemap"
   get "/sitemap.xml" => "home#sitemap"
-  get "/rss" => "home#rss"
-  get "/rss.xml" => "home#rss"
+  get "/rss" => "home#feed", :type => :rss
+  get "/atom" => "home#feed", :type => :atom
 
   # admin panel
   get "/admin" => "home#admin"
@@ -36,16 +38,18 @@ Dubstepn::Application.routes.draw do
   post "/logout" => "home#logout_action"
 
   # legacy routes
-  match "/p/self-balancing-electric-unicycle.html" => redirect("/post/17")
-  match "/unicycle" => redirect("/post/17")
-  match "/bullet" => redirect("/post/17")
-  match "/2011/11/algebraic-data-types.html" => redirect("/post/18")
-  match "/2011/10/monads-part-2.html" => redirect("/post/10")
-  match "/2011/10/monads.html" => redirect("/post/9")
-  match "/2011/09/uniqueness-types-and-godel.html" => redirect("/post/8")
-  match "/2011/08/kicked-in-monads.html" => redirect("/post/7")
-  match "/2011/08/great-war.html" => redirect("/post/6")
-  match "/2011/08/welcome.html" => redirect("/post/5")
+  get "/p/self-balancing-electric-unicycle.html" => redirect("/post/17")
+  get "/unicycle" => redirect("/post/17")
+  get "/bullet" => redirect("/post/17")
+  get "/2011/11/algebraic-data-types.html" => redirect("/post/18")
+  get "/2011/10/monads-part-2.html" => redirect("/post/10")
+  get "/2011/10/monads.html" => redirect("/post/9")
+  get "/2011/09/uniqueness-types-and-godel.html" => redirect("/post/8")
+  get "/2011/08/kicked-in-monads.html" => redirect("/post/7")
+  get "/2011/08/great-war.html" => redirect("/post/6")
+  get "/2011/08/welcome.html" => redirect("/post/5")
+  get "/feeds/posts/default?alt=rss" => "home#blogger_feed"
+  get "/feeds/posts/default" => "home#blogger_feed"
 
   # filters
   get "/:tag/:page" => "home#index", :format => false
