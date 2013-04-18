@@ -30,7 +30,7 @@ class HomeController < ApplicationController
       @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
     rescue
     end
-    render :status => 404 if !@posts
+    return render_404 if !@posts || @posts.size == 0
   end
 
   def post
@@ -44,7 +44,7 @@ class HomeController < ApplicationController
       @next = Tag.where(:name => "home").first.posts.where("sort_id > ? AND is_public = ?", @post.sort_id, true).order("sort_id ASC").first
     rescue
     end
-    render :status => 404 if !@post
+    return render_404 if !@post || (!@post.is_public && !@logged_in)
   end
 
   def resume
@@ -225,5 +225,9 @@ private
     if !is_logged_in
       return redirect_to "/login"
     end
+  end
+
+  def render_404
+    render "404", :status => 404
   end
 end

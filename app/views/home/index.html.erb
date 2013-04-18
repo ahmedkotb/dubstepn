@@ -3,60 +3,44 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
-<% if !@tag || @tag.name == "home" %>
+<% if @tag.name == "home" %>
   <% content_for :title, "Stephan Boyer" %>
   <% content_for :description, "Computer science, software engineering, math, and music." %>
 <% else %>
   <% content_for :title, @tag.name.capitalize + " | Stephan Boyer" %>
   <% content_for :description, "Computer science, software engineering, math, and music.  Category: " + @tag.name + "." %>
-<% end %>
 
-<% if @tag && @tag.name != "home" %>
   <% content_for :nav do %>
     / <a href="/<%= @tag.name %>"><%= @tag.name %></a>
   <% end %>
 <% end %>
 
 <div>
-  <% no_posts = true %>
-  <% if @posts %>
-    <% for post in @posts %>
-      <% if post.is_public || @logged_in %>
-        <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_tags => true, :show_date => true, :title_link => true } %>
-        <% no_posts = false %>
-      <% end %>
-    <% end %>
-  <% end %>
-  <% if no_posts %>
-    <article>
-      <h2>Sorry, that page doesn&rsquo;t exist.</h2>
-      <p>Make sure you typed the URL correctly.</p>
-    </article>
+  <% for post in @posts %>
+    <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_tags => true, :show_date => true, :title_link => true } %>
   <% end %>
 </div>
 
-<% if @page && @pages %>
-  <div id="pagination_container">
-    <div class="pagination">
-      <ul>
-        <% if @page > 1 %>
-          <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
+<div id="pagination_container">
+  <div class="pagination">
+    <ul>
+      <% if @page > 1 %>
+        <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
+      <% else %>
+        <li class="disabled"><span>&laquo;</span></li>
+      <% end %>
+      <% for page in 1..@pages %>
+        <% if page == @page %>
+          <li class="active"><span><%= page %></span></li>
         <% else %>
-          <li class="disabled"><span>&laquo;</span></li>
+          <li><a href="/<%= @tag.name -%>/<%= page -%>"><%= page %></a></li>
         <% end %>
-        <% for page in 1..@pages %>
-          <% if page == @page %>
-            <li class="active"><span><%= page %></span></li>
-          <% else %>
-            <li><a href="/<%= @tag.name -%>/<%= page -%>"><%= page %></a></li>
-          <% end %>
-        <% end %>
-        <% if @page < @pages %>
-          <li><a href="/<%= @tag.name -%>/<%= @pages -%>">&raquo;</a></li>
-        <% else %>
-          <li class="disabled"><span>&raquo;</span></li>
-        <% end %>
-      </ul>
-    </div>
+      <% end %>
+      <% if @page < @pages %>
+        <li><a href="/<%= @tag.name -%>/<%= @pages -%>">&raquo;</a></li>
+      <% else %>
+        <li class="disabled"><span>&raquo;</span></li>
+      <% end %>
+    </ul>
   </div>
-<% end %>
+</div>
