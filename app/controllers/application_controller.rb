@@ -3,9 +3,15 @@ include ApplicationHelper
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :get_layout_fields
+  before_filter :fix_host, :get_layout_fields
 
   private
+    def fix_host
+      if Rails.env.production? && request.host != APP_HOST
+        redirect_to "#{ request.protocol }#{ APP_HOST }#{ request.fullpath }", :status => 301
+      end
+    end
+
     def get_layout_fields
       home_tag = Tag.where(:name => "home").first
       sidebar_tag = Tag.where(:name => "sidebar").first
