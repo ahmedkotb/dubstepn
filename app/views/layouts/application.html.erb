@@ -2,8 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title><%= yield :title %></title>
-    <meta name="description" content="<%= yield :description %>">
+    <title><%= content_for :title %></title>
+    <% if (content_for :description) != "" %>
+      <meta name="description" content="<%= content_for :description %>">
+    <% end %>
     <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Oswald:400,700,300" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%= request.protocol -%>cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <% if Rails.env.production? %>
@@ -16,29 +18,29 @@
           (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
       </script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34278795-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
     <% end %>
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-34278795-1']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <%= yield :head %>
+    <%= content_for :head %>
   </head>
-  <body id="bootstrap_override">
+  <body>
     <header>
       <div class="container">
         <div id="header_container">
           <div class="row">
             <div class="span4">
-              <h1><a href="/" id="title_link">Stephan Boyer</a> <%= yield :nav %></h1>
+              <h1><a href="/" id="title_link">Stephan Boyer</a> <%= content_for :nav %></h1>
             </div>
             <div class="span8">
               <div id="nav">
