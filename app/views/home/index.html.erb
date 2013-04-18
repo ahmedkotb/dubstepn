@@ -3,26 +3,28 @@
   <%= javascript_include_tag "index" %>
 <% end %>
 
-<% if @tag_name == "home" %>
+<% if !@tag || @tag.name == "home" %>
   <% content_for :title, "Stephan Boyer" %>
   <% content_for :description, "Computer science, software engineering, math, and music." %>
 <% else %>
-  <% content_for :title, @tag_name.capitalize + " | Stephan Boyer" %>
-  <% content_for :description, "Computer science, software engineering, math, and music.  Category: " + @tag_name + "." %>
+  <% content_for :title, @tag.name.capitalize + " | Stephan Boyer" %>
+  <% content_for :description, "Computer science, software engineering, math, and music.  Category: " + @tag.name + "." %>
 <% end %>
 
-<% if @tag_name != "home" %>
+<% if @tag && @tag.name != "home" %>
   <% content_for :nav do %>
-    / <a href="/<%= @tag_name %>"><%= @tag_name %></a>
+    / <a href="/<%= @tag.name %>"><%= @tag.name %></a>
   <% end %>
 <% end %>
 
 <div>
   <% no_posts = true %>
-  <% for post in @filtered_posts %>
-    <% if post.is_public || @logged_in %>
-      <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_tags => true, :show_date => true, :title_link => true } %>
-      <% no_posts = false %>
+  <% if @posts %>
+    <% for post in @posts %>
+      <% if post.is_public || @logged_in %>
+        <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_tags => true, :show_date => true, :title_link => true } %>
+        <% no_posts = false %>
+      <% end %>
     <% end %>
   <% end %>
   <% if no_posts %>
@@ -33,12 +35,12 @@
   <% end %>
 </div>
 
-<% if !no_posts %>
+<% if @page && @pages %>
   <div id="pagination_container">
     <div class="pagination">
       <ul>
         <% if @page > 1 %>
-          <li><a href="/<%= @tag_name -%>/1">&laquo;</a></li>
+          <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
         <% else %>
           <li class="disabled"><span>&laquo;</span></li>
         <% end %>
@@ -46,11 +48,11 @@
           <% if page == @page %>
             <li class="active"><span><%= page %></span></li>
           <% else %>
-            <li><a href="/<%= @tag_name -%>/<%= page -%>"><%= page %></a></li>
+            <li><a href="/<%= @tag.name -%>/<%= page -%>"><%= page %></a></li>
           <% end %>
         <% end %>
         <% if @page < @pages %>
-          <li><a href="/<%= @tag_name -%>/<%= @pages -%>">&raquo;</a></li>
+          <li><a href="/<%= @tag.name -%>/<%= @pages -%>">&raquo;</a></li>
         <% else %>
           <li class="disabled"><span>&raquo;</span></li>
         <% end %>

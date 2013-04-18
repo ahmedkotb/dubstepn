@@ -14,16 +14,23 @@ class HomeController < ApplicationController
   def index
     posts_per_page = 5
     @logged_in = is_logged_in
-    @tag_name = if params[:tag] then params[:tag] else "home" end
-    @tag = Tag.where(:name => @tag_name).first
-    @page = params[:page].to_i
-    if @logged_in
-      posts_with_tag = if @tag then @tag.posts else nil end
-    else
-      posts_with_tag = if @tag then @tag.posts.where(:is_public => true) else nil end
+    @tag = nil
+    @posts = nil
+    @page = nil
+    @pages = nil
+    begin
+      @tag = Tag.where(:name => (if params[:tag] then params[:tag] else "home" end)).first!
+      posts = if @logged_in then @tag.posts else @tag.posts.where(:is_public => true) end
+      @pages = (posts.size + posts_per_page - 1) / posts_per_page
+      @page = if params[:page] then Integer(params[:page], 10) else 1 end
+      if @page < 1 || @page > @pages
+        @page = nil
+        raise
+      end
+      @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
+    rescue
     end
-    @filtered_posts = if posts_with_tag then posts_with_tag.order("sort_id DESC").limit(posts_per_page).offset((@page-1)*posts_per_page) else [] end
-    @pages = if posts_with_tag then (posts_with_tag.size + posts_per_page-1)/posts_per_page else 0 end
+    render :status => 404 if !@posts
   end
 
   def post
@@ -37,6 +44,7 @@ class HomeController < ApplicationController
       @next = Tag.where(:name => "home").first.posts.where("sort_id > ? AND is_public = ?", @post.sort_id, true).order("sort_id ASC").first
     rescue
     end
+    render :status => 404 if !@post
   end
 
   def resume

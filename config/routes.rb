@@ -8,8 +8,8 @@ Dubstepn::Application.routes.draw do
   end
 
   # public routes
-  get "/" => "home#index", :page => "1"
-  get "/post/:post_id" => "home#post"
+  get "/" => "home#index"
+  get "/post/:post_id" => "home#post", :format => false
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
 
@@ -23,7 +23,7 @@ Dubstepn::Application.routes.draw do
 
   # admin panel
   get "/admin" => "home#admin"
-  get "/edit_post/:post_id" => "home#edit_post"
+  get "/edit_post/:post_id" => "home#edit_post", :format => false
   post "/create_post" => "home#create_post_action"
   post "/move_up" => "home#move_up_action"
   post "/move_down" => "home#move_down_action"
@@ -48,6 +48,6 @@ Dubstepn::Application.routes.draw do
   match "/2011/08/welcome.html" => redirect("/post/5")
 
   # filters
-  get "/:tag/:page" => "home#index"
-  get "/*tag" => "home#index", :page => "1" # catch-all
+  get "/:tag/:page" => "home#index", :format => false
+  get "/*tag" => "home#index", :page => "1", :format => false # catch-all
 end
