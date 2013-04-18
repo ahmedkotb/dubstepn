@@ -73,19 +73,6 @@
                 <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_tags => false, :show_date => false, :title_link => false } %>
               <% end %>
             <% end %>
-            <article>
-              <h2>Google this Blog</h2>
-              <script>
-                (function() {
-                  var cx = '010141381723648647356:WMX1663005123';
-                  var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-                  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                      '//www.google.com/cse/cse.js?cx=' + cx;
-                  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-                })();
-              </script>
-              <gcse:search></gcse:search>
-            </article>
           </div>
         </div>
         <div class="span8">

@@ -264,38 +264,3 @@ body {
     padding-left: 0 !important;
   }
 }
-
-/* Google Custom Search */
-.gsc-control-cse {
-  padding: 0 !important;
-
-  input.gsc-input {
-    margin-bottom: 0 !important;
-    height: 20px !important;
-    -moz-border-radius: 2px !important;
-    -webkit-border-radius: 2px !important;
-    border-radius: 2px !important;
-    background: none !important;
-  }
-
-  input.gsc-search-button {
-    margin-left: 4px;
-    height: 24px !important;
-    -moz-border-radius: 2px !important;
-    -webkit-border-radius: 2px !important;
-    border-radius: 2px !important;
-  }
-
-  .gcsc-branding {
-    display: none !important;
-  }
-
-  img {
-    display: inline !important;
-    border: none !important;
-    -moz-box-sizing: content-box !important;
-    -webkit-box-sizing: content-box !important;
-    -ms-box-sizing: content-box !important;
-    box-sizing: content-box !important;
-  }
-}
