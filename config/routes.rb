@@ -2,7 +2,7 @@ include ApplicationHelper
 
 Dubstepn::Application.routes.draw do
   # make sure the host is www.stephanboyer.com, otherwise redirect
-  if Rails.env.production? || true
+  if Rails.env.production?
     constraints(:host => Regexp.new("\\A(?!" + APP_HOST.gsub(/\./, "\\.") + ")")) do
       match "/" => redirect("http://" + APP_HOST)
       match "/*path" => redirect { |params| "http://" + APP_HOST + "/#{params[:path]}" }, :format => false

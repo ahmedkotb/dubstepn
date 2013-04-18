@@ -5,10 +5,10 @@
 
 <% if @tag.name == "home" %>
   <% content_for :title, "Stephan Boyer" %>
-  <% content_for :description, "Computer science, software engineering, math, and music." %>
+  <% content_for :description, APP_DESCRIPTION %>
 <% else %>
   <% content_for :title, @tag.name.capitalize + " | Stephan Boyer" %>
-  <% content_for :description, "Computer science, software engineering, math, and music.  Category: " + @tag.name + "." %>
+  <% content_for :description, APP_DESCRIPTION + "  Category: " + @tag.name + "." %>
 
   <% content_for :nav do %>
     / <a href="/<%= @tag.name %>"><%= @tag.name %></a>

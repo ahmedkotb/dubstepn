@@ -217,6 +217,7 @@ private
   end
 
   def render_feed(type)
+    last_modified_date = Post.order("updated_at DESC").first.try(:created_at).try(:to_datetime) || DateTime.now
     case type
     when :rss
       tag = Tag.where(:name => "home").first
@@ -225,16 +226,17 @@ private
       rss << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
       rss << "  <channel>\r\n"
       rss << "    <title>Stephan Boyer</title>\r\n"
-      rss << "    <description>" + APP_DESCRIPTION + "</description>\r\n"
-      rss << "    <link>http://" + APP_HOST + "/</link>\r\n"
-      rss << "    <atom:link href=\"http://" + APP_HOST + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+      rss << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "</description>\r\n"
+      rss << "    <link>http://" + APP_HOST.encode(:xml => :text) + "/</link>\r\n"
+      rss << "    <pubDate>" + last_modified_date.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
+      rss << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
       for post in posts
         rss << "    <item>\r\n"
         rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
         rss << "      <description>" + post.summary.encode(:xml => :text) + "</description>\r\n"
-        rss << "      <link>http://" + APP_HOST + "/post/" + post.id.to_s + "</link>\r\n"
-        rss << "      <guid>http://" + APP_HOST + "/post/" + post.id.to_s + "</guid>\r\n"
-        rss << "      <pubDate>" + post.created_at.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
+        rss << "      <link>http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "</link>\r\n"
+        rss << "      <guid>http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "</guid>\r\n"
+        rss << "      <pubDate>" + post.created_at.to_datetime.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
         rss << "    </item>\r\n"
       end
       rss << "  </channel>\r\n"
@@ -246,22 +248,22 @@ private
       rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       rss << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"
       rss << "  <title>Stephan Boyer</title>\r\n"
-      rss << "  <subtitle>" + APP_DESCRIPTION + "</subtitle>\r\n"
-      rss << "  <link href=\"http://" + APP_HOST + "/atom\" rel=\"self\" />\r\n"
-      rss << "  <link href=\"http://" + APP_HOST + "/\" />\r\n"
-      rss << "  <id>http://" + APP_HOST + "/</id>\r\n"
-      rss << "  <updated>" + DateTime.strptime(`git log --pretty=format:'%ct' -n 1`, "%s").to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
+      rss << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "</subtitle>\r\n"
+      rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+      rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/\" />\r\n"
+      rss << "  <id>http://" + APP_HOST.encode(:xml => :text) + "/</id>\r\n"
+      rss << "  <updated>" + last_modified_date.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
       for post in posts
         rss << "  <entry>\r\n"
         rss << "    <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
-        rss << "    <link href=\"http://" + APP_HOST + "/atom\" rel=\"self\" />\r\n"
-        rss << "    <link href=\"http://" + APP_HOST + "/post/" + post.id.to_s + "\" />\r\n"
-        rss << "    <id>http://" + APP_HOST + "/post/" + post.id.to_s + "</id>\r\n"
+        rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+        rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "\" />\r\n"
+        rss << "    <id>http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "</id>\r\n"
         rss << "    <updated>" + post.created_at.to_datetime.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
         rss << "    <summary>" + post.summary.encode(:xml => :text) + "</summary>\r\n"
         rss << "    <author>\r\n"
-        rss << "      <name>" + APP_AUTHOR + "</name>\r\n"
-        rss << "      <email>" + APP_EMAIL + "</email>\r\n"
+        rss << "      <name>" + APP_AUTHOR.encode(:xml => :text) + "</name>\r\n"
+        rss << "      <email>" + APP_EMAIL.encode(:xml => :text) + "</email>\r\n"
         rss << "    </author>\r\n"
         rss << "  </entry>\r\n"
       end
