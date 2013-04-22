@@ -69,10 +69,6 @@ body#bootstrap_override {
     list-style-type: square;
   }
 
-  h2 {
-    margin-bottom: -8px;
-  }
-
   /* Inline elements */
 
   img, video, embed, iframe {
@@ -168,7 +164,7 @@ body#bootstrap_override {
       }
 
       article {
-        padding: 16px 0;
+        padding: 24px 0;
       }
 
       article:first-child {
