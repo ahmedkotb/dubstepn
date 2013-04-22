@@ -19,17 +19,26 @@
  *  Global styles
  */
 
+$background-color: #fff;
+$anchor-color: #9e2020;
+
 body#bootstrap_override {
+  /* Helper styles */
+
+  background-color: $background-color;
+
   .hidden {
     display: none;
   }
+
+  /* Anchors */
   
   a {
-    color: #9e2020;
+    color: $anchor-color;
   }
 
   a:hover {
-    color: #de2626;
+    color: $anchor-color * 1.8;
     text-decoration: none;
   }
 
@@ -37,33 +46,58 @@ body#bootstrap_override {
     background-color: #f28c8a !important;
   }
 
-  p, ul, ol, form, table, .p {
-    margin-top: 0;
+  /* Block-level elements */
+
+  p, ul, ol, form, table, h2, h3, h4, h5, h6, .p {
+    margin-top: 16px;
     margin-bottom: 16px;
+    line-height: 1.4em;
   }
 
-  img, video, embed, iframe {
-    display: inline-block;
-    vertical-align: middle;
-    border: 12px solid #ddd;
-    margin: 0;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
+  h2, h3, h4, h5, h6 {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1em;
+  }
+
+  li {
+    line-height: 1.4em;
   }
 
   ul {
     list-style-type: square;
   }
 
+  h2 {
+    margin-bottom: -8px;
+  }
+
+  /* Inline elements */
+
+  img, video, embed, iframe {
+    display: inline-block;
+    vertical-align: middle;
+    border: 12px solid #ddd;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  p > input, p > textarea {
+    margin: 0;
+  }
+
   textarea {
     resize: vertical;
   }
 
+  /* Header */
+
   header {
     background-color: #000;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid $background-color;
     padding: 9px 0;
     color: #888;
 
@@ -77,6 +111,10 @@ body#bootstrap_override {
       color: inherit;
     }
 
+    a:hover {
+      color: $anchor-color * 1.4 !important;
+    }
+
     h1 {
       font-family: "Oswald", sans-serif;
       font-weight: 300;
@@ -86,14 +124,6 @@ body#bootstrap_override {
       a#title_link {
         color: #fff;
         font-weight: 400;
-      }
-
-      a:hover {
-        color: #de2626;
-      }
-
-      a#title_link:hover {
-        color: #de2626;
       }
     }
 
@@ -116,23 +146,13 @@ body#bootstrap_override {
       a.active {
         color: #ddd;
       }
-
-      a:hover {
-        color: #de2626;
-      }
-
-      a.active:hover {
-        color: #de2626;
-      }
     }
   }
 
+  /* Articles */
+
   #content {
     padding: 40px 0;
-
-    h2 {
-      margin-top: 0;
-    }
 
     article > *:first-child {
       margin-top: 0;
@@ -144,19 +164,7 @@ body#bootstrap_override {
 
     #sidebar {
       h2 {
-        font-family: "Oswald", sans-serif;
-        font-weight: 400;
-        text-transform: uppercase;
         font-size: 1.5em;
-        margin-bottom: 0;
-      }
-
-      h2:first-child {
-        margin-top: 0;
-      }
-
-      h2:last-child {
-        margin-bottom: 0;
       }
 
       article {
@@ -173,22 +181,8 @@ body#bootstrap_override {
     }
 
     #articles {
-      h2, h3, h4, h5, h6 {
-        font-family: "Oswald", sans-serif;
-        font-weight: 400;
-        text-transform: uppercase;
-      }
-
-      h2 {
-        margin-bottom: 8px;
-      }
-
-      h3, h4, h5, h6 {
-        margin-top: 32px;
-      }
-
       .date {
-        margin-bottom: 24px;
+        #margin-bottom: 24px;
       }
 
       article {
@@ -230,8 +224,9 @@ body#bootstrap_override {
     }
   }
 
+  /* Footer */
+
   footer {
-    background-color: #fff;
     border-top: 1px solid #ddd;
     padding: 32px 0;
     color: #b0b0b0;
