@@ -45,9 +45,8 @@ class HomeController < ApplicationController
     rescue
     end
     return render_404 if !@post || (!@post.is_public && !@logged_in)
-    canonical_title = URI::encode(@post.title.downcase.gsub(/[^a-z ]/, "").gsub(/ /, "-"))
-    if params[:title] != canonical_title
-      return redirect_to "/post/#{ @post.id.to_s }/#{ canonical_title }", :status => 301
+    if request.fullpath != @post.canonical_uri
+      return redirect_to @post.canonical_uri, :status => 301
     end
   end
 
@@ -64,6 +63,12 @@ class HomeController < ApplicationController
     robots << "Disallow: /admin\r\n"
     robots << "Disallow: /resume\r\n"
     robots << "Disallow: /sidebar\r\n"
+    sidebar_tag = Tag.where("name = ?", "sidebar").first
+    if sidebar_tag
+      for post in sidebar_tag.posts
+        robots << "Disallow: " + post.canonical_uri + "\r\n"
+      end
+    end
     return render :text => robots
   end
 
@@ -83,7 +88,7 @@ class HomeController < ApplicationController
     Post.all.each do |post|
       if post.is_public && !post.tags.map { |tag| tag.name }.include?("sidebar")
         sitemap << "  <url>\r\n"
-        sitemap << "    <loc>http://" + APP_HOST + "/post/" + post.id.to_s + "</loc>\r\n"
+        sitemap << "    <loc>http://" + APP_HOST + post.canonical_uri + "</loc>\r\n"
         sitemap << "  </url>\r\n"
       end
     end
@@ -238,8 +243,8 @@ private
         rss << "    <item>\r\n"
         rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
         rss << "      <description>" + post.summary.encode(:xml => :text) + "</description>\r\n"
-        rss << "      <link>http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "</link>\r\n"
-        rss << "      <guid>http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "</guid>\r\n"
+        rss << "      <link>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</link>\r\n"
+        rss << "      <guid>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</guid>\r\n"
         rss << "      <pubDate>" + post.created_at.to_datetime.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
         rss << "    </item>\r\n"
       end
@@ -261,8 +266,8 @@ private
         rss << "  <entry>\r\n"
         rss << "    <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
         rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
-        rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "\" />\r\n"
-        rss << "    <id>http://" + APP_HOST.encode(:xml => :text) + "/post/" + post.id.to_s.encode(:xml => :text) + "</id>\r\n"
+        rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "\" />\r\n"
+        rss << "    <id>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</id>\r\n"
         rss << "    <updated>" + post.created_at.to_datetime.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
         rss << "    <summary>" + post.summary.encode(:xml => :text) + "</summary>\r\n"
         rss << "    <author>\r\n"

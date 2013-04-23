@@ -11,7 +11,7 @@
 
 <article>
   <% if title_link %>
-    <h2><a href="/post/<%= post.id %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></h2>
+    <h2><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></h2>
   <% else %>
     <h2><%= post.title %><%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %></h2>
   <% end %>
@@ -37,12 +37,12 @@
     <div class="p">
       <% if previous_post %>
         <div class="previous_post">
-          <a href="/post/<%= previous_post.id -%>">« <%= previous_post.title -%></a>
+          <a href="<%= previous_post.canonical_uri -%>">« <%= previous_post.title -%></a>
         </div>
       <% end %>
       <% if next_post %>
         <div class="next_post">
-          <a href="/post/<%= next_post.id -%>"><%= next_post.title -%> »</a>
+          <a href="<%= next_post.canonical_uri -%>"><%= next_post.title -%> »</a>
         </div>
       <% end %>
       <div class="clearfix"> </div>
@@ -70,7 +70,7 @@
     <% end %>
   <% elsif comments_mode == :count %>
     <% if Rails.env.production? %>
-      <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %>/post/<%= post.id %>#disqus_thread">Comments</a></p>
+      <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %><%= post.canonical_uri %>#disqus_thread">Comments</a></p>
     <% else %>
       <p><span class="muted">&lt;number of comments&gt;</span></p>
     <% end %>

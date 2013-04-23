@@ -50,7 +50,7 @@
             </div>
           </div>
           &nbsp;
-          <a href="/post/<%= post.id -%>"><%= post.title %></a>
+          <a href="<%= post.canonical_uri -%>"><%= post.title %></a>
           <%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %>
         </li>
       <% end %>

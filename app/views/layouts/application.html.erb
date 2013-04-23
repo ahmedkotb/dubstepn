@@ -64,7 +64,7 @@
               <h2>Recent Posts</h2>
               <ul>
                 <% for post in @recent_posts %>
-                  <li><a href="/post/<%= post.id %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></li>
+                  <li><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></li>
                 <% end %>
               </ul>
             </article>
