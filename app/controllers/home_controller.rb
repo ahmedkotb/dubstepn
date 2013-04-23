@@ -45,6 +45,10 @@ class HomeController < ApplicationController
     rescue
     end
     return render_404 if !@post || (!@post.is_public && !@logged_in)
+    canonical_title = URI::encode(@post.title.downcase.gsub(/[^a-z ]/, "").gsub(/ /, "-"))
+    if params[:title] != canonical_title
+      return redirect_to "/post/#{ @post.id.to_s }/#{ canonical_title }", :status => 301
+    end
   end
 
   def resume

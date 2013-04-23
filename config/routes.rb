@@ -3,6 +3,7 @@ include ApplicationHelper
 Dubstepn::Application.routes.draw do
   # public routes
   get "/" => "home#index"
+  get "/post/:post_id/*title" => "home#post", :format => false
   get "/post/:post_id" => "home#post", :format => false
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
