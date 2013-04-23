@@ -69,7 +69,7 @@ class HomeController < ApplicationController
         robots << "Disallow: " + post.canonical_uri + "\r\n"
       end
     end
-    return render :text => robots
+    return render :text => robots, :content_type => Mime::TEXT
   end
 
   def sitemap
