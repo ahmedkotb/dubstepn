@@ -22,7 +22,15 @@
     </p>
   <% end %>
 
-  <%= raw(post.content_html) %>
+  <% if post.title.downcase == "recent posts" %>
+    <ul>
+      <% for post in @recent_posts %>
+        <li><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></li>
+      <% end %>
+    </ul>  
+  <% else %>
+    <%= raw(post.content_html) %>
+  <% end %>
 
   <% if show_tags %>
     <p>
