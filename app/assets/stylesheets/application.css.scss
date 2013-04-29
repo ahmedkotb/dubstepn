@@ -88,15 +88,18 @@ body#bootstrap_override {
   /* Header */
 
   header {
+    $header-font-size: 1.5em;
+    $header-height: 44px;
+
     background-color: #000;
-    border-bottom: 1px solid $background-color;
-    padding: 9px 0;
     color: #888;
+
+    height: $header-height;
 
     * {
       margin-top: 0;
       margin-bottom: 0;
-      line-height: 1.2em;
+      line-height: $header-height !important;
     }
 
     a {
@@ -110,11 +113,8 @@ body#bootstrap_override {
     h1 {
       font-family: "Oswald", sans-serif;
       font-weight: 300;
-      font-size: 1.5em;
+      font-size: $header-font-size;
       text-transform: uppercase;
-      position: relative;
-      top: 1px;
-      left: 0px;
 
       a#title_link {
         color: #fff;
@@ -126,15 +126,12 @@ body#bootstrap_override {
       text-align: right;
 
       a {
+        text-transform: uppercase;
         display: inline-block;
         padding: 0 20px;
         font-family: "Oswald", sans-serif;
         font-weight: 300;
-        font-size: 1.5em;
-        text-transform: uppercase;
-        position: relative;
-        top: 2px;
-        left: 0px;
+        font-size: $header-font-size;
       }
 
       a:last-child {
