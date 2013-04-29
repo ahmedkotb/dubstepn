@@ -61,7 +61,7 @@ class HomeController < ApplicationController
   def robots
     robots = ""
     robots << "User-agent: *\r\n"
-    robots << "Sitemap: http://" + APP_HOST + "/sitemap.xml\r\n"
+    robots << "Sitemap: http://" + APP_HOST + "/sitemap\r\n"
     robots << "Disallow: /login\r\n"
     robots << "Disallow: /admin\r\n"
     robots << "Disallow: /resume\r\n"
@@ -82,7 +82,7 @@ class HomeController < ApplicationController
       end
     end
     Post.all.each do |post|
-      if post.is_public && !(post.tags.size == 1 && @post.tags.first.name == "sidebar")
+      if post.is_public && !(post.tags.size == 1 && post.tags.first.name == "sidebar")
         sitemap << "  <url>\r\n"
         sitemap << "    <loc>http://" + APP_HOST + post.canonical_uri + "</loc>\r\n"
         sitemap << "  </url>\r\n"
