@@ -33,7 +33,7 @@ class HomeController < ApplicationController
       @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
     rescue
     end
-    return render_404 if !@posts || @posts.size == 0
+    return render_404 if !@posts || @posts.size == 0 || (@tag.name == "sidebar" && !@logged_in)
   end
 
   def post
@@ -47,7 +47,7 @@ class HomeController < ApplicationController
       @next = Tag.where(:name => "home").first.posts.where("sort_id > ? AND is_public = ?", @post.sort_id, true).order("sort_id ASC").first
     rescue
     end
-    return render_404 if !@post || (!@post.is_public && !@logged_in)
+    return render_404 if !@post || (!@post.is_public && !@logged_in) || (@post.tags.size == 1 && @post.tags.first.name == "sidebar" && !@logged_in)
     if request.fullpath != @post.canonical_uri
       return redirect_to @post.canonical_uri, :status => 301
     end
@@ -65,13 +65,6 @@ class HomeController < ApplicationController
     robots << "Disallow: /login\r\n"
     robots << "Disallow: /admin\r\n"
     robots << "Disallow: /resume\r\n"
-    robots << "Disallow: /sidebar\r\n"
-    sidebar_tag = Tag.where("name = ?", "sidebar").first
-    if sidebar_tag
-      for post in sidebar_tag.posts
-        robots << "Disallow: " + post.canonical_uri + "\r\n"
-      end
-    end
     return render :text => robots, :content_type => Mime::TEXT
   end
 
@@ -89,7 +82,7 @@ class HomeController < ApplicationController
       end
     end
     Post.all.each do |post|
-      if post.is_public && !post.tags.map { |tag| tag.name }.include?("sidebar")
+      if post.is_public && !(post.tags.size == 1 && @post.tags.first.name == "sidebar")
         sitemap << "  <url>\r\n"
         sitemap << "    <loc>http://" + APP_HOST + post.canonical_uri + "</loc>\r\n"
         sitemap << "  </url>\r\n"
