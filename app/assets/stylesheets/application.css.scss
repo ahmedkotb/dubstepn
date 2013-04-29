@@ -112,6 +112,9 @@ body#bootstrap_override {
       font-weight: 300;
       font-size: 1.5em;
       text-transform: uppercase;
+      position: relative;
+      top: 1px;
+      left: 0px;
 
       a#title_link {
         color: #fff;
@@ -129,6 +132,9 @@ body#bootstrap_override {
         font-weight: 300;
         font-size: 1.5em;
         text-transform: uppercase;
+        position: relative;
+        top: 2px;
+        left: 0px;
       }
 
       a:last-child {
