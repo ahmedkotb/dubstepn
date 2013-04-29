@@ -27,6 +27,9 @@ class HomeController < ApplicationController
         @page = nil
         raise
       end
+      if request.fullpath == "/home/1"
+        return redirect_to "/"
+      end
       @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
     rescue
     end
