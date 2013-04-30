@@ -10,7 +10,7 @@ $(document).ready(() ->
     else
       aspect_ratio = $(e).innerWidth() / $(e).innerHeight()
     on_resize = () ->
-      inner_width = $(e).parent().innerWidth() - 24
+      inner_width = $(e).parent().innerWidth()
       inner_height = Math.round(inner_width / aspect_ratio)
       $(e).width(inner_width)
       $(e).height(inner_height)
