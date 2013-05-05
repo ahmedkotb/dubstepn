@@ -6,7 +6,7 @@
     <% if (content_for :description) != "" %>
       <meta name="description" content="<%= content_for :description %>">
     <% end %>
-    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Oswald:400,700,300" rel="stylesheet" type="text/css">
+    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%= request.protocol -%>cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <% if Rails.env.production? %>
       <script type="text/javascript">

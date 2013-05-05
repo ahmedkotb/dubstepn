@@ -89,22 +89,10 @@ body#bootstrap_override {
 
   header {
     $header-font-size: 1.5em;
-    $header-height: 44px;
+    $header-height: 40px;
 
     background-color: #000;
     color: #888;
-
-    height: $header-height;
-
-    * {
-      margin-top: 0;
-      margin-bottom: 0;
-      line-height: $header-height !important;
-    }
-
-    a {
-      color: inherit;
-    }
 
     a:hover {
       color: $anchor-color * 1.4 !important;
@@ -115,23 +103,31 @@ body#bootstrap_override {
       font-weight: 300;
       font-size: $header-font-size;
       text-transform: uppercase;
+      line-height: $header-height;
+      margin: 0;
+
+      a {
+        color: inherit;
+      }
 
       a#title_link {
         color: #fff;
-        font-weight: 400;
       }
     }
 
     #nav {
+      font-family: "Oswald", sans-serif;
+      font-weight: 300;
+      font-size: $header-font-size;
+      text-transform: uppercase;
+      line-height: $header-height;
       text-align: right;
+      color: #888;
 
       a {
-        text-transform: uppercase;
         display: inline-block;
         padding: 0 20px;
-        font-family: "Oswald", sans-serif;
-        font-weight: 300;
-        font-size: $header-font-size;
+        color: inherit;
       }
 
       a:last-child {
