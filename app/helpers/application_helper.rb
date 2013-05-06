@@ -73,7 +73,7 @@ module ApplicationHelper
     if session[:login_time] == nil
       return false
     end
-    if session[:login_time].advance(:hours => 1) < DateTime.now
+    if session[:login_time].advance(:hours => 12) < DateTime.now
       return false
     end
     return true
