@@ -21,6 +21,7 @@
 
 $background-color: #fff;
 $anchor-color: #9e2020;
+$line-height: 1.5em;
 
 body#bootstrap_override {
   /* Helper styles */
@@ -51,7 +52,7 @@ body#bootstrap_override {
   p, ul, ol, form, table, h2, h3, h4, h5, h6, .p {
     margin-top: 16px;
     margin-bottom: 16px;
-    line-height: 1.4em;
+    line-height: $line-height;
   }
 
   h2, h3, h4, h5, h6 {
@@ -62,7 +63,7 @@ body#bootstrap_override {
   }
 
   li {
-    line-height: 1.4em;
+    line-height: $line-height;
   }
 
   ul {
