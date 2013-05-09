@@ -22,9 +22,19 @@ module ApplicationHelper
       code_close = left.scan(/\<\/code\>/).length
       math_open = left.scan(/\\\(/).length
       math_close = left.scan(/\\\)/).length
-      tag_open = left.scan(/\</).length
-      tag_close = left.scan(/\>/).length
-      return pre_open <= pre_close && code_open <= code_close && math_open <= math_close && tag_open <= tag_close
+      tag_level = 0
+      (0...pos).each do |i|
+        if str[i] == "<"
+          tag_level += 1
+        end
+        if str[i] == ">"
+          tag_level -= 1
+          if tag_level < 0
+            tag_level = 0
+          end
+        end
+      end
+      return pre_open <= pre_close && code_open <= code_close && math_open <= math_close && tag_level == 0
     end
 
     pos = result.length - 1
