@@ -229,10 +229,14 @@ header {
   text-transform: uppercase;
   line-height: $header-height;
   background-color: #000;
-  color: #888;
+  color: #aaa;
+
+  #header {
+    background-color: #393939;
+  }
 
   a:hover {
-    color: $anchor-color * 1.4 !important;
+    color: $anchor-color * 1.6 !important;
   }
 
   h1 {
@@ -342,9 +346,13 @@ header {
 
 footer {
   background-color: #000;
-  padding: 16px 0;
-  color: #666;
+  color: #888;
   text-align: center;
+
+  #footer {
+    padding: 16px 0;
+    background-color: #393939;
+  }
 
   #footer > *:first-child {
     margin-top: 0;
