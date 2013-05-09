@@ -17,9 +17,13 @@ module ApplicationHelper
     def char_is_raw(str, pos)
       left = str[0...pos]
       pre_open = left.scan(/\<pre\>/).length
-      code_open = left.scan(/\<code\>/).length
       pre_close = left.scan(/\<\/pre\>/).length
+      code_open = left.scan(/\<code\>/).length
       code_close = left.scan(/\<\/code\>/).length
+      script_open = left.scan(/\<script\>/).length
+      script_close = left.scan(/\<\/script\>/).length
+      style_open = left.scan(/\<style\>/).length
+      style_close = left.scan(/\<\/style\>/).length
       math_open = left.scan(/\\\(/).length
       math_close = left.scan(/\\\)/).length
       tag_level = 0
@@ -34,7 +38,7 @@ module ApplicationHelper
           end
         end
       end
-      return pre_open <= pre_close && code_open <= code_close && math_open <= math_close && tag_level == 0
+      return pre_open <= pre_close && code_open <= code_close && math_open <= math_close && script_open <= script_close && style_open <= style_close && tag_level == 0
     end
 
     pos = result.length - 1
