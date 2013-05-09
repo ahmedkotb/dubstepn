@@ -6,7 +6,7 @@
 $container-max-width: 1210px;
 
 /* The horizontal padding around containers. */
-$container-gutter: 20px;
+$container-gutter: 32px;
 
 /* Add the "container" class to a block element (e.g., a div) to create a fluid container. */
 .container {
@@ -26,7 +26,7 @@ $container-gutter: 20px;
 /* ---------------------- */
 
 /* The spacing between columns. */
-$column-gutter-width: 2%;
+$column-gutter-width: 6%;
 
 /* The number of columns in a row. */
 $num-columns: 12;
