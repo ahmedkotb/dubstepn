@@ -8,248 +8,338 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require "normalize"
+ *= require "grid"
  *= require_self
- *= require "bootstrap.min"
- *= require "shCore"
- *= require "shCoreDefault"
- *= require "shThemeDefault"
  */
 
 /*
  *  Global styles
  */
 
-$background-color: #fff;
 $anchor-color: #9e2020;
 $line-height: 1.5em;
 
-body#bootstrap_override {
-  /* Helper styles */
+/* Helper styles */
 
-  background-color: $background-color;
+.hidden {
+  display: none;
+}
 
-  .hidden {
-    display: none;
-  }
+.muted {
+  color: #999;
+}
 
-  /* Anchors */
-  
-  a {
-    color: $anchor-color;
-  }
+/* Body */
 
-  a:hover {
-    color: $anchor-color * 1.8;
-    text-decoration: none;
-  }
+body {
+  background-color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+  color: #333;
+}
 
-  a .label-important:hover {
-    background-color: #f28c8a !important;
-  }
+/* Anchors */
 
-  /* Block-level elements */
+a {
+  color: $anchor-color;
+  text-decoration: none;
+}
 
-  p, ul, ol, form, table, h2, h3, h4, h5, h6, .p {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    line-height: $line-height;
-  }
+a:hover {
+  color: $anchor-color * 1.8;
+  text-decoration: none;
+}
 
-  h2, h3, h4, h5, h6 {
-    font-family: "Oswald", sans-serif;
-    font-weight: 400;
-    text-transform: uppercase;
-    line-height: 1em;
-  }
+a.tag {
+  display: inline-block;
+  padding: 0px 4px;
+  background-color: #b94a48;
+  -webkit-border-radius: 2px;
+  -moz-border-radius:    2px;
+  border-radius:         2px;
+  color: #fff;
+  font-size: 0.8em;
+  font-weight: bold;
+  white-space: nowrap;
+  text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
+  line-height: 1.6em;
+}
 
-  li {
-    line-height: $line-height;
-  }
+a.tag:hover {
+  background-color: #b94a48 * 1.4;
+}
+
+/* Block-level elements */
+
+p, ul, ol, form, table {
+  line-height: $line-height;
+  margin: 16px 0;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1em;
+  margin: 16px 0;
+}
+
+h2 {
+  font-size: 2.3em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+pre {
+  margin: 16px 0;
+  padding: 8px 16px;
+  background-color: #eee;
+  white-space: pre;
+  overflow: auto;
+}
+
+ul {
+  list-style-type: square;
+}
+
+ul, ol {
+  padding-left: 25px;
+}
+
+.pagination {
+  $page-width:  32px;
+  $page-height: 28px;
 
   ul {
-    list-style-type: square;
-  }
-
-  /* Inline elements */
-
-  img, video, embed, iframe {
-    display: inline-block;
-    vertical-align: middle;
-    border-width: 0;
-  }
-
-  p > input, p > textarea {
+    padding-left: 0;
     margin: 0;
-  }
-
-  textarea {
-    resize: vertical;
-  }
-
-  /* Header */
-
-  header {
-    $header-font-size: 1.5em;
-    $header-height: 40px;
-
-    background-color: #000;
-    color: #888;
-
-    a:hover {
-      color: $anchor-color * 1.4 !important;
+    *zoom: 1;
+    &:before, &:after {
+      display: table;
+      content: "";
+    }
+    &:after {
+      clear: both;
     }
 
-    h1 {
-      font-family: "Oswald", sans-serif;
-      font-weight: 300;
-      font-size: $header-font-size;
-      text-transform: uppercase;
-      line-height: $header-height;
-      margin: 0;
+    li {
+      display: block;
+      width: $page-width;
+      height: $page-height;
+      float: left;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
 
-      a {
-        color: inherit;
-      }
-
-      a#title_link {
-        color: #fff;
-      }
-    }
-
-    #nav {
-      font-family: "Oswald", sans-serif;
-      font-weight: 300;
-      font-size: $header-font-size;
-      text-transform: uppercase;
-      line-height: $header-height;
-      text-align: right;
-      color: #888;
-
-      a {
-        display: inline-block;
-        padding: 0 20px;
-        color: inherit;
-      }
-
-      a:last-child {
-        padding-right: 0;
-      }
-
-      a.active {
-        color: #ddd;
-      }
-    }
-  }
-
-  /* Articles */
-
-  #content {
-    padding: 40px 0;
-
-    article > *:first-child {
-      margin-top: 0;
-    }
-
-    article > *:last-child {
-      margin-bottom: 0;
-    }
-
-    #sidebar {
-      h2 {
-        font-size: 1.5em;
-      }
-
-      article {
-        padding: 24px 0;
-      }
-
-      article:first-child {
-        padding-top: 0;
-      }
-
-      article:last-child {
-        padding-bottom: 0;
-      }
-    }
-
-    #articles {
-      .date {
-        #margin-bottom: 24px;
-      }
-
-      article {
-        padding: 32px 0 32px 32px;
-        border-top: 1px dashed #ddd;
+      &:first-child {
         border-left: 1px solid #ddd;
+        -webkit-border-bottom-left-radius: 2px;
+        -moz-border-bottom-left-radius:    2px;
+        -moz-border-radius-bottomleft:     2px;
+        border-bottom-left-radius:         2px;
+        -webkit-border-top-left-radius:    2px;
+        -moz-border-top-left-radius:       2px;
+        -moz-border-radius-topleft:        2px;
+        border-bottom-left-radius:          2px;
       }
 
-      article:first-child {
-        padding-top: 0;
-        border-top: none;
+      &:last-child {
+        -webkit-border-bottom-right-radius: 2px;
+        -moz-border-bottom-right-radius:    2px;
+        -moz-border-radius-bottomright:     2px;
+        border-bottom-right-radius:         2px;
+        -webkit-border-top-right-radius:    2px;
+        -moz-border-top-right-radius:       2px;
+        -moz-border-radius-topright:        2px;
+        border-bottom-right-radius:          2px;
       }
 
-      article:last-child {
-        padding-bottom: 0;
+      &.disabled a, &.disabled span {
+        color: #999;
       }
 
-      .previous_post, .next_post {
-        width: 50%;
+      &.active a, &.active span {
+        background-color: #f2f2f2;
+        color: #999;
       }
 
-      .previous_post {
-        float: left;
-        text-align: left;
-      }
-
-      .next_post {
-        float: right;
-        text-align: right;
+      a, span {
+        display: block;
+        width: $page-width;
+        height: $page-height;
+        line-height: $page-height;
       }
     }
-
-    #pagination_container {
-      margin-top: 40px;
-    }
-
-    #pagination_container .pagination, #pagination_container ul {
-      margin: 0;
-    }
-  }
-
-  /* Footer */
-
-  footer {
-    border-top: 1px solid #ddd;
-    padding: 32px 0;
-    color: #b0b0b0;
-    text-align: center;
-  }
-
-  footer > *:first-child {
-    margin-top: 0;
-  }
-
-  footer > *:last-child {
-    margin-bottom: 0;
   }
 }
 
-/* Apply responsive CSS fixes as necessary */
-@media (max-width: 767px) {
-  body {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+/* Inline elements */
+
+img, video, embed, iframe {
+  display: inline-block;
+  vertical-align: middle;
+  border-width: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+code {
+  display: inline-block;
+  padding: 0 4px;
+  background-color: #eee;
+}
+
+/* Header */
+
+header {
+  $header-font-size: 1.4em;
+  $header-height: 40px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-size: $header-font-size;
+  text-transform: uppercase;
+  line-height: $header-height;
+  background-color: #000;
+  color: #888;
+
+  a:hover {
+    color: $anchor-color * 1.4 !important;
+  }
+
+  h1 {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-transform: inherit;
+    line-height: inherit;
+    margin: 0;
+
+    a {
+      display: inline-block;
+      color: inherit;
+    }
+
+    a#title_link {
+      color: #fff;
+    }
+  }
+
+  #nav {
+    text-align: right;
+
+    a {
+      display: inline-block;
+      color: inherit;
+      padding: 0 20px;
+    }
+
+    a:last-child {
+      padding-right: 0;
+    }
+
+    a.active {
+      color: #fff;
+    }
+  }
+}
+
+/* Articles */
+
+#content {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  article > *:first-child {
+    margin-top: 0;
+  }
+
+  article > *:last-child {
+    margin-bottom: 0;
   }
 
   #sidebar {
-    display: none !important;
+    h2 {
+      font-size: 1.5em;
+    }
+
+    article {
+      padding: 24px 0;
+    }
+
+    article:first-child {
+      padding-top: 0;
+    }
+
+    article:last-child {
+      padding-bottom: 0;
+    }
   }
 
-  #content, div#header_container, div#footer_container {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+  #articles {
+    .date {
+      #margin-bottom: 24px;
+    }
+
+    article {
+      padding: 32px 0 32px 32px;
+      border-top: 1px dashed #ddd;
+      border-left: 1px solid #ddd;
+    }
+
+    article:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    article:last-child {
+      padding-bottom: 0;
+    }
+
+    .previous_post, .next_post {
+      width: 50%;
+    }
+
+    .previous_post {
+      float: left;
+      text-align: left;
+    }
+
+    .next_post {
+      float: right;
+      text-align: right;
+    }
   }
 
+  #pagination_container {
+    margin-top: 40px;
+  }
+}
+
+/* Footer */
+
+footer {
+  border-top: 1px solid #ddd;
+  padding: 32px 0;
+  color: #b0b0b0;
+  text-align: center;
+}
+
+footer > *:first-child {
+  margin-top: 0;
+}
+
+footer > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive CSS fixes */
+@media (max-width: 767px) {
   article {
     border-left: none !important;
     padding-left: 0 !important;

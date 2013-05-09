@@ -12,13 +12,3 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require "bootstrap.min"
-//= require "XRegExp"
-//= require "shCore"
-//= require "shBrushPlain"
-//= require "shBrushPython"
-
-$(document).ready(function() {
-  // syntax highlight everything
-  SyntaxHighlighter.all();
-});

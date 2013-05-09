@@ -44,7 +44,7 @@ module ApplicationHelper
       pos -= 1
     end
 
-    result.gsub!("<pre><code>", "<pre class=\"brush: plain; toolbar: false;\">")
+    result.gsub!("<pre><code>", "<pre>")
     result.gsub!("</code></pre>", "</pre>")
     result.gsub!("<h6>",  "<p>")
     result.gsub!("</h6>", "</p>")

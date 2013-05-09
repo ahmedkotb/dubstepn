@@ -36,13 +36,13 @@
     <p>
       Tags:&nbsp;
       <% for tag in post.tags %>
-        <a href="/<%= if tag.name == "home" then "" else tag.name end -%>"><span class="label label-important"><%= tag.name -%></span></a>
+        <a href="/<%= if tag.name == "home" then "" else tag.name end -%>" class="tag"><%= tag.name -%></a>
       <% end %>
     </p>
   <% end %>
 
   <% if previous_post || next_post %>
-    <div class="p">
+    <p>
       <% if previous_post %>
         <div class="previous_post">
           <a href="<%= previous_post.canonical_uri -%>">« <%= previous_post.title -%></a>
@@ -54,7 +54,7 @@
         </div>
       <% end %>
       <div class="clearfix"> </div>
-    </div>
+    </p>
   <% end %>
 
   <% if comments_mode == :full %>
