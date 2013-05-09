@@ -78,7 +78,9 @@ $stack-width: 768px;
       }
     }
   }
+}
 
+@for $i from 1 through $num-columns {
   .row > .span#{$i} {
     width: (100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width;
     *width: (100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width - 50% / ($stack-width / 1px);
@@ -94,7 +96,9 @@ $stack-width: 768px;
       *margin-left: 0;
     }
   }
+}
 
+@for $i from 1 through $num-columns {
   .row > .offset#{$i} {
     margin-left: $column-gutter-width + (100% + $column-gutter-width) * ($i / $num-columns);
     *margin-left: $column-gutter-width + (100% + $column-gutter-width) * ($i / $num-columns) - 50% / ($stack-width / 1px);
@@ -111,7 +115,9 @@ $stack-width: 768px;
       }
     }
   }
+}
 
+@for $i from 1 through $num-columns {
   @for $j from 1 through ($i - 1) {
     .span#{$i} > .span#{$j} {
       $scale_factor: 100% / ((100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width);
@@ -129,7 +135,10 @@ $stack-width: 768px;
         *margin-left: 0;
       }
     }
-
+  }
+}
+@for $i from 1 through $num-columns {
+  @for $j from 1 through ($i - 1) {
     .span#{$i} > .offset#{$j} {
       $scale_factor: 100% / ((100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width);
       margin-left: ($column-gutter-width + (100% + $column-gutter-width) * ($j / $num-columns)) * $scale_factor;
