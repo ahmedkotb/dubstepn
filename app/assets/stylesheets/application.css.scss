@@ -55,9 +55,6 @@ a.tag {
   display: inline-block;
   padding: 0px 4px;
   background-color: #b94a48;
-  -webkit-border-radius: 2px;
-  -moz-border-radius:    2px;
-  border-radius:         2px;
   color: #fff;
   font-size: 0.8em;
   font-weight: bold;
@@ -101,12 +98,51 @@ pre {
   overflow: auto;
 }
 
+.alert {
+  margin-bottom: 32px;
+  padding: 8px 16px;
+  background-color: #eee;
+}
+
 ul {
   list-style-type: square;
 }
 
 ul, ol {
   padding-left: 25px;
+}
+
+input[type=text], input[type=password], textarea {
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background-color: #fff;
+}
+
+input[type=submit] {
+  border: 1px solid #b94a48;
+  padding: 2px 8px;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: #fff;
+  background-color: #b94a48;
+  text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
+  font-weight: bold;
+}
+
+input[type=submit]:hover {
+  background-color: #b94a48 * 1.4;
+  border: 1px solid #b94a48 * 1.4;
+}
+
+label {
+  cursor: pointer;
 }
 
 .pagination {
@@ -137,25 +173,6 @@ ul, ol {
 
       &:first-child {
         border-left: 1px solid #ddd;
-        -webkit-border-bottom-left-radius: 2px;
-        -moz-border-bottom-left-radius:    2px;
-        -moz-border-radius-bottomleft:     2px;
-        border-bottom-left-radius:         2px;
-        -webkit-border-top-left-radius:    2px;
-        -moz-border-top-left-radius:       2px;
-        -moz-border-radius-topleft:        2px;
-        border-bottom-left-radius:          2px;
-      }
-
-      &:last-child {
-        -webkit-border-bottom-right-radius: 2px;
-        -moz-border-bottom-right-radius:    2px;
-        -moz-border-radius-bottomright:     2px;
-        border-bottom-right-radius:         2px;
-        -webkit-border-top-right-radius:    2px;
-        -moz-border-top-right-radius:       2px;
-        -moz-border-radius-topright:        2px;
-        border-bottom-right-radius:          2px;
       }
 
       &.disabled a, &.disabled span {

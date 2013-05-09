@@ -1,9 +1,9 @@
-body#bootstrap_override {
-  p > input, p > textarea {
-    width: 100%;
-  }
+input[type=text], textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  p > textarea {
-    height: 400px;
-  }
+textarea {
+  height: 600px;
+  box-sizing: border-box;
 }
