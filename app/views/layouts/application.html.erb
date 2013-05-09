@@ -64,17 +64,21 @@
           </div>
         </div>
         <div class="span8">
-          <% if flash[:notice] %>
-            <div class="alert">
-              <%= flash[:notice] %>
-            </div>
-          <% end %>
-          <% if flash[:error] %>
-            <div class="alert">
-              <%= flash[:error] %>
-            </div>
-          <% end %>
           <div id="articles">
+            <% if flash[:notice] %>
+              <article>
+                <div class="alert">
+                  <%= flash[:notice] %>
+                </div>
+              </article>
+            <% end %>
+            <% if flash[:error] %>
+              <article>
+                <div class="alert">
+                  <%= flash[:error] %>
+                </div>
+              </article>
+            <% end %>
             <%= yield %>
           </div>
         </div>
