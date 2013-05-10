@@ -59,7 +59,7 @@
   <% end %>
 
   <% if comments_mode == :full %>
-    <% if Rails.env.production? %>
+    <% if Rails.env.production? && !is_logged_in %>
       <div id="disqus_thread"></div>
       <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
