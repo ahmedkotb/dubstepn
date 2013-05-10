@@ -34,11 +34,21 @@ $code-background: #e9e9e9;
 
 /* Body */
 
+html {
+  height: 100%;
+}
+
 body {
-  background-color: #e2e2e2;
+  min-height: 100%;
+  *height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.9em;
   color: #333;
+
+  background-color: #000;
+  @media (max-width: 767px) {
+    background-color: #393939;
+  }
 }
 
 /* Anchors */
@@ -205,6 +215,7 @@ img, video, embed, iframe {
   display: inline-block;
   vertical-align: middle;
   border-width: 0;
+  width: 100%;
 }
 
 textarea {
@@ -222,14 +233,19 @@ code {
 
 header {
   $header-font-size: 1.4em;
-  $header-height: 40px;
+  $header-height: 48px;
   font-family: "Oswald", sans-serif;
   font-weight: 300;
   font-size: $header-font-size;
   text-transform: uppercase;
   line-height: $header-height;
-  background-color: #000;
-  color: #aaa;
+  color: #bbb;
+
+
+  padding-top: 32px;
+  @media (max-width: 1210px) {
+    padding-top: 0;
+  }
 
   #header {
     background-color: #393939;
@@ -239,21 +255,27 @@ header {
     color: $anchor-color * 1.6 !important;
   }
 
-  h1 {
-    font-family: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-transform: inherit;
-    line-height: inherit;
-    margin: 0;
-
-    a {
-      display: inline-block;
-      color: inherit;
+  #title {
+    @media (max-width: 767px) {
+      border-bottom: 1px solid #666;
     }
 
-    a#title_link {
-      color: #fff;
+    h1 {
+      font-family: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+      line-height: inherit;
+      margin: 0;
+
+      a {
+        display: inline-block;
+        color: inherit;
+      }
+
+      a#title_link {
+        color: #fff;
+      }
     }
   }
 
@@ -278,10 +300,14 @@ header {
 
 /* Articles */
 
+#content-container {
+  background-color: #ddd;
+}
+
 #content {
   background-color: #fff;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 
   article > *:first-child {
     margin-top: 0;
@@ -345,13 +371,18 @@ header {
 /* Footer */
 
 footer {
-  background-color: #000;
   color: #888;
   text-align: center;
 
+  padding-bottom: 32px;
+  @media (max-width: 1210px) {
+    padding-bottom: 0;
+  }
+
   #footer {
-    padding: 16px 0;
     background-color: #393939;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   #footer > *:first-child {

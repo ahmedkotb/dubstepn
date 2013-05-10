@@ -1,4 +1,16 @@
 $(document).ready(() ->
+  # set a resize handler on an element, but debounced
+  debounced_resize = (element, callback) ->
+    timeout = null
+    $(element).resize(() ->
+      if timeout?
+        clearInterval(timeout)
+      timeout = setTimeout((() ->
+        callback()
+        timeout = null
+      ), 300)
+    )
+
   # make all images, iframes, etc. full-width
   make_full_width = (e) ->
     # get the aspect ratio
@@ -14,7 +26,7 @@ $(document).ready(() ->
       inner_height = Math.round(inner_width / aspect_ratio)
       $(e).width(inner_width)
       $(e).height(inner_height)
-    $(window).resize(on_resize)
+    debounced_resize(window, on_resize)
     on_resize()
   $("article > p > iframe").load(() -> make_full_width(this))
   $("article > p > video").load(() -> make_full_width(this))
