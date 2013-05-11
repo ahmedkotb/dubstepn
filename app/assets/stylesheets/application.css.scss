@@ -136,8 +136,7 @@ input[type=text], input[type=password], textarea {
 }
 
 input[type=submit] {
-  border: 1px solid #b94a48;
-  padding: 2px 8px;
+  padding: 3px 9px;
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
@@ -146,11 +145,11 @@ input[type=submit] {
   background-color: #b94a48;
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
   font-weight: bold;
+  border-style: none;
 }
 
 input[type=submit]:hover {
   background-color: #b94a48 * 1.4;
-  border: 1px solid #b94a48 * 1.4;
 }
 
 label {
