@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible :title, :content, :content_html, :is_public, :sort_id
+  attr_accessible :title, :content, :content_html, :javascript, :css, :is_public, :sort_id
   has_and_belongs_to_many :tags
   has_many :children, :class_name => "Post", :foreign_key => "parent_id"
   belongs_to :parent, :class_name => "Post"

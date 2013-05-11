@@ -160,6 +160,8 @@ class HomeController < ApplicationController
     post.title = params[:post_title]
     post.content = params[:post_content]
     post.content_html = markdown(post.content)
+    post.javascript = params[:post_javascript]
+    post.css = params[:post_css]
     post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| Tag.get_tag_by_name(name) }
     post.is_public = !!params[:post_is_public]
     post.save!

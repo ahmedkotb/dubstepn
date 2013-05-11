@@ -9,6 +9,19 @@
   #   title_link      boolean
 %>
 
+<% content_for :head do %>
+  <% if post.javascript != "" %>
+    <script type="text/javascript">
+      <%= raw(post.javascript) %>
+    </script>
+  <% end %>
+  <% if post.css != "" %>
+    <style type="text/css">
+      <%= raw(post.css) %>
+    </style>
+  <% end %>
+<% end %>
+
 <article>
   <% if title_link %>
     <h2><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></h2>

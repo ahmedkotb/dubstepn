@@ -14,7 +14,13 @@
       <input type="text" placeholder="Title" name="post_title" class="input-xlarge" value="<%= @post.title %>" />
     </p>
     <p>
-      <textarea placeholder="Content" name="post_content"><%= @post.content %></textarea>
+      <textarea placeholder="Content" name="post_content" id="post_content"><%= @post.content %></textarea>
+    </p>
+    <p>
+      <textarea placeholder="JavaScript" name="post_javascript"><%= @post.javascript %></textarea>
+    </p>
+    <p>
+      <textarea placeholder="CSS" name="post_css"><%= @post.css %></textarea>
     </p>
     <p>
       <input type="text" placeholder="Tags" name="post_tags" value="<%= @post.tags.map { |tag| tag.name }.join(", ") %>" />

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823080432) do
+ActiveRecord::Schema.define(:version => 20130511202731) do
 
   create_table "posts", :force => true do |t|
     t.text     "title",        :null => false
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(:version => 20120823080432) do
     t.datetime "updated_at",   :null => false
     t.text     "content_html", :null => false
     t.integer  "sort_id",      :null => false
+    t.text     "javascript",   :null => false
+    t.text     "css",          :null => false
   end
 
   create_table "posts_tags", :id => false, :force => true do |t|
@@ -29,9 +31,9 @@ ActiveRecord::Schema.define(:version => 20120823080432) do
   end
 
   create_table "tags", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string    "name",       :null => false
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
 end
