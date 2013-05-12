@@ -55,20 +55,18 @@
   <% end %>
 
   <% if previous_post || next_post %>
-    <p>
-      <div class="row">
-        <% if previous_post %>
-          <div class="span6 previous_post">
-            <a href="<%= previous_post.canonical_uri -%>">« <%= previous_post.title -%></a>
-          </div>
-        <% end %>
-        <% if next_post %>
-          <div class="span6 next_post <%= if previous_post then "" else "offset6" end -%>">
-            <a href="<%= next_post.canonical_uri -%>"><%= next_post.title -%> »</a>
-          </div>
-        <% end %>
-      </div>
-    </p>
+    <div class="row p">
+      <% if previous_post %>
+        <div class="span6 previous_post">
+          <a href="<%= previous_post.canonical_uri -%>">« <%= previous_post.title -%></a>
+        </div>
+      <% end %>
+      <% if next_post %>
+        <div class="span6 next_post <%= if previous_post then "" else "offset6" end -%>">
+          <a href="<%= next_post.canonical_uri -%>"><%= next_post.title -%> »</a>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 
   <% if comments_mode == :full %>
