@@ -263,7 +263,6 @@ private
       for post in posts
         rss << "  <entry>\r\n"
         rss << "    <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
-        rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
         rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "\" />\r\n"
         rss << "    <id>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</id>\r\n"
         rss << "    <updated>" + post.created_at.to_datetime.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
