@@ -212,7 +212,7 @@ label {
 
 /* Inline elements */
 
-img, video, embed, iframe {
+article > p > img, article > p > video, article > p > embed, article > p > iframe {
   display: inline-block;
   vertical-align: middle;
   border-width: 0;
