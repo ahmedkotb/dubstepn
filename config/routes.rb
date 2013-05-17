@@ -11,8 +11,10 @@ Dubstepn::Application.routes.draw do
   # indexing and syndication
   get "/robots.txt" => "home#robots"
   get "/sitemap" => "home#sitemap"
+  get "/rss/home" => redirect("/rss")
   get "/rss" => "home#feed", :type => :rss
   get "/rss/:tag" => "home#feed", :type => :rss, :format => false
+  get "/atom/home" => redirect("/atom")
   get "/atom" => "home#feed", :type => :atom
   get "/atom/:tag" => "home#feed", :type => :atom, :format => false
 
@@ -45,6 +47,7 @@ Dubstepn::Application.routes.draw do
   get "/feeds/posts/default" => "home#blogger_feed"
 
   # filters
+  get "/home" => redirect("/")
   get "/:tag/:page" => "home#index", :format => false
   get "/*tag" => "home#index", :page => "1", :format => false # catch-all
 end
