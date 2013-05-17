@@ -223,12 +223,12 @@ private
     render "404", :status => 404
   end
 
-  def render_feed(type, tag)
-    tag ||= "home"
+  def render_feed(type, tag_name)
+    tag_name ||= "home"
     last_modified_date = Post.order("updated_at DESC").first.try(:created_at).try(:to_datetime) || DateTime.now
     case type
     when :rss
-      tag = Tag.where(:name => tag).first
+      tag = Tag.where(:name => tag_name).first
       if !tag
         return render_404
       end
@@ -240,7 +240,11 @@ private
       rss << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "</description>\r\n"
       rss << "    <link>http://" + APP_HOST.encode(:xml => :text) + "/</link>\r\n"
       rss << "    <pubDate>" + last_modified_date.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
-      rss << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+      if tag.name == "home"
+        rss << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+      else
+        rss << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss/" + tag.name + "\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+      end
       for post in posts
         rss << "    <item>\r\n"
         rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
@@ -254,7 +258,7 @@ private
       rss << "</rss>\r\n"
       return render :xml => rss
     when :atom
-      tag = Tag.where(:name => tag).first
+      tag = Tag.where(:name => tag_name).first
       if !tag
         return render_404
       end
@@ -263,7 +267,11 @@ private
       rss << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"
       rss << "  <title>Stephan Boyer</title>\r\n"
       rss << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "</subtitle>\r\n"
-      rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+      if tag.name == "home"
+        rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+      else
+        rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom/" + tag.name + "\" rel=\"self\" />\r\n"
+      end
       rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/\" />\r\n"
       rss << "  <id>http://" + APP_HOST.encode(:xml => :text) + "/</id>\r\n"
       rss << "  <updated>" + last_modified_date.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
