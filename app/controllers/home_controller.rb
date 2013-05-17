@@ -93,7 +93,7 @@ class HomeController < ApplicationController
   end
 
   def feed
-    return render_feed(params[:type].to_sym)
+    return render_feed(params[:type].to_sym, params[:tag])
   end
 
   def blogger_feed
@@ -223,11 +223,15 @@ private
     render "404", :status => 404
   end
 
-  def render_feed(type)
+  def render_feed(type, tag)
+    tag ||= "home"
     last_modified_date = Post.order("updated_at DESC").first.try(:created_at).try(:to_datetime) || DateTime.now
     case type
     when :rss
-      tag = Tag.where(:name => "home").first
+      tag = Tag.where(:name => tag).first
+      if !tag
+        return render_404
+      end
       posts = tag.posts.where(:is_public => true).order("sort_id DESC")
       rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       rss << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
@@ -250,7 +254,10 @@ private
       rss << "</rss>\r\n"
       return render :xml => rss
     when :atom
-      tag = Tag.where(:name => "home").first
+      tag = Tag.where(:name => tag).first
+      if !tag
+        return render_404
+      end
       posts = tag.posts.where(:is_public => true).order("sort_id DESC")
       rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       rss << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"

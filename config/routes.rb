@@ -12,7 +12,9 @@ Dubstepn::Application.routes.draw do
   get "/robots.txt" => "home#robots"
   get "/sitemap" => "home#sitemap"
   get "/rss" => "home#feed", :type => :rss
+  get "/rss/:tag" => "home#feed", :type => :rss, :format => false
   get "/atom" => "home#feed", :type => :atom
+  get "/atom/:tag" => "home#feed", :type => :atom, :format => false
 
   # admin panel
   get "/admin" => "home#admin"
