@@ -290,6 +290,7 @@ header {
 
   #nav {
     text-align: right;
+
     @media (max-width: 767px) {
       font-size: $header-font-size / 2;
     }
@@ -298,6 +299,11 @@ header {
       display: inline-block;
       color: inherit;
       padding: 0 20px;
+      @media (max-width: 767px) {
+        & {
+          padding: 0 5px;
+        }
+      }
       &:hover {
         color: $anchor-hover-color;
       }
