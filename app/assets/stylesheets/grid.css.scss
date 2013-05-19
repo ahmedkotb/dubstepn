@@ -5,18 +5,10 @@
 /* A container (and its padding) will not grow larger than this width. */
 $container-max-width: 1210px;
 
-/* The horizontal padding around containers. */
-$container-gutter: 32px;
-
 /* Add the "container" class to a block element (e.g., a div) to create a fluid container. */
 .container {
   width: 100%;
   max-width: $container-max-width;
-  padding-left:  $container-gutter;
-  padding-right: $container-gutter;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing:    border-box;
-  box-sizing:         border-box;
   margin-left:  auto;
   margin-right: auto;
 }

@@ -48,6 +48,10 @@ body {
   color: #333;
 }
 
+.container-spacer {
+  padding: 0 4%;
+}
+
 /* Anchors */
 
 a {
@@ -422,11 +426,11 @@ footer {
     }
   }
 
-  #footer > *:first-child {
+  #footer > .container-spacer > *:first-child {
     margin-top: 0;
   }
 
-  #footer > *:last-child {
+  #footer > .container-spacer > *:last-child {
     margin-bottom: 0;
   }
 }
