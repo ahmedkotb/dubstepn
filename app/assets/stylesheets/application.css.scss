@@ -165,51 +165,49 @@ label {
   cursor: pointer;
 }
 
-.pagination {
-  $page-width:  32px;
-  $page-height: 28px;
+ul.pagination {
+  $page-link-width:  32px;
+  $page-link-height: 28px;
 
-  ul {
-    padding-left: 0;
-    margin: 0;
-    *zoom: 1;
-    &:before, &:after {
-      display: table;
-      content: "";
-    }
-    &:after {
-      clear: both;
+  padding-left: 0;
+  margin: 0 auto;
+  *zoom: 1;
+  &:before, &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+
+  li {
+    display: block;
+    width: $page-link-width;
+    height: $page-link-height;
+    float: left;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+
+    &:first-child {
+      border-left: 1px solid #ddd;
     }
 
-    li {
+    &.disabled a, &.disabled span {
+      color: #999;
+    }
+
+    &.active a, &.active span {
+      background-color: #f2f2f2;
+      color: #999;
+    }
+
+    a, span {
       display: block;
-      width: $page-width;
-      height: $page-height;
-      float: left;
-      text-align: center;
-      border-top: 1px solid #ddd;
-      border-bottom: 1px solid #ddd;
-      border-right: 1px solid #ddd;
-
-      &:first-child {
-        border-left: 1px solid #ddd;
-      }
-
-      &.disabled a, &.disabled span {
-        color: #999;
-      }
-
-      &.active a, &.active span {
-        background-color: #f2f2f2;
-        color: #999;
-      }
-
-      a, span {
-        display: block;
-        width: $page-width;
-        height: $page-height;
-        line-height: $page-height;
-      }
+      width: $page-link-width;
+      height: $page-link-height;
+      line-height: $page-link-height;
     }
   }
 }
@@ -400,8 +398,12 @@ header {
     }
   }
 
-  #pagination_container {
+  #pagination-container {
     margin-top: 40px;
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
   }
 }
 

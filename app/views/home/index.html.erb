@@ -26,34 +26,32 @@
   <% end %>
 </div>
 
-<div id="pagination_container">
-  <div class="pagination">
-    <ul>
-      <% if @page > 1 %>
-        <% if @tag.name == "home" %>
-          <li><a href="/">&laquo;</a></li>
-        <% else %>
-          <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
-        <% end %>
+<div id="pagination-container">
+  <ul class="pagination" style="width: <%= 34 * (@pages + 2) -%>px;">
+    <% if @page > 1 %>
+      <% if @tag.name == "home" %>
+        <li><a href="/">&laquo;</a></li>
       <% else %>
-        <li class="disabled"><span>&laquo;</span></li>
+        <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
       <% end %>
-      <% for page in 1..@pages %>
-        <% if page == @page %>
-          <li class="active"><span><%= page %></span></li>
+    <% else %>
+      <li class="disabled"><span>&laquo;</span></li>
+    <% end %>
+    <% for page in 1..@pages %>
+      <% if page == @page %>
+        <li class="active"><span><%= page %></span></li>
+      <% else %>
+        <% if @tag.name == "home" && page == 1 %>
+          <li><a href="/"><%= page %></a></li>
         <% else %>
-          <% if @tag.name == "home" && page == 1 %>
-            <li><a href="/"><%= page %></a></li>
-          <% else %>
-            <li><a href="/<%= @tag.name -%>/<%= page -%>"><%= page %></a></li>
-          <% end %>
+          <li><a href="/<%= @tag.name -%>/<%= page -%>"><%= page %></a></li>
         <% end %>
       <% end %>
-      <% if @page < @pages %>
-        <li><a href="/<%= @tag.name -%>/<%= @pages -%>">&raquo;</a></li>
-      <% else %>
-        <li class="disabled"><span>&raquo;</span></li>
-      <% end %>
-    </ul>
-  </div>
+    <% end %>
+    <% if @page < @pages %>
+      <li><a href="/<%= @tag.name -%>/<%= @pages -%>">&raquo;</a></li>
+    <% else %>
+      <li class="disabled"><span>&raquo;</span></li>
+    <% end %>
+  </ul>
 </div>
