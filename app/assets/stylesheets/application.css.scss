@@ -352,6 +352,10 @@ header {
   padding-top: 32px;
   padding-bottom: 32px;
 
+  article {
+    overflow: scroll;
+  }
+
   article > *:first-child {
     margin-top: 0;
   }
