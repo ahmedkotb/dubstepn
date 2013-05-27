@@ -35,15 +35,7 @@
     </p>
   <% end %>
 
-  <% if post.title.downcase == "recent posts" %>
-    <ul>
-      <% for recent_post in @recent_posts %>
-        <li><a href="<%= recent_post.canonical_uri %>"><%= recent_post.title %></a><%= if recent_post.is_public then "" else " (hidden)" end %></li>
-      <% end %>
-    </ul>  
-  <% else %>
-    <%= raw(post.content_html) %>
-  <% end %>
+  <%= raw(post.content_html) %>
 
   <% if show_tags %>
     <p>

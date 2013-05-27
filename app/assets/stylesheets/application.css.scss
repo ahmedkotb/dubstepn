@@ -245,13 +245,21 @@ header {
   color: #bbb;
 
   padding-top: 40px;
+  background: #000 image-url("header.jpg") no-repeat center top;
   @media (max-width: 1210px) {
     padding-top: 0;
+    background: #000;
   }
 
   #header {
-    background-color: #393939;
+    -moz-box-shadow:    0px 0px 24px #000;
+    -webkit-box-shadow: 0px 0px 24px #000;
+    box-shadow:         0px 0px 24px #000;
+    background-color: #292929;
     @media (max-width: 1210px) {
+      -moz-box-shadow:    none;
+      -webkit-box-shadow: none;
+      box-shadow:         none;
       background-color: #000;
     }
   }
@@ -422,7 +430,7 @@ footer {
     padding-top: 16px;
     padding-bottom: 16px;
 
-    background-color: #393939;
+    background-color: #292929;
     @media (max-width: 1210px) {
       background-color: #000;
     }
