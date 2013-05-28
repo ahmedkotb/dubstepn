@@ -37,7 +37,7 @@
     <%= content_for :head %>
   </head>
   <body>
-    <header>
+    <div id="header-container">
       <div class="container" id="header">
         <div class="container-spacer">
           <div class="row">
@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-    </header>
+    </div>
 
     <div id="content-container">
       <div class="container" id="content">
@@ -67,18 +67,18 @@
             </div>
             <div id="articles" class="span8">
               <% if flash[:notice] %>
-                <article>
-                  <div class="alert">
+                <div class="article">
+                  <div class="notice">
                     <%= flash[:notice] %>
                   </div>
-                </article>
+                </div>
               <% end %>
               <% if flash[:error] %>
-                <article>
-                  <div class="alert">
+                <div class="article">
+                  <div class="error">
                     <%= flash[:error] %>
                   </div>
-                </article>
+                </div>
               <% end %>
               <%= yield %>
             </div>
@@ -87,12 +87,12 @@
       </div>
     </div>
 
-    <footer>
+    <div id="footer-container">
       <div class="container" id="footer">
         <div class="container-spacer">
           <p>&copy; <%= Time.new.year %> Stephan Boyer.  All rights reserved.
         </div>
       </div>
-    </footer>
+    </div>
   </body>
 </html>

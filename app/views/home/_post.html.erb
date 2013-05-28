@@ -22,7 +22,7 @@
   <% end %>
 <% end %>
 
-<article>
+<div class="article">
   <% if title_link %>
     <h2><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></h2>
   <% else %>
@@ -89,4 +89,4 @@
       <p><span class="muted">&lt;number of comments&gt;</span></p>
     <% end %>
   <% end %>
-</article>
+</div>

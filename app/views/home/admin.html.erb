@@ -1,60 +1,58 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag    "admin" %>
   <%= javascript_include_tag "admin" %>
+
+  <script>
+    var posts = <%= raw(@posts.to_json) %>;
+  </script>
 <% end %>
 
 <% content_for :title, "Admin | Stephan Boyer" %>
 
-<% require 'json' %>
+<% require "json" %>
 
-<div>
-  <article>
-    <h2><a href="/admin">Admin Panel</a></h2>
-    <p>
-      <%= form_tag("/create_post", :method => "post", :style => "display: inline;") do %>
-        <input type="submit" value="New Post" />
-      <% end %>
-      <%= form_tag("https://www.google.com/analytics/web/?pli=1#report/visitors-overview/a34278795w61806029p63320640/", :method => "get", :style => "display: inline;") do %>
-        <input type="submit" value="Google Analytics" />
-      <% end %>
-      <%= form_tag("/logout", :method => "post", :style => "display: inline;") do %>
-        <input type="submit" value="Log Out" />
-      <% end %>
-    </p>
+<div class="article">
+  <h2><a href="/admin">Admin Panel</a></h2>
+  <p>
+    <%= form_tag("/create_post", :method => "post") do %>
+      <input type="submit" value="New Post" />
+    <% end %>
+    <%= form_tag("https://www.google.com/analytics/web/?pli=1#report/visitors-overview/a34278795w61806029p63320640/", :method => "get") do %>
+      <input type="submit" value="Google Analytics" />
+    <% end %>
+    <%= form_tag("/logout", :method => "post") do %>
+      <input type="submit" value="Log Out" />
+    <% end %>
+  </p>
 
-    <h3>Posts</h3>
-    <ul id="post_list">
-      <% for post in @posts %>
-        <li>
-          <%= form_tag("/move_up", :method => "post", :style => "display: inline;") do %>
-            <input type="hidden" name="post_id" value="<%= post.id -%>" />
-            <a href="#" onclick="$(this).parent().submit();">↑</a>
-          <% end %>
-          <%= form_tag("/move_down", :method => "post", :style => "display: inline;") do %>
-            <input type="hidden" name="post_id" value="<%= post.id -%>" />
-            <a href="#" onclick="$(this).parent().submit();">↓</i></a>
-          <% end %>
-          <a href="/edit_post/<%= post.id -%>">✏</a>
-          <%= form_tag("/delete_post", :method => "post", :style => "display: inline;") do %>
-            <input type="hidden" name="post_id" value="<%= post.id -%>" />
-            <a href="#" onclick="if (window.confirm('Are you sure you want to delete &ldquo;<%= post.title -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
-          <% end %>
-          &nbsp;
-          <a href="<%= post.canonical_uri -%>"><%= post.title %></a>
-          <%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %>
-        </li>
-      <% end %>
-    </ul>
+  <h3>Posts</h3>
+  <ul id="post_list">
+    <% for post in @posts %>
+      <li>
+        <%= form_tag("/move_up", :method => "post") do %>
+          <input type="hidden" name="post_id" value="<%= post.id -%>" />
+          <a href="#" onclick="$(this).parent().submit();">↑</a>
+        <% end %>
+        <%= form_tag("/move_down", :method => "post") do %>
+          <input type="hidden" name="post_id" value="<%= post.id -%>" />
+          <a href="#" onclick="$(this).parent().submit();">↓</i></a>
+        <% end %>
+        <a href="/edit_post/<%= post.id -%>">✏</a>
+        <%= form_tag("/delete_post", :method => "post") do %>
+          <input type="hidden" name="post_id" value="<%= post.id -%>" />
+          <a href="#" onclick="if (window.confirm('Are you sure you want to delete &ldquo;<%= post.title -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
+        <% end %>
+        &nbsp;
+        <a href="<%= post.canonical_uri -%>"><%= post.title %></a>
+        <%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %>
+      </li>
+    <% end %>
+  </ul>
 
-    <h3>Tags</h3>
-    <ul>
-      <% for tag in @tags %>
-        <li><a href="/<%= tag.name %>" class="tag"><%= tag.name %></a></li>
-      <% end %>
-    </p>
-  </article>
+  <h3>Tags</h3>
+  <ul>
+    <% for tag in @tags %>
+      <li><a href="/<%= tag.name %>" class="tag"><%= tag.name %></a></li>
+    <% end %>
+  </p>
 </div>
-
-<script>
-  var posts = <%= raw(@posts.to_json) %>;
-</script>

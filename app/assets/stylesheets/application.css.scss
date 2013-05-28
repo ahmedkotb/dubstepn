@@ -119,8 +119,7 @@ pre {
   max-height: 600px;
 }
 
-.alert {
-  margin-bottom: 32px;
+.notice, .error {
   padding: 16px 24px;
   background-color: #eee;
 }
@@ -214,7 +213,7 @@ ul.pagination {
 
 /* Inline elements */
 
-article > p > img, article > p > video, article > p > embed, article > p > iframe {
+.article > p > img, .article > p > video, .article > p > embed, .article > p > iframe {
   display: inline-block;
   vertical-align: middle;
   border-width: 0;
@@ -232,9 +231,13 @@ code {
   background-color: $code-background;
 }
 
+form {
+  display: inline;
+}
+
 /* Header */
 
-header {
+#header-container {
   $header-font-size: 1.4em;
   $header-height: 48px;
   font-family: "Oswald", sans-serif;
@@ -262,80 +265,80 @@ header {
       box-shadow:         none;
       background-color: #000;
     }
-  }
 
-  #title {
-    @media (max-width: 767px) {
-      border-bottom: 1px solid #666;
+    #title {
+      @media (max-width: 767px) {
+        border-bottom: 1px solid #666;
+      }
+
+      h1 {
+        font-family: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+        text-transform: inherit;
+        line-height: inherit;
+        margin: 0;
+
+        position: relative;
+        top: 0.05em;
+        left: 0;
+
+        a {
+          display: inline-block;
+          color: inherit;
+          &:hover {
+            color: $anchor-hover-color;
+          }
+        }
+
+        a#title_link {
+          color: #fff;
+          &:hover {
+            color: $anchor-hover-color;
+          }
+        }
+      }
     }
 
-    h1 {
-      font-family: inherit;
-      font-weight: inherit;
-      font-size: inherit;
-      text-transform: inherit;
-      line-height: inherit;
-      margin: 0;
+    #nav {
+      text-align: right;
 
-      position: relative;
-      top: 0.05em;
-      left: 0;
+      @media (max-width: 767px) {
+        font-size: $header-font-size / 2;
+        text-align: left;
+      }
 
       a {
         display: inline-block;
         color: inherit;
+        padding: 0 20px;
+        @media (max-width: 767px) {
+          & {
+            padding: 0 5px;
+          }
+        }
         &:hover {
           color: $anchor-hover-color;
         }
+
+        position: relative;
+        top: 0.05em;
+        left: 0;
       }
 
-      a#title_link {
+      a:first-child {
+        padding-left: 0;
+      }
+
+      a:last-child {
+        padding-right: 0;
+      }
+
+      a.active {
         color: #fff;
         &:hover {
           color: $anchor-hover-color;
         }
-      }
-    }
-  }
-
-  #nav {
-    text-align: right;
-
-    @media (max-width: 767px) {
-      font-size: $header-font-size / 2;
-      text-align: left;
-    }
-
-    a {
-      display: inline-block;
-      color: inherit;
-      padding: 0 20px;
-      @media (max-width: 767px) {
-        & {
-          padding: 0 5px;
-        }
-      }
-      &:hover {
-        color: $anchor-hover-color;
-      }
-
-      position: relative;
-      top: 0.05em;
-      left: 0;
-    }
-
-    a:first-child {
-      padding-left: 0;
-    }
-
-    a:last-child {
-      padding-right: 0;
-    }
-
-    a.active {
-      color: #fff;
-      &:hover {
-        color: $anchor-hover-color;
       }
     }
   }
@@ -352,16 +355,16 @@ header {
   padding-top: 32px;
   padding-bottom: 32px;
 
-  article {
+  .article {
     overflow: auto;
-  }
 
-  article > *:first-child {
-    margin-top: 0;
-  }
+    & > *:first-child {
+      margin-top: 0;
+    }
 
-  article > *:last-child {
-    margin-bottom: 0;
+    & > *:last-child {
+      margin-bottom: 0;
+    }
   }
 
   #sidebar {
@@ -369,16 +372,16 @@ header {
       font-size: 1.5em;
     }
 
-    article {
+    .article {
       padding: 24px 0;
-    }
 
-    article:first-child {
-      padding-top: 0;
-    }
+      &:first-child {
+        padding-top: 0;
+      }
 
-    article:last-child {
-      padding-bottom: 0;
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
   }
 
@@ -387,18 +390,18 @@ header {
       #margin-bottom: 24px;
     }
 
-    article {
+    .article {
       padding: 32px 0;
       border-top: 1px dashed #ddd;
-    }
 
-    article:first-child {
-      padding-top: 0;
-      border-top: none;
-    }
+      &:first-child {
+        padding-top: 0;
+        border-top: none;
+      }
 
-    article:last-child {
-      padding-bottom: 0;
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
 
     .previous_post {
@@ -411,8 +414,6 @@ header {
   }
 
   #pagination-container {
-    margin-top: 40px;
-
     @media (max-width: 767px) {
       text-align: center;
     }
@@ -421,7 +422,7 @@ header {
 
 /* Footer */
 
-footer {
+#footer-container {
   color: #888;
   text-align: center;
 
@@ -438,13 +439,13 @@ footer {
     @media (max-width: 1210px) {
       background-color: #000;
     }
-  }
 
-  #footer > .container-spacer > *:first-child {
-    margin-top: 0;
-  }
+    & > .container-spacer > *:first-child {
+      margin-top: 0;
+    }
 
-  #footer > .container-spacer > *:last-child {
-    margin-bottom: 0;
+    & > .container-spacer > *:last-child {
+      margin-bottom: 0;
+    }
   }
 }

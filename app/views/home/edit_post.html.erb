@@ -5,7 +5,7 @@
 
 <% content_for :title, "Admin | Stephan Boyer" %>
 
-<article>
+<div class="article">
   <h2><a href="/admin">Admin Panel</a></h2>
 
   <%= form_tag("/edit_post", :method => "post") do %>
@@ -35,4 +35,4 @@
       <input type="submit" id="save_button" value="Save Changes" />
     </p>
   <% end %>
-</article>
+</div>

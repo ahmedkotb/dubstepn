@@ -20,13 +20,11 @@
   <% end %>
 <% end %>
 
-<div>
-  <% for post in @posts %>
-    <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_tags => true, :show_date => true, :title_link => true } %>
-  <% end %>
-</div>
+<% for post in @posts %>
+  <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_tags => true, :show_date => true, :title_link => true } %>
+<% end %>
 
-<div id="pagination-container">
+<div id="pagination-container" class="article">
   <ul class="pagination" style="width: <%= 34 * (@pages + 2) -%>px;">
     <% if @page > 1 %>
       <% if @tag.name == "home" %>
