@@ -42,6 +42,6 @@ class Post < ActiveRecord::Base
 
   # get the canonical URI for this post
   def canonical_uri
-    return "/post/#{ self.id.to_s }/#{ URI::encode(self.title.downcase.gsub(/[^a-z0-9]/, "-").gsub(/-+/, "-").gsub(/\A-/, "").gsub(/-\Z/, "")) }"
+    return "/post/#{ self.id.to_s }/#{ URI::encode(self.title.downcase.gsub(/[\"\']/, "").gsub(/[^a-z0-9]/, "-").gsub(/-+/, "-").gsub(/\A-/, "").gsub(/-\Z/, "")) }"
   end
 end

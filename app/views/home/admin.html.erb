@@ -40,7 +40,7 @@
         <a href="/edit_post/<%= post.id -%>">✏</a>
         <%= form_tag("/delete_post", :method => "post") do %>
           <input type="hidden" name="post_id" value="<%= post.id -%>" />
-          <a href="#" onclick="if (window.confirm('Are you sure you want to delete &ldquo;<%= post.title -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
+          <a href="#" onclick="if (window.confirm('Are you sure you want to delete &ldquo;<%= post.title.gsub(/'/, {"'" => "\\'"}) -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
         <% end %>
         &nbsp;
         <a href="<%= post.canonical_uri -%>"><%= post.title %></a>

@@ -114,7 +114,7 @@ class HomeController < ApplicationController
   end
 
   def create_post_action
-    post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :is_public => false, :sort_id => 1)
+    post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :javascript => "", :css => "", :is_public => false, :sort_id => 1)
     post.tags = [Tag.get_tag_by_name("home")]
     post.sort_id = post.id
     post.save!
