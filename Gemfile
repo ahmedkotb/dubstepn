@@ -4,9 +4,12 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Databases
-gem 'pg'      # for Heroku
-gem 'sqlite3' # for archiving
-gem 'mysql2'  # for production
+group :production do
+  gem 'mysql2'
+end
+group :development, :test do
+  gem 'sqlite3'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
