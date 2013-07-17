@@ -233,63 +233,71 @@ private
         return render_404
       end
       posts = tag.posts.where(:is_public => true).order("sort_id DESC")
-      rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
-      rss << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
-      rss << "  <channel>\r\n"
-      rss << "    <title>Stephan Boyer</title>\r\n"
-      rss << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "</description>\r\n"
-      rss << "    <link>http://" + APP_HOST.encode(:xml => :text) + "/</link>\r\n"
-      rss << "    <pubDate>" + last_modified_date.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
+      xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
+      xml << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
+      xml << "  <channel>\r\n"
+      xml << "    <title>Stephan Boyer</title>\r\n"
       if tag.name == "home"
-        rss << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+        xml << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "</description>\r\n"
       else
-        rss << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss/" + tag.name + "\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+        xml << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "  Category: " + tag.name + ".</description>\r\n"
+      end
+      xml << "    <link>http://" + APP_HOST.encode(:xml => :text) + "/</link>\r\n"
+      xml << "    <pubDate>" + last_modified_date.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
+      if tag.name == "home"
+        xml << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+      else
+        xml << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss/" + tag.name + "\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
       end
       for post in posts
-        rss << "    <item>\r\n"
-        rss << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
-        rss << "      <description>" + post.summary.encode(:xml => :text) + "</description>\r\n"
-        rss << "      <link>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</link>\r\n"
-        rss << "      <guid>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</guid>\r\n"
-        rss << "      <pubDate>" + post.created_at.to_datetime.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
-        rss << "    </item>\r\n"
+        xml << "    <item>\r\n"
+        xml << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
+        xml << "      <description>" + post.summary.encode(:xml => :text) + "</description>\r\n"
+        xml << "      <link>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</link>\r\n"
+        xml << "      <guid>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</guid>\r\n"
+        xml << "      <pubDate>" + post.created_at.to_datetime.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
+        xml << "    </item>\r\n"
       end
-      rss << "  </channel>\r\n"
-      rss << "</rss>\r\n"
-      return render :xml => rss
+      xml << "  </channel>\r\n"
+      xml << "</rss>\r\n"
+      return render :xml => xml
     when :atom
       tag = Tag.where(:name => tag_name).first
       if !tag
         return render_404
       end
       posts = tag.posts.where(:is_public => true).order("sort_id DESC")
-      rss = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
-      rss << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"
-      rss << "  <title>Stephan Boyer</title>\r\n"
-      rss << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "</subtitle>\r\n"
+      xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
+      xml << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"
+      xml << "  <title>Stephan Boyer</title>\r\n"
       if tag.name == "home"
-        rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+        xml << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "</subtitle>\r\n"
       else
-        rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom/" + tag.name + "\" rel=\"self\" />\r\n"
+        xml << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "  Category: " + tag.name + ".</subtitle>\r\n"
       end
-      rss << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/\" />\r\n"
-      rss << "  <id>http://" + APP_HOST.encode(:xml => :text) + "/</id>\r\n"
-      rss << "  <updated>" + last_modified_date.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
+      if tag.name == "home"
+        xml << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+      else
+        xml << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom/" + tag.name + "\" rel=\"self\" />\r\n"
+      end
+      xml << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/\" />\r\n"
+      xml << "  <id>http://" + APP_HOST.encode(:xml => :text) + "/</id>\r\n"
+      xml << "  <updated>" + last_modified_date.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
       for post in posts
-        rss << "  <entry>\r\n"
-        rss << "    <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
-        rss << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "\" />\r\n"
-        rss << "    <id>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</id>\r\n"
-        rss << "    <updated>" + post.created_at.to_datetime.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
-        rss << "    <summary>" + post.summary.encode(:xml => :text) + "</summary>\r\n"
-        rss << "    <author>\r\n"
-        rss << "      <name>" + APP_AUTHOR.encode(:xml => :text) + "</name>\r\n"
-        rss << "      <email>" + APP_EMAIL.encode(:xml => :text) + "</email>\r\n"
-        rss << "    </author>\r\n"
-        rss << "  </entry>\r\n"
+        xml << "  <entry>\r\n"
+        xml << "    <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
+        xml << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "\" />\r\n"
+        xml << "    <id>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</id>\r\n"
+        xml << "    <updated>" + post.created_at.to_datetime.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
+        xml << "    <summary>" + post.summary.encode(:xml => :text) + "</summary>\r\n"
+        xml << "    <author>\r\n"
+        xml << "      <name>" + APP_AUTHOR.encode(:xml => :text) + "</name>\r\n"
+        xml << "      <email>" + APP_EMAIL.encode(:xml => :text) + "</email>\r\n"
+        xml << "    </author>\r\n"
+        xml << "  </entry>\r\n"
       end
-      rss << "</feed>\r\n"
-      return render :xml => rss
+      xml << "</feed>\r\n"
+      return render :xml => xml
     end
   end
 end

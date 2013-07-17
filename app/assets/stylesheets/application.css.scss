@@ -44,7 +44,7 @@ body {
   min-height: 100%;
   *height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.9em;
+  font-size: 1em;
   color: #333;
 }
 
@@ -89,18 +89,18 @@ p, ul, ol, form, table, .p {
 
 h2, h3, h4, h5, h6 {
   font-family: "Oswald", sans-serif;
-  font-weight: 400;
+  font-weight: 200;
   text-transform: uppercase;
   line-height: 1em;
   margin: 16px 0;
 }
 
 h2 {
-  font-size: 2.3em;
+  font-size: 2.1em;
 }
 
 h3 {
-  font-size: 1.5em;
+  font-size: 1.7em;
   margin-top: 48px;
 }
 
@@ -238,7 +238,7 @@ form {
 /* Header */
 
 #header-container {
-  $header-font-size: 1.4em;
+  $header-font-size: 1.3em;
   $header-height: 48px;
   font-family: "Oswald", sans-serif;
   font-weight: 300;
