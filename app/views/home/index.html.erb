@@ -1,7 +1,4 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag    "index" %>
-  <%= javascript_include_tag "index" %>
-
   <% if @tag.name == "home" %>
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.stephanboyer.com/rss" />
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="http://www.stephanboyer.com/atom" />
