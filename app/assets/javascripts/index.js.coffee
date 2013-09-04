@@ -41,5 +41,5 @@ page_init = () ->
 $(document).ready () ->
   document.addEventListener("page:change", page_init)
   document.addEventListener("page:fetch", (() ->
-    $("#loading-cover").show()
+    $(".loading-cover").css("visibility", "visible")
   ))
