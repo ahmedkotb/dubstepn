@@ -39,4 +39,4 @@ page_init = () ->
 
 # called once when the DOM is ready
 $(document).ready () ->
-  document.addEventListener("page:load", page_init)
+  document.addEventListener("page:change", page_init)
