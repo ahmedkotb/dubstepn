@@ -1,16 +1,17 @@
-$(document).ready(() ->
-  # set a resize handler on an element, but debounced
-  debounced_resize = (element, callback) ->
-    timeout = null
-    $(element).resize(() ->
-      if timeout?
-        clearInterval(timeout)
-      timeout = setTimeout((() ->
-        callback()
-        timeout = null
-      ), 300)
-    )
+# set a resize handler on an element, but debounced
+debounced_resize = (element, callback) ->
+  timeout = null
+  $(element).resize(() ->
+    if timeout?
+      clearInterval(timeout)
+    timeout = setTimeout((() ->
+      callback()
+      timeout = null
+    ), 300)
+  )
 
+# called every time a new page is loaded (see https://github.com/rails/turbolinks/)
+page_init = () ->
   # make all images, iframes, etc. full-width
   make_full_width = (e) ->
     # get the aspect ratio
@@ -32,4 +33,10 @@ $(document).ready(() ->
   $("article > p > video").load(() -> make_full_width(this))
   $("article > p > embed").load(() -> make_full_width(this))
   $("article > p > img").load(() -> make_full_width(this))
-)
+
+  # load MathJax
+  MathJax.Hub.Queue(["Typeset", MathJax.Hub])
+
+# called once when the DOM is ready
+$(document).ready () ->
+  document.addEventListener("page:load", page_init)
