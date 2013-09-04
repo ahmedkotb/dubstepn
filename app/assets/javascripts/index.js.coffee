@@ -11,7 +11,7 @@ debounced_resize = (element, callback) ->
   )
 
 # called every time a new page is loaded (see https://github.com/rails/turbolinks/)
-page_init = () ->
+page_init = (first_time) ->
   # make all images, iframes, etc. full-width
   make_full_width = (e) ->
     # get the aspect ratio
@@ -35,11 +35,13 @@ page_init = () ->
   $("article > p > img").load(() -> make_full_width(this))
 
   # load MathJax
-  MathJax.Hub.Queue(["Typeset", MathJax.Hub])
+  if !first_time
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub])
 
 # called once when the DOM is ready
 $(document).ready () ->
-  document.addEventListener("page:change", page_init)
+  page_init(true)
+  document.addEventListener("page:change", (() -> page_init(false)))
   document.addEventListener("page:fetch", (() ->
     $(".loading-cover").css("visibility", "visible")
   ))
