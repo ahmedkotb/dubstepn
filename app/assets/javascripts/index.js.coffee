@@ -40,3 +40,6 @@ page_init = () ->
 # called once when the DOM is ready
 $(document).ready () ->
   document.addEventListener("page:change", page_init)
+  document.addEventListener("page:fetch", (() ->
+    $("#loading-cover").show()
+  ))
