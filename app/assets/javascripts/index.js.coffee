@@ -45,3 +45,6 @@ $(document).ready () ->
   document.addEventListener("page:fetch", (() ->
     $(".loading-cover").css("visibility", "visible")
   ))
+  document.addEventListener("page:receive", (() ->
+    $(".loading-cover").css("visibility", "hidden")
+  ))
