@@ -30,7 +30,7 @@
                 <%= content_for :nav %>
                 <% if is_logged_in %>
                   <%= form_tag("/logout", :method => "post") do %>
-                    (<a href="/admin">admin panel</a>, <a href="#" onclick="$(this).parent().submit()">logout</a>)
+                    (<a href="/admin">admin panel</a>, <a href="#" onclick="$(this).parent().submit(); return false;">logout</a>)
                   <% end %>
                 <% end %>
               </h1>
