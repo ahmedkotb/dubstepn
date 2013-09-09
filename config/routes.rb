@@ -33,9 +33,9 @@ Dubstepn::Application.routes.draw do
   post "/logout" => "home#logout_action"
 
   # redirects
-  for r in Redirect.all
-    get r.from => redirect(r.to)
-  end
+  #for r in Redirect.all
+  #  get r.from => redirect(r.to)
+  #end
 
   # filters
   get "/home" => redirect("/")
