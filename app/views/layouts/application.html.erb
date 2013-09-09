@@ -28,10 +28,10 @@
               <h1><a href="/" id="title_link">Stephan Boyer</a> <%= content_for :nav %></h1>
             </div>
             <div id="nav" class="span8">
-              <a <%= if params[:controller] == "home" && params[:action] == "index" && (!params[:tag] || params[:tag] == "home") then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
-              </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
-              </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
-              </span><a <%= if params[:controller] == "home" && params[:action] == "index" && params[:tag] == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
+              <a <%= if !(defined? @tag_name) || !@tag_name || @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
+              </span><a <%= if (defined? @tag_name) && @tag_name == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
+              </span><a <%= if (defined? @tag_name) && @tag_name == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
+              </span><a <%= if (defined? @tag_name) && @tag_name == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
               </span><a href="/resume">Resume</a>
             </div>
           </div>

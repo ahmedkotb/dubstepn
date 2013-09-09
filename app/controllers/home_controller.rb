@@ -16,19 +16,21 @@ class HomeController < ApplicationController
   def catch_all
     # handle custom redirects
     for r in Redirect.all
-      if normalize_path(r.from) == normalize_path(params[:path])
+      if normalize_path(r.from) == normalize_path(params[:tag])
         return redirect_to r.to, :status => 301
       end
     end
 
     # assume the URL is of the form "/:tag" and render the first page for that tag
-    return render_posts_for_tag(params[:path], 1)
+    @tag_name = params[:tag]
+    return render_posts_for_tag(@tag_name, 1)
   end
 
   # render a page of the posts for a tag
   def posts_for_tag
     page = if params[:page] then Integer(params[:page], 10) else 1 end
-    return render_posts_for_tag(params[:tag], params[:page])
+    @tag_name = params[:tag]
+    return render_posts_for_tag(@tag_name, page)
   end
 
   # render a page for a particular post

@@ -35,5 +35,5 @@ Dubstepn::Application.routes.draw do
   # filters
   get "/home" => redirect("/")
   get "/:tag/:page" => "home#posts_for_tag", :format => false
-  get "/*path" => "home#catch_all", :format => false
+  get "/*tag" => "home#catch_all", :format => false
 end
