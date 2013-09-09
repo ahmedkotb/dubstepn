@@ -83,7 +83,7 @@
       <p><span class="muted">&lt;comments&gt;</span></p>
     <% end %>
   <% elsif comments_mode == :count %>
-    <% if Rails.env.production? %>
+    <% if Rails.env.production? && !is_logged_in %>
       <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %><%= post.canonical_uri %>#disqus_thread">Comments</a></p>
     <% else %>
       <p><span class="muted">&lt;number of comments&gt;</span></p>
