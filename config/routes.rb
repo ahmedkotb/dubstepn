@@ -1,6 +1,6 @@
 Dubstepn::Application.routes.draw do
   # public routes
-  root "home#index"
+  root "home#posts_for_tag"
   get "/post/:post_id/*title" => "home#post", :format => false
   get "/post/:post_id" => "home#post", :format => false
   get "/resume" => "home#resume"
@@ -32,21 +32,8 @@ Dubstepn::Application.routes.draw do
   post "/login" => "home#login_action"
   post "/logout" => "home#logout_action"
 
-  # redirects
-  begin
-    for r in Redirect.all
-      get r.from => redirect(r.to)
-    end
-  rescue
-    # if the "redirects" table isn't available (e.g. if we are rolling back the database),
-    # this will fail.  this should not be considered a fatal error, because sometimes the
-    # database is not yet accessible when this file is loaded (e.g. when precompiling assets
-    # on heroku).
-    puts "ActiveRecord::StatementInvalid occurred, continuing anyway..."
-  end
-
   # filters
   get "/home" => redirect("/")
-  get "/:tag/:page" => "home#index", :format => false
-  get "/*tag" => "home#index", :page => "1", :format => false # catch-all
+  get "/:tag/:page" => "home#posts_for_tag", :format => false
+  get "/*path" => "home#catch_all", :format => false
 end

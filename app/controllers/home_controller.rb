@@ -1,4 +1,5 @@
 include ApplicationHelper
+require 'uri'
 require 'date'
 require 'digest'
 require 'open-uri'
@@ -11,29 +12,30 @@ class HomeController < ApplicationController
   # ensure that the protocol is HTTPS when appropriate and HTTP otherwise
   before_filter :fix_protocol
 
-  def index
-    posts_per_page = 5
-    @logged_in = is_logged_in
-    @tag = nil
-    @posts = nil
-    @page = nil
-    @pages = nil
-    begin
-      @tag = Tag.where(:name => (if params[:tag] then params[:tag] else "home" end)).first!
-      posts = if @logged_in then @tag.posts else @tag.posts.where(:is_public => true) end
-      @pages = (posts.size + posts_per_page - 1) / posts_per_page
-      @page = if params[:page] then Integer(params[:page], 10) else 1 end
-      if @page < 1 || @page > @pages
-        @page = nil
-        raise
+  def catch_all
+    def normalize_path(path)
+      path = path.strip
+      if path.size == 0
+        path = "/"
       end
-      if request.fullpath == "/home/1"
-        return redirect_to "/"
+      if path[0] != "/"
+        path = "/" + path
       end
-      @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
-    rescue
+      return path
     end
-    return render_404 if !@posts || @posts.size == 0 || (@tag.name == "sidebar" && !@logged_in)
+
+    for r in Redirect.all
+      if normalize_path(r.from) == normalize_path(params[:path])
+        return redirect_to r.to, :status => 301
+      end
+    end
+
+    return render_posts_for_tag(params[:path], 1)
+  end
+
+  def posts_for_tag
+    page = if params[:page] then Integer(params[:page], 10) else 1 end
+    return render_posts_for_tag(params[:tag], params[:page])
   end
 
   def post
@@ -234,6 +236,32 @@ private
     if !is_logged_in
       return redirect_to "/login"
     end
+  end
+
+  def render_posts_for_tag(tag, page)
+    posts_per_page = 5
+    @logged_in = is_logged_in
+    @tag = nil
+    @posts = nil
+    @page = nil
+    @pages = nil
+    begin
+      @tag = Tag.where(:name => (if tag then tag else "home" end)).first!
+      posts = if @logged_in then @tag.posts else @tag.posts.where(:is_public => true) end
+      @pages = (posts.size + posts_per_page - 1) / posts_per_page
+      @page = if page then page else 1 end
+      if @page < 1 || @page > @pages
+        @page = nil
+        raise
+      end
+      if request.fullpath == "/home/1"
+        return redirect_to "/"
+      end
+      @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
+    rescue
+    end
+    return render_404 if !@posts || @posts.size == 0 || (@tag.name == "sidebar" && !@logged_in)
+    return render "index"
   end
 
   def render_404
