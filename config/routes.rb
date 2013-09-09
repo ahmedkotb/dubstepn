@@ -43,7 +43,7 @@ begin
     get "/:tag/:page" => "home#index", :format => false
     get "/*tag" => "home#index", :page => "1", :format => false # catch-all
   end
-rescue ActiveRecord::StatementInvalid
+rescue
   # if the "redirects" table isn't available (e.g. if we are rolling back the database), loading
   # this file will fail (because of line 37).  this should not be considered a fatal error,
   # because sometimes the database is not yet accessible when this file is loaded (e.g. when
