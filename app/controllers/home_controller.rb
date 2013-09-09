@@ -12,32 +12,26 @@ class HomeController < ApplicationController
   # ensure that the protocol is HTTPS when appropriate and HTTP otherwise
   before_filter :fix_protocol
 
+  # handle URLs that are not otherwise matched in routes.rb
   def catch_all
-    def normalize_path(path)
-      path = path.strip
-      if path.size == 0
-        path = "/"
-      end
-      if path[0] != "/"
-        path = "/" + path
-      end
-      return path
-    end
-
+    # handle custom redirects
     for r in Redirect.all
       if normalize_path(r.from) == normalize_path(params[:path])
         return redirect_to r.to, :status => 301
       end
     end
 
+    # assume the URL is of the form "/:tag" and render the first page for that tag
     return render_posts_for_tag(params[:path], 1)
   end
 
+  # render a page of the posts for a tag
   def posts_for_tag
     page = if params[:page] then Integer(params[:page], 10) else 1 end
     return render_posts_for_tag(params[:tag], params[:page])
   end
 
+  # render a page for a particular post
   def post
     @logged_in = is_logged_in
     @post = nil
@@ -55,11 +49,13 @@ class HomeController < ApplicationController
     end
   end
 
+  # render my resume
   def resume
     data = open("http://s3.amazonaws.com/dubstepn/resume.pdf").read
     send_data data, :type => "application/pdf", :disposition => "inline"
   end
 
+  # robots.txt
   def robots
     robots = ""
     robots << "User-agent: *\r\n"
@@ -70,6 +66,7 @@ class HomeController < ApplicationController
     return render :text => robots, :content_type => Mime::TEXT
   end
 
+  # xml sitemap
   def sitemap
     sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
     sitemap << "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\r\n"
@@ -94,20 +91,24 @@ class HomeController < ApplicationController
     return render :xml => sitemap
   end
 
+  # rss or atom feed for a particular tag
   def feed
     return render_feed(params[:type].to_sym, params[:tag])
   end
 
+  # admin page
   def admin
     @posts = Post.order("sort_id DESC").all
     @tags = Tag.all
     @redirects = Redirect.all
   end
 
+  # edit post page
   def edit_post
     @post = Post.find(params[:post_id].to_i)
   end
 
+  # create a new post
   def create_post_action
     post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :javascript => "", :css => "", :is_public => false, :sort_id => 1)
     post.tags = [Tag.get_tag_by_name("home")]
@@ -117,6 +118,7 @@ class HomeController < ApplicationController
     return redirect_to "/edit_post/" + post.id.to_s
   end
 
+  # move a post up
   def move_up_action
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("sort_id > ?", post1.sort_id).order("sort_id ASC").first
@@ -130,6 +132,7 @@ class HomeController < ApplicationController
     return redirect_to "/admin"
   end
 
+  # move a post down
   def move_down_action
     post1 = Post.find(params[:post_id].to_i)
     post2 = Post.where("sort_id < ?", post1.sort_id).order("sort_id DESC").first
@@ -143,6 +146,7 @@ class HomeController < ApplicationController
     return redirect_to "/admin"
   end
 
+  # edit the content of a post
   def edit_post_action
     if params[:post_title].strip.size == 0
       flash[:error] = "Title cannot be empty."
@@ -164,6 +168,7 @@ class HomeController < ApplicationController
     return redirect_to "/edit_post/" + params[:post_id]
   end
 
+  # delete a post
   def delete_post_action
     post = Post.find(params[:post_id].to_i)
     while !post.tags.empty?
@@ -174,6 +179,7 @@ class HomeController < ApplicationController
     return redirect_to "/admin"
   end
 
+  # create a new custom redirect
   def create_redirect_action
     if params[:redirect_from].strip.size == 0
       flash[:error] = "Original URL cannot be empty"
@@ -189,6 +195,7 @@ class HomeController < ApplicationController
     return redirect_to "/admin"
   end
 
+  # delete a custom redirect
   def delete_redirect_action
     redirect = Redirect.find(params[:redirect_id].to_i)
     redirect.destroy
@@ -196,9 +203,11 @@ class HomeController < ApplicationController
     return redirect_to "/admin"
   end
 
+  # login page
   def login
   end
 
+  # log a user in
   def login_action
     if params[:password]
       if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
@@ -211,6 +220,7 @@ class HomeController < ApplicationController
     return redirect_to "/login"
   end
 
+  # log a user out
   def logout_action
     session[:login_time] = nil
     flash[:notice] = "You are now logged out."
@@ -218,6 +228,19 @@ class HomeController < ApplicationController
   end
 
 private
+  # make sure that a path starts with a "/"
+  def normalize_path(path)
+    path = path.strip
+    if path.size == 0
+      path = "/"
+    end
+    if path[0] != "/"
+      path = "/" + path
+    end
+    return path
+  end
+
+  # make sure that the correct protocol (http vs https) is used
   def fix_protocol
     use_https = is_logged_in || ["login", "login_action"].include?(action_name)
 
@@ -232,12 +255,14 @@ private
     end
   end
 
+  # make sure the user is logged in, used as a before filter
   def require_login
     if !is_logged_in
       return redirect_to "/login"
     end
   end
 
+  # render a page with the posts for a tag
   def render_posts_for_tag(tag, page)
     posts_per_page = 5
     @logged_in = is_logged_in
@@ -264,10 +289,12 @@ private
     return render "index"
   end
 
+  # render a 404 page
   def render_404
     render "404", :status => 404
   end
 
+  # render an rss or atom feed for a tag
   def render_feed(type, tag_name)
     tag_name ||= "home"
     last_modified_date = Post.order("updated_at DESC").first.try(:created_at).try(:to_datetime) || DateTime.now
