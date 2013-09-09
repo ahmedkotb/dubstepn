@@ -4,14 +4,14 @@ require 'digest'
 require 'open-uri'
 
 class HomeController < ApplicationController
-  # these actions require the user to be logged in
-  restricted_actions = [:admin, :edit_post, :create_post_action, :move_up_action, :move_down_action, :edit_post_action, :delete_post_action, :logout_action]
-  before_filter :require_login, :only => restricted_actions
+  # whitelist of actions that are viewable to the public
+  public_actions = [:index, :post, :resume, :robots, :sitemap, :feed, :blogger_feed, :login, :login_action]
+  before_filter :require_login, :except => public_actions
 
-  # these actions are served over HTTPS instead of HTTP
-  secure_actions = restricted_actions + [:login, :login_action]
-  before_filter :secure_page, :only => secure_actions
-  before_filter :insecure_page, :except => secure_actions
+  # whitelist of actions that are served over HTTP (rather than HTTPS)
+  insecure_actions = public_actions - [:login, :login_action]
+  before_filter :secure_page, :except => insecure_actions
+  before_filter :insecure_page, :only => insecure_actions
 
   def index
     posts_per_page = 5
