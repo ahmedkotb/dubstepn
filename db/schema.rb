@@ -9,31 +9,38 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130511202731) do
+ActiveRecord::Schema.define(version: 20130909155758) do
 
-  create_table "posts", :force => true do |t|
-    t.text     "title",        :null => false
-    t.text     "content",      :null => false
-    t.boolean  "is_public",    :null => false
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.text     "content_html", :null => false
-    t.integer  "sort_id",      :null => false
-    t.text     "javascript",   :null => false
-    t.text     "css",          :null => false
+  create_table "posts", force: true do |t|
+    t.text     "title",        null: false
+    t.text     "content",      null: false
+    t.boolean  "is_public",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.text     "content_html", null: false
+    t.integer  "sort_id",      null: false
+    t.text     "javascript",   null: false
+    t.text     "css",          null: false
   end
 
-  create_table "posts_tags", :id => false, :force => true do |t|
-    t.integer "post_id", :null => false
-    t.integer "tag_id",  :null => false
+  create_table "posts_tags", id: false, force: true do |t|
+    t.integer "post_id", null: false
+    t.integer "tag_id",  null: false
   end
 
-  create_table "tags", :force => true do |t|
-    t.string    "name",       :null => false
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
+  create_table "redirects", force: true do |t|
+    t.text     "from",       null: false
+    t.text     "to",         null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

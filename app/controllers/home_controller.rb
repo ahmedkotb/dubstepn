@@ -5,7 +5,7 @@ require 'open-uri'
 
 class HomeController < ApplicationController
   # whitelist of actions that are viewable to the public
-  public_actions = [:index, :post, :resume, :robots, :sitemap, :feed, :blogger_feed, :login, :login_action]
+  public_actions = [:index, :post, :resume, :robots, :sitemap, :feed, :login, :login_action]
   before_filter :require_login, :except => public_actions
 
   # ensure that the protocol is HTTPS when appropriate and HTTP otherwise
@@ -96,17 +96,10 @@ class HomeController < ApplicationController
     return render_feed(params[:type].to_sym, params[:tag])
   end
 
-  def blogger_feed
-    if params[:alt] == "rss"
-      return redirect_to "/rss", :status => 301
-    else
-      return redirect_to "/atom", :status => 301
-    end
-  end
-
   def admin
     @posts = Post.order("sort_id DESC").all
     @tags = Tag.all
+    @redirects = Redirect.all
   end
 
   def edit_post
@@ -171,11 +164,33 @@ class HomeController < ApplicationController
 
   def delete_post_action
     post = Post.find(params[:post_id].to_i)
-    flash[:notice] = "The post entitled \"" + post.title + "\" has been deleted."
     while !post.tags.empty?
       Tag.unlink_tag_from_post(post, post.tags.first)
     end
     post.destroy
+    flash[:notice] = "The post entitled \"" + post.title + "\" has been deleted."
+    return redirect_to "/admin"
+  end
+
+  def create_redirect_action
+    if params[:redirect_from].strip.size == 0
+      flash[:error] = "Original URL cannot be empty"
+      return redirect_to "/admin"
+    end
+    if params[:redirect_to].strip.size == 0
+      flash[:error] = "New URL cannot be empty"
+      return redirect_to "/admin"
+    end
+    redirect = Redirect.create(:from => params[:redirect_from].strip, :to => params[:redirect_to].strip)
+    redirect.save!
+    flash[:notice] = "New redirect created."
+    return redirect_to "/admin"
+  end
+
+  def delete_redirect_action
+    redirect = Redirect.find(params[:redirect_id].to_i)
+    redirect.destroy
+    flash[:notice] = "The redirect has been deleted."
     return redirect_to "/admin"
   end
 

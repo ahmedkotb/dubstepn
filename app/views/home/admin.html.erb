@@ -11,9 +11,6 @@
 <div class="article">
   <h2><a href="/admin">Admin Panel</a></h2>
   <p>
-    <%= form_tag("/create_post", :method => "post") do %>
-      <input type="submit" value="New Post" />
-    <% end %>
     <%= form_tag("https://www.google.com/analytics/web/?pli=1#report/visitors-overview/a34278795w61806029p63320640/", :method => "get") do %>
       <input type="submit" value="Google Analytics" />
     <% end %>
@@ -23,33 +20,73 @@
   </p>
 
   <h3>Posts</h3>
-  <ul id="post_list">
-    <% for post in @posts %>
-      <li>
-        <%= form_tag("/move_up", :method => "post") do %>
-          <input type="hidden" name="post_id" value="<%= post.id -%>" />
-          <a href="#" onclick="$(this).parent().submit();">↑</a>
-        <% end %>
-        <%= form_tag("/move_down", :method => "post") do %>
-          <input type="hidden" name="post_id" value="<%= post.id -%>" />
-          <a href="#" onclick="$(this).parent().submit();">↓</i></a>
-        <% end %>
-        <a href="/edit_post/<%= post.id -%>">✏</a>
-        <%= form_tag("/delete_post", :method => "post") do %>
-          <input type="hidden" name="post_id" value="<%= post.id -%>" />
-          <a href="#" onclick="if (window.confirm('Are you sure you want to delete &ldquo;<%= post.title.gsub(/'/, {"'" => "\\'"}) -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
-        <% end %>
-        &nbsp;
-        <a href="<%= post.canonical_uri -%>"><%= post.title %></a>
-        <%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %>
-      </li>
-    <% end %>
-  </ul>
-
-  <h3>Tags</h3>
-  <ul>
-    <% for tag in @tags %>
-      <li><a href="/<%= tag.name %>" class="tag"><%= tag.name %></a></li>
+  <p>
+    <%= form_tag("/create_post", :method => "post") do %>
+      <input type="submit" value="New Post" />
     <% end %>
   </p>
+  <% if @posts.size > 0 %>
+    <ul>
+      <% for post in @posts %>
+        <li>
+          <%= form_tag("/move_up", :method => "post") do %>
+            <input type="hidden" name="post_id" value="<%= post.id -%>" />
+            <a href="#" onclick="$(this).parent().submit();">↑</a>
+          <% end %>
+          <%= form_tag("/move_down", :method => "post") do %>
+            <input type="hidden" name="post_id" value="<%= post.id -%>" />
+            <a href="#" onclick="$(this).parent().submit();">↓</i></a>
+          <% end %>
+          <a href="/edit_post/<%= post.id -%>">✏</a>
+          <%= form_tag("/delete_post", :method => "post") do %>
+            <input type="hidden" name="post_id" value="<%= post.id -%>" />
+            <a href="#" onclick="if (window.confirm('Are you sure you want to delete post &ldquo;<%= post.title.gsub(/'/, {"'" => "\\'"}) -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
+          <% end %>
+          &nbsp;
+          <a href="<%= post.canonical_uri -%>"><%= post.title %></a>
+          <%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no posts.</p>
+  <% end %>
+
+  <h3>Tags</h3>
+  <% if @tags.size > 0 %>
+    <ul>
+      <% for tag in @tags %>
+        <li><a href="/<%= tag.name %>" class="tag"><%= tag.name %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no tags.</p>
+  <% end %>
+
+  <h3>Redirects</h3>
+  <p>
+    <%= form_tag("/create_redirect", :method => "post", :onsubmit => "var from = prompt('Original URL (e.g. /unicycle):'); if (from == null) { return false; } var to = prompt('New URL (e.g. /post/1/unicycle):'); if (to == null) { return false; } $('#redirect_from').val(from); $('#redirect_to').val(to); return true;") do %>
+      <input type="hidden" name="redirect_from" id="redirect_from" />
+      <input type="hidden" name="redirect_to" id="redirect_to" />
+      <input type="submit" value="New Redirect" />
+    <% end %>
+  </p>
+  <% if @redirects.size > 0 %>
+    <ul>
+      <% for redirect in @redirects %>
+        <li>
+          <%= form_tag("/delete_redirect", :method => "post") do %>
+            <input type="hidden" name="redirect_id" value="<%= redirect.id -%>" />
+            <a href="#" onclick="if (window.confirm('Are you sure you want to delete redirect &ldquo;<%= redirect.from.gsub(/'/, {"'" => "\\'"}) -%>&rdquo; -> &ldquo;<%= redirect.to.gsub(/'/, {"'" => "\\'"}) -%>&rdquo;?')) { $(this).parent().submit(); }">✗</a>
+          <% end %>
+          &nbsp;
+          <a href="<%= redirect.from %>"><%= redirect.from %></a>
+          ->
+          <a href="<%= redirect.to %>"><%= redirect.to %></a>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no redirects.</p>
+  <% end %>
 </div>

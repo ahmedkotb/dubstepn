@@ -2,7 +2,7 @@ An open source blog and blogging system built on the [Ruby on Rails](http://ruby
 
 You are welcome to use this software for your own purposes subject to the MIT license, reproduced at the end of this document.  If your blog is powered by this system, I recommend you change the visual styles to distinguish your blog from mine.
 
-Installation follows the typical procedure for a Ruby on Rails application.  You will want to adjust `config/routes.rb` to suite your purposes.
+Installation follows the typical procedure for a Ruby on Rails application.
 
 Copyright (C) 2013 Stephan Boyer
 

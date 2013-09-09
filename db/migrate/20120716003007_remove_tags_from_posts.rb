@@ -4,6 +4,7 @@ class RemoveTagsFromPosts < ActiveRecord::Migration
   end
 
   def down
-    add_column :posts, :tags, :text, :null => false
+    add_column :posts, :tags, :text
+    change_column :posts, :tags, :text, :null => false
   end
 end
