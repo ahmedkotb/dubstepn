@@ -8,10 +8,8 @@ class HomeController < ApplicationController
   public_actions = [:index, :post, :resume, :robots, :sitemap, :feed, :blogger_feed, :login, :login_action]
   before_filter :require_login, :except => public_actions
 
-  # whitelist of actions that are served over HTTP (rather than HTTPS)
-  insecure_actions = public_actions - [:login, :login_action]
-  before_filter :secure_page, :except => insecure_actions
-  before_filter :insecure_page, :only => insecure_actions
+  # ensure that the protocol is HTTPS when appropriate and HTTP otherwise
+  before_filter :fix_protocol
 
   def index
     posts_per_page = 5
@@ -203,15 +201,17 @@ class HomeController < ApplicationController
   end
 
 private
-  def secure_page
-    if Rails.env.production? && request.protocol != "https://"
-      return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
-    end
-  end
+  def fix_protocol
+    use_https = is_logged_in || ["login", "login_action"].include?(action_name)
 
-  def insecure_page
-    if Rails.env.production? && request.protocol != "http://"
-      return redirect_to "http://#{request.url[(request.protocol.size)..(-1)]}"
+    if Rails.env.production?
+      if use_https && request.protocol != "https://"
+        return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
+      end
+
+      if !use_https && request.protocol != "http://"
+        return redirect_to "http://#{request.url[(request.protocol.size)..(-1)]}"
+      end
     end
   end
 
