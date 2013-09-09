@@ -6,7 +6,7 @@ require 'open-uri'
 
 class HomeController < ApplicationController
   # whitelist of actions that are viewable to the public
-  public_actions = [:index, :post, :resume, :robots, :sitemap, :feed, :login, :login_action]
+  public_actions = [:catch_all, :posts_for_tag, :post, :resume, :robots, :sitemap, :feed, :login, :login_action]
   before_filter :require_login, :except => public_actions
 
   # ensure that the protocol is HTTPS when appropriate and HTTP otherwise
