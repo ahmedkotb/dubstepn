@@ -134,7 +134,7 @@ module ApplicationHelper
 
       # try to fetch the URL
       begin
-        uri = URI.parse(full_url)
+        uri = URI.parse(CGI.unescapeHTML(full_url))
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == "https"
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
