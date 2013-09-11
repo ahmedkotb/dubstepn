@@ -10,21 +10,19 @@
 
 <div class="article">
   <h2><a href="/admin">Admin Panel</a></h2>
-  <p>
-    <%= form_tag("https://www.google.com/analytics/web/?pli=1#report/visitors-overview/a34278795w61806029p63320640/", :method => "get") do %>
-      <input type="submit" value="Google Analytics" />
-    <% end %>
+  <div class="p">
+    <a href="https://www.google.com/analytics/web/?pli=1#report/visitors-overview/a34278795w61806029p63320640/" class="button-link">Google Analytics</a>
     <%= form_tag("/logout", :method => "post") do %>
       <input type="submit" value="Log Out" />
     <% end %>
-  </p>
+  </div>
 
   <h3>Posts</h3>
-  <p>
+  <div class="p">
     <%= form_tag("/create_post", :method => "post") do %>
       <input type="submit" value="New Post" />
     <% end %>
-  </p>
+  </div>
   <% if @posts.size > 0 %>
     <ul>
       <% for post in @posts %>
@@ -64,13 +62,13 @@
   <% end %>
 
   <h3>Redirects</h3>
-  <p>
+  <div class="p">
     <%= form_tag("/create_redirect", :method => "post", :onsubmit => "var from = prompt('Original URL (e.g. /unicycle):'); if (from == null) { return false; } var to = prompt('New URL (e.g. /post/1/unicycle):'); if (to == null) { return false; } $('#redirect_from').val(from); $('#redirect_to').val(to); return true;") do %>
       <input type="hidden" name="redirect_from" id="redirect_from" />
       <input type="hidden" name="redirect_to" id="redirect_to" />
       <input type="submit" value="New Redirect" />
     <% end %>
-  </p>
+  </div>
   <% if @redirects.size > 0 %>
     <ul>
       <% for redirect in @redirects %>

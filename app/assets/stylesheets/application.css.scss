@@ -139,40 +139,6 @@ ul, ol {
   padding-left: 25px;
 }
 
-input[type=text], input[type=password], textarea {
-  border: 1px solid #ddd;
-  padding: 2px 8px;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-  background-color: #fff;
-}
-
-input[type=submit] {
-  padding: 3px 9px;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: #fff;
-  background-color: #b94a48;
-  text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
-  font-weight: bold;
-  border-style: none;
-}
-
-input[type=submit]:hover {
-  background-color: #b94a48 * 1.4;
-}
-
-input {
-  height: 27px;
-  vertical-align: middle;
-  box-sizing: border-box;
-}
-
 label {
   cursor: pointer;
 }
@@ -233,7 +199,45 @@ ul.pagination {
   width: 100%;
 }
 
+input[type=text], input[type=password], textarea {
+  display: inline-block;
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background-color: #fff;
+}
+
+input[type=submit], .button-link {
+  display: inline-block;
+  padding: 3px 9px;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: #fff;
+  background-color: #b94a48;
+  text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
+  font-weight: bold;
+  border-style: none;
+
+  &:hover {
+    background-color: #b94a48 * 1.4;
+    color: #fff;
+  }
+}
+
+input, .button-link {
+  height: 27px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
 textarea {
+  display: inline-block;
   resize: vertical;
 }
 
