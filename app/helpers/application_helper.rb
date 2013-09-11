@@ -134,7 +134,7 @@ module ApplicationHelper
 
       # try to fetch the URL
       begin
-        uri = URI.parse(CGI.unescapeHTML(full_url))
+        uri = URI.parse(full_url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == "https"
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -156,6 +156,7 @@ module ApplicationHelper
         new_urls += res.body.scan(/\<a.*href\=\"([^"]*)\".*\>[^<]*\<\/a\>/).map { |result| result[0] }
         new_urls += res.body.scan(/\<a.*href\=\'([^']*)\'.*\>[^<]*\<\/a\>/).map { |result| result[0] }
         for new_url in new_urls
+          new_url = CGI.unescapeHTML(new_url)
           if new_url == url
             next
           end
