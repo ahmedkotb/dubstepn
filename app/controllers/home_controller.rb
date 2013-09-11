@@ -53,7 +53,7 @@ class HomeController < ApplicationController
 
   # render my resume
   def resume
-    data = open("http://s3.amazonaws.com/dubstepn/resume.pdf").read
+    data = open(APP_RESUME_URL).read
     send_data data, :type => "application/pdf", :disposition => "inline"
   end
 
@@ -310,7 +310,7 @@ private
       xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       xml << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
       xml << "  <channel>\r\n"
-      xml << "    <title>Stephan Boyer</title>\r\n"
+      xml << "    <title>" + APP_TITLE + "</title>\r\n"
       if tag.name == "home"
         xml << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "</description>\r\n"
       else
@@ -343,7 +343,7 @@ private
       posts = tag.posts.where(:is_public => true).order("sort_id DESC")
       xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       xml << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"
-      xml << "  <title>Stephan Boyer</title>\r\n"
+      xml << "  <title>" + APP_TITLE + "</title>\r\n"
       if tag.name == "home"
         xml << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "</subtitle>\r\n"
       else

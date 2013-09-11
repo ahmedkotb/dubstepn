@@ -49,12 +49,12 @@
   <% if previous_post || next_post %>
     <div class="row p">
       <% if previous_post %>
-        <div class="span6 previous_post">
+        <div class="span6 previous-post">
           <a href="<%= previous_post.canonical_uri -%>">« <%= previous_post.title -%></a>
         </div>
       <% end %>
       <% if next_post %>
-        <div class="span6 next_post <%= if previous_post then "" else "offset6" end -%>">
+        <div class="span6 next-post <%= if previous_post then "" else "offset6" end -%>">
           <a href="<%= next_post.canonical_uri -%>"><%= next_post.title -%> »</a>
         </div>
       <% end %>

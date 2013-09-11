@@ -3,9 +3,11 @@ require 'tempfile'
 module ApplicationHelper
   # metadata used in various places
   APP_DESCRIPTION = "Computer science, software engineering, math, and music."
+  APP_TITLE = "Stephan Boyer"
   APP_AUTHOR = "Stephan Boyer"
   APP_EMAIL = "boyers@mit.edu"
   APP_HOST = "www.stephanboyer.com"
+  APP_RESUME_URL = "http://s3.amazonaws.com/dubstepn/resume.pdf"
 
   def markdown(s)
     file = Tempfile.new "markdown"
