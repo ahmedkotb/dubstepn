@@ -1,6 +1,6 @@
 # called every time a new page is loaded (see https://github.com/rails/turbolinks/)
 page_init = (first_time) ->
-  # make a particular element full-width
+  # make a particular element full-width such that aspect ratio is preserved
   make_full_width = (e) ->
     # get the aspect ratio
     if $(e).attr("width")? and $(e).attr("height")?
@@ -24,7 +24,7 @@ page_init = (first_time) ->
         ), 300)
       )
 
-    # make the element full-width
+    # make the element full-width according to the aspect ratio computed above
     on_resize = () ->
       outer_width = $(e).parent().innerWidth()
       outer_height = Math.round(outer_width / aspect_ratio)
@@ -34,7 +34,7 @@ page_init = (first_time) ->
     # fire the callback on resize
     debounced_resize(window, on_resize)
 
-  # make all images, iframes, etc. full-width
+  # make all youtube videos full-width
   $(".article iframe[src^='http://www.youtube.com']").load(() -> make_full_width(this))
 
   # load MathJax
