@@ -212,7 +212,7 @@ class HomeController < ApplicationController
   # log a user in
   def login_action
     if params[:password]
-      if Digest::MD5.hexdigest(params[:password]) == "06b56586df6e470347ec246394d07172"
+      if Digest::SHA256.hexdigest(params[:password]) == "d1304118ec51d6913a1f98d926b1963fdc411b424e7b1ffd5fe1f7d4a672b449"
         session[:login_time] = DateTime.now
         flash[:notice] = "You are now logged in."
         return redirect_to "/admin"
