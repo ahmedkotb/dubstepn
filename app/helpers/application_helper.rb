@@ -1,5 +1,4 @@
-require 'net/http'
-require 'socket'
+require 'net/https'
 require 'tempfile'
 
 module ApplicationHelper
@@ -129,18 +128,17 @@ module ApplicationHelper
       if full_url.start_with?("/")
         full_url = APP_HOST + full_url
       end
-      if !full_url.start_with?("http://")
+      if !full_url.start_with?("http://") && !full_url.start_with?("https://")
         full_url = "http://" + full_url
       end
 
       # try to fetch the URL
       begin
-        uri = URI(full_url)
-        res = nil
-        Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == "https", :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
-          request = Net::HTTP::Get.new(uri)
-          res = http.request(request)
-        end
+        uri = URI.parse(full_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == "https"
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        res = http.get(uri.request_uri)
       rescue Exception => e
         visited.push([url, referrer, e.to_s])
         next
