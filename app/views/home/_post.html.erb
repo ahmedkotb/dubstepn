@@ -9,18 +9,13 @@
   #   title_link      boolean
 %>
 
-<% if post.javascript != "" %>
-  <script type="text/javascript">
-    <%= raw(post.javascript) %>
-  </script>
-<% end %>
-<% if post.css != "" %>
-  <style type="text/css">
-    <%= raw(post.css) %>
-  </style>
-<% end %>
-
 <div class="article">
+  <% if post.css != "" %>
+    <style type="text/css">
+      <%= raw(post.css) %>
+    </style>
+  <% end %>
+
   <% if title_link %>
     <h2><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else " (hidden)" end %></h2>
   <% else %>
@@ -86,5 +81,11 @@
     <% else %>
       <p><span class="muted">&lt;number of comments&gt;</span></p>
     <% end %>
+  <% end %>
+
+  <% if post.javascript != "" %>
+    <script type="text/javascript">
+      <%= raw(post.javascript) %>
+    </script>
   <% end %>
 </div>
