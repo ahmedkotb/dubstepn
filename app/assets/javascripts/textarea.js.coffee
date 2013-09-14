@@ -1,17 +1,17 @@
 # called every time a new page is loaded (see https://github.com/rails/turbolinks/)
 page_init = () ->
   # make a textarea automatically adjust its height based on its content
-  window.fit_textarea = (selector) ->
+  fit_textarea = (selector) ->
     # loop through each textarea
     $(selector).each (index, element) ->
       # get the textarea
       textarea = $(element)
 
       # generate a unique id for the doppelganger div
-      doppelganger_id = "textarea-doppelganger-" + String(index)
+      doppelganger_id = "textarea-doppelganger"
 
       # create the doppelganger
-      $(element).after("<div id='" + doppelganger_id + "' />")
+      $(element).after("<div id='" + doppelganger_id + "' class='doppelganger' />")
       doppelganger = $("#" + doppelganger_id)
 
       # clone the styles from the textarea
@@ -30,10 +30,14 @@ page_init = () ->
         "padding-right",
         "padding-bottom",
         "padding-left",
-        "border-top",
-        "border-right",
-        "border-bottom",
-        "border-left",
+        "border-top-width",
+        "border-right-width",
+        "border-bottom-width",
+        "border-left-width",
+        "border-top-style",
+        "border-right-style",
+        "border-bottom-style",
+        "border-left-style",
         "box-sizing",
         "line-height",
         "text-align",
@@ -46,11 +50,22 @@ page_init = () ->
       ]
         doppelganger.css(prop, textarea.css(prop))
 
+      # hack for firefox
+      if doppelganger.css("white-space") == "normal"
+        doppelganger.css("white-space", "pre-wrap")
+
       # fill the doppelganger with the content of the textarea
-      doppelganger.text(textarea.val() + " ")
+      doppelganger.text(textarea.val() + "\n ")
 
       # resize the textarea based on the height of the doppelganger
+      # first we hide the overflow to make the scrollbar disappear
+      overflow_x = textarea.css("overflow-x")
+      overflow_y = textarea.css("overflow-y")
+      textarea.css("overflow-x", "hidden")
+      textarea.css("overflow-y", "hidden")
       textarea.height(Math.max(doppelganger.height(), 64) + "px")
+      textarea.css("overflow-x", overflow_x)
+      textarea.css("overflow-y", overflow_y)
 
       # destroy the doppelganger
       doppelganger.remove()
@@ -59,9 +74,10 @@ page_init = () ->
   $("textarea").each (index, element) ->
     if !$(element).hasClass("auto-resize")
       $(element).addClass("auto-resize")
-      $(element).change (e) -> fit_textarea(this)
-      $(element).bind "input keyup propertychange", (e) -> fit_textarea(this)
-      fit_textarea(element)
+      debounced_fit_textarea = debounce(() -> fit_textarea(element))
+      $(element).change debounced_fit_textarea
+      $(element).bind "input keyup propertychange", debounced_fit_textarea
+      debounced_fit_textarea()
 
 # called once when the DOM is ready
 $(document).ready () ->

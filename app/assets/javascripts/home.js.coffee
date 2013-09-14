@@ -10,20 +10,6 @@ page_init = (first_time) ->
     else
       aspect_ratio = $(e).width() / $(e).height()
 
-    # set a resize handler on an element, but debounced
-    # also fires the callback immediately
-    debounced_resize = (element, callback) ->
-      callback()
-      timeout = null
-      $(element).resize(() ->
-        if timeout?
-          clearInterval(timeout)
-        timeout = setTimeout((() ->
-          callback()
-          timeout = null
-        ), 300)
-      )
-
     # make the element full-width according to the aspect ratio computed above
     on_resize = () ->
       outer_width = $(e).parent().innerWidth()
@@ -32,7 +18,7 @@ page_init = (first_time) ->
       $(e).height(outer_height)
 
     # fire the callback on resize
-    debounced_resize(window, on_resize)
+    $(window).resize(debounce(on_resize))
 
   # make all youtube videos full-width
   $("iframe[src^='http://www.youtube.com']").load(() -> make_full_width(this))
