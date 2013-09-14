@@ -77,7 +77,7 @@ page_init = () ->
       debounced_fit_textarea = debounce(() -> fit_textarea(element))
       $(element).change debounced_fit_textarea
       $(element).bind "input keyup propertychange", debounced_fit_textarea
-      debounced_fit_textarea()
+      fit_textarea(element)
 
 # called once when the DOM is ready
 $(document).ready () ->
