@@ -51,7 +51,7 @@ $stack-width: 768px;
   }
 }
 
-/* Inside a ".row", add ".span-X" elements to fill the grid, where X is the number of columns to span. */
+/* Inside a ".row", add ".spanX" elements to fill the grid, where X is the number of columns to span. */
 @for $i from 1 through $num-columns {
   .span#{$i} {
     float: left;

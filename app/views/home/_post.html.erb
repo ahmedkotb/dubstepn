@@ -9,17 +9,15 @@
   #   title_link      boolean
 %>
 
-<% content_for :head do %>
-  <% if post.javascript != "" %>
-    <script type="text/javascript">
-      <%= raw(post.javascript) %>
-    </script>
-  <% end %>
-  <% if post.css != "" %>
-    <style type="text/css">
-      <%= raw(post.css) %>
-    </style>
-  <% end %>
+<% if post.javascript != "" %>
+  <script type="text/javascript">
+    <%= raw(post.javascript) %>
+  </script>
+<% end %>
+<% if post.css != "" %>
+  <style type="text/css">
+    <%= raw(post.css) %>
+  </style>
 <% end %>
 
 <div class="article">
