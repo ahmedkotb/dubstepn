@@ -35,7 +35,7 @@ page_init = (first_time) ->
     debounced_resize(window, on_resize)
 
   # make all youtube videos full-width
-  $(".article iframe[src^='http://www.youtube.com']").load(() -> make_full_width(this))
+  $("iframe[src^='http://www.youtube.com']").load(() -> make_full_width(this))
 
   # load MathJax
   if !first_time
