@@ -6,9 +6,11 @@ Dubstepn::Application.routes.draw do
   get "/resume" => "home#resume"
   get "/resume.pdf" => "home#resume"
 
-  # indexing and syndication
+  # for web crawlers and search engines
   get "/robots.txt" => "home#robots"
   get "/sitemap" => "home#sitemap"
+
+  # syndication
   get "/rss/home" => redirect("/rss")
   get "/rss" => "home#feed", :type => :rss
   get "/rss/:tag" => "home#feed", :type => :rss, :format => false
@@ -32,8 +34,9 @@ Dubstepn::Application.routes.draw do
   post "/login" => "home#login_action"
   post "/logout" => "home#logout_action"
 
-  # filters
+  # tags
   get "/home" => redirect("/")
+  get "/home/1" => redirect("/")
   get "/:tag/:page" => "home#posts_for_tag", :format => false
-  get "/*tag" => "home#catch_all", :format => false
+  get "/*tag" => "home#catch_all", :format => false # also used for custom redirects
 end

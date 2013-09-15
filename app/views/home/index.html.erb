@@ -1,3 +1,11 @@
+<%
+  # instance variables:
+  #   @posts     [Post]
+  #   @tag       Tag
+  #   @page      Fixnum
+  #   @pages     Fixnum
+%>
+
 <% content_for :head do %>
   <% if @tag.name == "home" %>
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.stephanboyer.com/rss" />

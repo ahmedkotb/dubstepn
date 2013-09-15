@@ -1,3 +1,10 @@
+<%
+  # instance variables:
+  #   @posts      [Post]
+  #   @tags       [Tag]
+  #   @redirects  [Redirect]
+%>
+
 <% content_for :head do %>
   <script>
     var posts = <%= raw(@posts.to_json) %>;

@@ -28,12 +28,14 @@ class HomeController < ApplicationController
 
   # render a page of the posts for a tag (defaults to "home" tag)
   def posts_for_tag
-    page = 1
     if params[:page]
       begin
         page = Integer(params[:page], 10)
       rescue
+        return render_404
       end
+    else
+      page = 1
     end
     @tag_name = params[:tag] || "home"
     return render_posts_for_tag(@tag_name, page)
@@ -101,7 +103,8 @@ class HomeController < ApplicationController
 
   # rss or atom feed for a particular tag
   def feed
-    return render_feed(params[:type].to_sym, params[:tag])
+    tag = params[:tag] || "home"
+    return render_feed(params[:type].to_sym, tag)
   end
 
   # admin page
@@ -213,6 +216,9 @@ class HomeController < ApplicationController
 
   # login page
   def login
+    if is_logged_in
+      return redirect_to "/admin"
+    end
   end
 
   # log a user in
@@ -237,7 +243,10 @@ class HomeController < ApplicationController
 
 private
   # make sure that a path starts with a "/"
+  # path :: String
   def normalize_path(path)
+    raise if !path.instance_of?(String)
+
     path = path.strip
     if path.size == 0
       path = "/"
@@ -274,28 +283,25 @@ private
 
   # render a page with the posts for a tag
   # renders a 404 page if appropriate
+  # tag  :: String
+  # page :: Fixnum
   def render_posts_for_tag(tag, page)
+    raise if !tag.instance_of?(String)
+    raise if !page.instance_of?(Fixnum)
+
     posts_per_page = 5
     @logged_in = is_logged_in
-    @tag = nil
-    @posts = nil
-    @page = nil
-    @pages = nil
-    begin
-      @tag = Tag.where(:name => (if tag then tag else "home" end)).first!
-      posts = if @logged_in then @tag.posts else @tag.posts.where(:is_public => true) end
-      @pages = (posts.size + posts_per_page - 1) / posts_per_page
-      @page = if page then page else 1 end
-      if @page < 1 || @page > @pages
-        @page = nil
-        raise
-      end
-      if request.fullpath == "/home/1"
-        return redirect_to "/"
-      end
-      @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
-    rescue
+    @tag = Tag.where(:name => tag).first
+    if !@tag
+      return render_404
     end
+    posts = if @logged_in then @tag.posts else @tag.posts.where(:is_public => true) end
+    @pages = (posts.size + posts_per_page - 1) / posts_per_page
+    @page = page
+    if @page < 1 || @page > @pages
+      return render_404
+    end
+    @posts = posts.order("sort_id DESC").limit(posts_per_page).offset((@page - 1) * posts_per_page)
     return render_404 if !@posts || @posts.size == 0 || (@tag.name == "sidebar" && !@logged_in)
     return render "index"
   end
@@ -306,8 +312,13 @@ private
   end
 
   # render an rss or atom feed for a tag
+  # renders a 404 page if appropriate
+  # type     :: Symbol (:rss or :atom)
+  # tag_name :: String
   def render_feed(type, tag_name)
-    tag_name ||= "home"
+    raise if !type.instance_of?(Symbol)
+    raise if !tag_name.instance_of?(String)
+
     last_modified_date = Post.order("updated_at DESC").first.try(:created_at).try(:to_datetime) || DateTime.now
     case type
     when :rss

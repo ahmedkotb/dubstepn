@@ -19,7 +19,10 @@ module ApplicationHelper
   # - replaces ' and " with their directional counterparts
   # - replaces <pre><code>...</code></pre> with <pre>...</pre> (inline code gets put in <code> tags whereas block code gets put in <pre> tags)
   # - shifts all headings by 2 (so h1 -> h3, h2 -> h4, etc.)
+  # s :: String
   def markdown(s)
+    raise if !s.instance_of?(String)
+    
     file = Tempfile.new "markdown"
     file.write(s)
     file.close

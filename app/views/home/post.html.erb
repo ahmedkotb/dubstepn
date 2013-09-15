@@ -1,3 +1,10 @@
+<%
+  # instance variables:
+  #   @post            post
+  #   @previous        [post, nil]
+  #   @next            [post, nil]
+%>
+
 <% content_for :title, @post.title + " | Stephan Boyer" %>
 <% content_for :description, @post.summary %>
 
