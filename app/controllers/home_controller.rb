@@ -26,10 +26,10 @@ class HomeController < ApplicationController
     return render_posts_for_tag(@tag_name, 1)
   end
 
-  # render a page of the posts for a tag
+  # render a page of the posts for a tag (defaults to "home" tag)
   def posts_for_tag
     page = if params[:page] then Integer(params[:page], 10) else 1 end
-    @tag_name = params[:tag]
+    @tag_name = params[:tag] || "home"
     return render_posts_for_tag(@tag_name, page)
   end
 

@@ -36,7 +36,7 @@
               </h1>
             </div>
             <div id="nav" class="span8">
-              <a <%= if !(defined? @tag_name) || !@tag_name || @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
+              <a <%= if (defined? @tag_name) && @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
               </span><a <%= if (defined? @tag_name) && @tag_name == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
               </span><a <%= if (defined? @tag_name) && @tag_name == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
               </span><a <%= if (defined? @tag_name) && @tag_name == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
