@@ -28,7 +28,13 @@ class HomeController < ApplicationController
 
   # render a page of the posts for a tag (defaults to "home" tag)
   def posts_for_tag
-    page = if params[:page] then Integer(params[:page], 10) else 1 end
+    page = 1
+    if params[:page]
+      begin
+        page = Integer(params[:page], 10)
+      rescue
+      end
+    end
     @tag_name = params[:tag] || "home"
     return render_posts_for_tag(@tag_name, page)
   end
@@ -243,6 +249,7 @@ private
   end
 
   # make sure that the correct protocol (http vs https) is used
+  # used as a before filter
   def fix_protocol
     use_https = is_logged_in || ["login", "login_action"].include?(action_name)
 
@@ -257,7 +264,8 @@ private
     end
   end
 
-  # make sure the user is logged in, used as a before filter
+  # make sure the user is logged in
+  # used as a before filter
   def require_login
     if !is_logged_in
       return redirect_to "/login"
@@ -265,6 +273,7 @@ private
   end
 
   # render a page with the posts for a tag
+  # renders a 404 page if appropriate
   def render_posts_for_tag(tag, page)
     posts_per_page = 5
     @logged_in = is_logged_in
@@ -372,6 +381,8 @@ private
       end
       xml << "</feed>\r\n"
       return render :xml => xml
+    else
+      return render_404
     end
   end
 end
