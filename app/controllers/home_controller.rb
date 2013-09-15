@@ -90,7 +90,11 @@ class HomeController < ApplicationController
         sitemap << "  </url>\r\n"
       end
     end
-    Post.all.each do |post|
+    home_tag = Tag.where(:name => "home").first
+    if !home_tag
+      return render_404
+    end
+    home_tag.posts.where(:is_public => true).order("sort_id DESC").each do |post|
       if post.is_public && !(post.tags.size == 1 && post.tags.first.name == "sidebar")
         sitemap << "  <url>\r\n"
         sitemap << "    <loc>http://" + APP_HOST + post.canonical_uri + "</loc>\r\n"
