@@ -20,39 +20,38 @@
     <%= content_for :head %>
   </head>
   <body>
-    <div class="container" id="header">
-      <div class="container-spacer">
-        <div class="row">
-          <div id="title" class="span2 offset2">
-            <h1>
-              <a href="/" id="title-link">Stephan Boyer</a>
-              <%= content_for :nav %>
-              <% if is_logged_in %>
-                <%= form_tag("/logout", :method => "post") do %>
-                  (<a href="/admin">admin</a>, <a href="#" onclick="$(this).parent().submit(); return false;">logout</a>)
+    <div id="footer-fix-container">
+      <div class="container" id="header">
+        <div class="container-spacer">
+          <div class="row">
+            <div id="title" class="span4">
+              <h1>
+                <a href="/" id="title-link">Stephan Boyer</a>
+                <%= content_for :nav %>
+                <% if is_logged_in %>
+                  <%= form_tag("/logout", :method => "post") do %>
+                    (<a href="/admin">admin</a>, <a href="#" onclick="$(this).parent().submit(); return false;">logout</a>)
+                  <% end %>
                 <% end %>
-              <% end %>
-            </h1>
-          </div>
-          <div id="nav" class="span6">
-            <a <%= if (defined? @tag_name) && @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
-            </span><a <%= if (defined? @tag_name) && @tag_name == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
-            </span><a <%= if (defined? @tag_name) && @tag_name == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
-            </span><a <%= if (defined? @tag_name) && @tag_name == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
-            </span><a href="/resume">Resume</a>
+              </h1>
+            </div>
+            <div id="nav" class="span8">
+              <a <%= if (defined? @tag_name) && @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
+              </span><a <%= if (defined? @tag_name) && @tag_name == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
+              </span><a <%= if (defined? @tag_name) && @tag_name == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
+              </span><a <%= if (defined? @tag_name) && @tag_name == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
+              </span><a href="/resume">Resume</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="banner_a"> </div>
-    <div id="banner_b"> </div>
+      <div class="separator"> </div>
 
-    <div id="content-container">
       <div class="container" id="content">
         <div class="container-spacer">
           <div class="row">
-            <div id="articles" class="span8 offset2">
+            <div id="articles" class="span12">
               <% if flash[:notice] %>
                 <div class="article">
                   <div class="notice">
@@ -72,21 +71,24 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="footer-container">
-      <div class="container" id="footer">
-        <div class="container-spacer">
-          <p>&copy; <%= Time.new.year %> Stephan Boyer.  All rights reserved.
+      <div id="footer-container">
+        <div class="separator"> </div>
+
+        <div class="container" id="footer">
+          <div class="container-spacer">
+            <p>&copy; <%= Time.new.year %> Stephan Boyer.  All rights reserved.
+          </div>
+        </div>
+      </div>
+
+      <div class="loading-cover">
+        <div class="loading-spinner-container">
+          <%= image_tag "spinner.svg", :class => "loading-spinner" %>
         </div>
       </div>
     </div>
 
-    <div class="loading-cover">
-      <div class="loading-spinner-container">
-        <%= image_tag "spinner.svg", :class => "loading-spinner" %>
-      </div>
-    </div>
     <% if Rails.env.production? && !is_logged_in %>
       <script type="text/javascript">
         var disqus_shortname = 'stephanboyer';
