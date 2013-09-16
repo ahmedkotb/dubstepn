@@ -18,8 +18,8 @@
  *  Global styles
  */
 
-$anchor-color: #9e2020;
-$anchor-hover-color: #ff0000;
+$anchor-color: #a67500;
+$anchor-hover-color: #ffb400;
 $line-height: 1.5em;
 $code-color: inherit;
 $code-background: #e9e9e9;
@@ -55,7 +55,6 @@ html {
 }
 
 body {
-  background-color: #222;
   min-height: 100%;
   *height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -82,7 +81,7 @@ a:hover {
 a.tag {
   display: inline-block;
   padding: 0px 4px;
-  background-color: #b94a48;
+  background-color: #a67500;
   color: #fff;
   font-size: 0.8em;
   font-weight: bold;
@@ -92,7 +91,7 @@ a.tag {
 }
 
 a.tag:hover {
-  background-color: #b94a48 * 1.4;
+  background-color: #ffb400;
 }
 
 /* Block-level elements */
@@ -103,15 +102,16 @@ p, ul, ol, form, table, .p {
 }
 
 h2, h3, h4, h5, h6 {
-  font-family: "Oswald", sans-serif;
-  font-weight: 200;
-  text-transform: uppercase;
-  line-height: 1em;
+  font-family: "Open Sans", sans-serif;
   margin: 16px 0;
 }
 
 h2 {
-  font-size: 2.1em;
+  font-size: 2.5em;
+
+  a {
+    color: inherit;
+  }
 }
 
 h3 {
@@ -265,110 +265,104 @@ form {
 }
 
 /* Header */
-
-#header-container {
-  $header-font-size: 1.3em;
-  $header-height: 48px;
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
+#header {
+  $header-font-size: 1em;
+  $header-text-color: #444;
+  $header-height: 32px;
+  $header-padding: 24px;
+  $header-link-border-width: 4px;
+  $header-link-border-color: #ddd;
+  font-family: "Open Sans", sans-serif;
   font-size: $header-font-size;
-  text-transform: uppercase;
   line-height: $header-height;
-  color: #bbb;
+  color: $header-text-color;
+  padding-top: $header-padding;
+  padding-bottom: $header-padding;
 
-  #header {
-    -moz-box-shadow:    none;
-    -webkit-box-shadow: none;
-    box-shadow:         none;
-
-    #title {
-      @media (max-width: 767px) {
-        border-bottom: 1px solid #666;
-      }
-
-      h1 {
-        font-family: inherit;
-        font-weight: inherit;
-        font-size: inherit;
-        text-transform: inherit;
-        line-height: inherit;
-        margin: 0;
-
-        position: relative;
-        top: 0.05em;
-        left: 0;
-
-        a {
-          display: inline-block;
-          color: inherit;
-          &:hover {
-            color: $anchor-hover-color;
-          }
-        }
-
-        a#title-link {
-          color: #fff;
-          &:hover {
-            color: $anchor-hover-color;
-          }
-        }
-      }
+  #title {
+    @media (max-width: 767px) {
+      border-bottom: 1px solid #ccc;
+      text-align: center;
     }
 
-    #nav {
-      text-align: right;
-
-      @media (max-width: 767px) {
-        font-size: $header-font-size / 2;
-        text-align: left;
-      }
+    h1 {
+      font-family: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+      line-height: inherit;
+      margin-top: $header-link-border-width;
+      margin-bottom: $header-link-border-width;
 
       a {
         display: inline-block;
         color: inherit;
-        padding: 0 20px;
-        @media (max-width: 767px) {
-          & {
-            padding: 0 5px;
-          }
-        }
         &:hover {
           color: $anchor-hover-color;
         }
-
-        position: relative;
-        top: 0.05em;
-        left: 0;
       }
 
-      a:first-child {
-        padding-left: 0;
-      }
-
-      a:last-child {
-        padding-right: 0;
-      }
-
-      a.active {
-        color: #fff;
+      a#title-link {
         &:hover {
           color: $anchor-hover-color;
         }
       }
     }
   }
+
+  #nav {
+    text-align: right;
+
+    @media (max-width: 767px) {
+      text-align: center;
+    }
+
+    a {
+      display: inline-block;
+      color: inherit;
+      padding: 0 20px;
+      margin-top: $header-link-border-width;
+      margin-bottom: $header-link-border-width;
+      @media (max-width: 767px) {
+        & {
+          padding: 0 5px;
+        }
+      }
+      &:hover {
+        color: $anchor-hover-color;
+      }
+    }
+
+    a.active {
+      border-bottom: $header-link-border-width solid $header-link-border-color;
+      margin-bottom: 0;
+      &:hover {
+        color: $anchor-hover-color;
+      }
+    }
+  }
+}
+
+/* Banner */
+
+div#banner_a {
+  background-color: #ffb400;
+  height: 24px;
+}
+
+div#banner_b {
+  background-color: #a67500;
+  height: 24px;
 }
 
 /* Articles */
 
 #content-container {
-  background-color: #ddd;
 }
 
 #content {
-  background-color: #fff;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-top: 48px;
+  padding-bottom: 48px;
 
   .article {
     overflow: auto;
@@ -384,10 +378,10 @@ form {
 
   #sidebar {
     h2 {
-      background-color: #e5e5e5;
-      color: #444;
+      background-color: #006f48;
+      color: #fff;
       padding: 8px 16px;
-      font-size: 1.5em;
+      font-size: 1.1em;
     }
 
     .article {
@@ -404,17 +398,11 @@ form {
   }
 
   #articles {
-    .date {
-      #margin-bottom: 24px;
-    }
-
     .article {
       padding: 32px 0;
-      border-top: 1px dashed #ddd;
 
       &:first-child {
         padding-top: 0;
-        border-top: none;
       }
 
       &:last-child {
