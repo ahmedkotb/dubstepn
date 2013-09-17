@@ -1,3 +1,9 @@
+<%
+  # instance variables:
+  #   @tag_name       String | nil
+  #   @is_root        boolean
+%>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,7 +13,7 @@
       <meta name="description" content="<%= content_for :description %>">
     <% end %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">
     <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet" type="text/css">
     <% if request.protocol == "https://" %>
       <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -46,12 +52,32 @@
         </div>
       </div>
 
-      <div class="separator"> </div>
+      <% if (defined? @is_root) && @is_root %>
+        <div class="banner-title phone-hidden">
+          <div class="container">
+            <div class="container-spacer">
+              Hi, I&rsquo;m <strong>Stephan</strong>.
+            </div>
+          </div>
+        </div>
+        <div class="banner-body phone-hidden">
+          <div class="container">
+            <div class="container-spacer clearfix">
+              <% for post in @banner_posts %>
+                <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_date => false, :title_link => false } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="separator phone-visible"> </div>
+      <% else %>
+        <div class="separator"> </div>
+      <% end %>
 
       <div class="container" id="content">
         <div class="container-spacer">
           <div class="row">
-            <div id="articles" class="span12">
+            <div id="articles" class="span8 offset2">
               <% if flash[:notice] %>
                 <div class="article">
                   <div class="notice">

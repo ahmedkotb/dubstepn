@@ -18,8 +18,12 @@
  *  Global styles
  */
 
-$anchor-color: #a67500;
-$anchor-hover-color: #ffb400;
+$color-light: #06799f;
+$color-dark: #024e68;
+
+$footer-color-background: $color-dark * 0.5;
+$footer-color-text: $color-dark * 0.2 + #777;
+
 $line-height: 1.5em;
 $code-color: inherit;
 $code-background: #e9e9e9;
@@ -34,6 +38,19 @@ $footer-height: 128px;
 }
 
 /* Helper styles */
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
 
 .hidden {
   display: none;
@@ -58,7 +75,8 @@ html, body {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
   font-size: 0.9em;
   color: #333;
 }
@@ -75,29 +93,30 @@ body {
 /* Anchors */
 
 a {
-  color: $anchor-color;
+  color: $color-dark;
   text-decoration: none;
+  font-weight: 600;
 }
 
 a:hover {
-  color: $anchor-hover-color;
+  color: $color-light;
   text-decoration: none;
 }
 
 a.tag {
   display: inline-block;
   padding: 0px 4px;
-  background-color: #a67500;
+  background-color: $color-dark;
   color: #fff;
   font-size: 0.8em;
-  font-weight: bold;
+  font-weight: 600;
   white-space: nowrap;
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
   line-height: 1.6em;
 }
 
 a.tag:hover {
-  background-color: #ffb400;
+  background-color: $color-light;
 }
 
 /* Block-level elements */
@@ -163,15 +182,7 @@ ul.pagination {
   $page-link-height: 28px;
 
   padding-left: 0;
-  margin: 0 auto;
-  *zoom: 1;
-  &:before, &:after {
-    display: table;
-    content: "";
-  }
-  &:after {
-    clear: both;
-  }
+  margin: 32px auto;
 
   li {
     display: block;
@@ -207,6 +218,10 @@ ul.pagination {
 
 /* Inline elements */
 
+strong {
+  font-weight: 600;
+}
+
 .article > p > img, .article > p > video, .article > p > embed, .article > p > iframe {
   display: inline-block;
   vertical-align: middle;
@@ -234,13 +249,13 @@ input[type=submit], .button-link {
   font-size: inherit;
   line-height: inherit;
   color: #fff;
-  background-color: #a67500;
+  background-color: $color-dark;
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
   font-weight: bold;
   border-style: none;
 
   &:hover {
-    background-color: #ffb400;
+    background-color: $color-light;
     color: #fff;
   }
 }
@@ -304,13 +319,13 @@ form {
         display: inline-block;
         color: inherit;
         &:hover {
-          color: $anchor-hover-color;
+          color: $color-light;
         }
       }
 
       a#title-link {
         &:hover {
-          color: $anchor-hover-color;
+          color: $color-light;
         }
       }
     }
@@ -324,6 +339,7 @@ form {
     }
 
     a {
+      font-weight: 400;
       display: inline-block;
       color: inherit;
       padding: 0 20px;
@@ -334,7 +350,7 @@ form {
         }
       }
       &:hover {
-        color: $anchor-hover-color;
+        color: $color-light;
       }
     }
 
@@ -342,7 +358,7 @@ form {
       border-bottom: $header-link-border-width solid $header-link-border-color;
       margin-bottom: 0;
       &:hover {
-        color: $anchor-hover-color;
+        color: $color-light;
       }
     }
   }
@@ -350,10 +366,47 @@ form {
 
 /* Banner */
 
+div.banner-title {
+  background-color: $color-light;
+  line-height: 96px;
+  color: #fff;
+  font-size: 3em;
+  text-align: center;
+  font-weight: 300;
+}
+
+div.banner-body {
+  background-color: $color-dark;
+  color: $color-dark * 0.4 + #bbb;
+  font-weight: 300;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .article {
+    float: left;
+    width: 33.333%;
+    padding: 20px 20px;
+    @include box-sizing(border-box);
+  }
+
+  h2 {
+    font-size: 1.8em;
+    font-weight: 300;
+    color: $color-dark * 0.4 + #ddd;
+  }
+}
+
+/* Separator */
+
 div.separator {
-  background-color: #ffb400;
-  border-bottom: 24px solid #a67500;
-  height: 24px;
+  background-color: $color-light;
+  height: 32px;
 }
 
 /* Articles */
@@ -375,7 +428,7 @@ div.separator {
 
   #articles {
     .article {
-      margin: 64px 0;
+      margin: 48px 0 96px 0;
     }
 
     .previous-post {
@@ -395,12 +448,12 @@ div.separator {
   bottom: 0;
   width: 100%;
   height: $footer-height;
-  background-color: #332502;
-  color: #928b7c;
+  background-color: $footer-color-background;
+  color: $footer-color-text;
   text-align: center;
 
   #footer p {
-    line-height: ($footer-height - 48px);
+    line-height: ($footer-height - 32px);
     margin: 0;
   }
 }

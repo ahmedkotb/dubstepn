@@ -15,14 +15,14 @@ class ApplicationController < ActionController::Base
 
     # set up the variables needed by the layout
     def set_layout_data
-      sidebar_tag = Tag.where(:name => "sidebar").first
-      if sidebar_tag
-        @sidebar_posts = sidebar_tag.posts.order("sort_id DESC")
+      banner_tag = Tag.where(:name => "banner").first
+      if banner_tag
+        @banner_posts = banner_tag.posts.order("sort_id DESC")
         if !is_logged_in
-          @sidebar_posts = @sidebar_posts.where(:is_public => true)
+          @banner_posts = @banner_posts.where(:is_public => true)
         end
       else
-        @sidebar_posts = []
+        @banner_posts = []
       end
     end
 end

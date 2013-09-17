@@ -4,7 +4,6 @@
   #   previous_post   Post | nil
   #   next_post       Post | nil
   #   comments_mode   :full | :count | nil
-  #   show_tags       boolean
   #   show_date       boolean
   #   title_link      boolean
 %>
@@ -29,15 +28,6 @@
   <% end %>
 
   <%= raw(post.content_html) %>
-
-  <% if show_tags and post.tags.size > 0 %>
-    <p>
-      Tags:&nbsp;
-      <% for tag in post.tags %>
-        <a href="/<%= if tag.name == "home" then "" else tag.name end -%>" class="tag"><%= tag.name -%></a>
-      <% end %>
-    </p>
-  <% end %>
 
   <% if previous_post || next_post %>
     <div class="row p">
@@ -72,15 +62,9 @@
         <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </div>
-    <% else %>
-      <p><span class="muted">&lt;comments&gt;</span></p>
     <% end %>
   <% elsif comments_mode == :count %>
-    <% if Rails.env.production? && !is_logged_in %>
-      <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %><%= post.canonical_uri %>#disqus_thread">Comments</a></p>
-    <% else %>
-      <p><span class="muted">&lt;number of comments&gt;</span></p>
-    <% end %>
+    <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %><%= post.canonical_uri %>#disqus_thread">0 Comments</a></p>
   <% end %>
 
   <% if post.javascript != "" %>

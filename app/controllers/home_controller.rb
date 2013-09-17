@@ -23,6 +23,9 @@ class HomeController < ApplicationController
 
     # assume the URL is of the form "/:tag" and render the first page for that tag
     @tag_name = params[:tag]
+    if @tag_name == "home"
+      @is_root = true
+    end
     return render_posts_for_tag(@tag_name, 1)
   end
 
@@ -38,6 +41,9 @@ class HomeController < ApplicationController
       page = 1
     end
     @tag_name = params[:tag] || "home"
+    if @tag_name == "home" && page == 1
+      @is_root = true
+    end
     return render_posts_for_tag(@tag_name, page)
   end
 
