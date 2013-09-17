@@ -163,6 +163,7 @@ pre {
 .notice, .error {
   padding: 16px 24px;
   background-color: #eee;
+  margin: 32px 0;
 }
 
 ul {
@@ -405,34 +406,25 @@ div.banner-body {
   }
 }
 
-/* Separator */
+/* Separators */
 
-div.separator {
+div.page-separator {
   background-color: $color-light;
   height: 32px;
+}
+
+div.post-separator {
+  background-color: #eee;
+  height: 2px;
 }
 
 /* Articles */
 
 #content {
   padding-bottom: $footer-height;
-  
+
   .article {
-    overflow: auto;
-
-    & > *:first-child {
-      margin-top: 0;
-    }
-
-    & > *:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  #articles {
-    .article {
-      margin: 48px 0 96px 0;
-    }
+    margin: 48px 0 48px 0;
 
     .previous-post {
       text-align: left;

@@ -69,27 +69,23 @@
             </div>
           </div>
         </div>
-        <div class="separator phone-visible"> </div>
+        <div class="page-separator phone-visible"> </div>
       <% else %>
-        <div class="separator"> </div>
+        <div class="page-separator"> </div>
       <% end %>
 
       <div class="container" id="content">
         <div class="container-spacer">
           <div class="row">
-            <div id="articles" class="span8 offset2">
+            <div class="span8 offset2">
               <% if flash[:notice] %>
-                <div class="article">
-                  <div class="notice">
-                    <%= flash[:notice] %>
-                  </div>
+                <div class="notice">
+                  <%= flash[:notice] %>
                 </div>
               <% end %>
               <% if flash[:error] %>
-                <div class="article">
-                  <div class="error">
-                    <%= flash[:error] %>
-                  </div>
+                <div class="error">
+                  <%= flash[:error] %>
                 </div>
               <% end %>
               <%= yield %>
@@ -99,7 +95,7 @@
       </div>
 
       <div id="footer-container">
-        <div class="separator"> </div>
+        <div class="page-separator"> </div>
 
         <div class="container" id="footer">
           <div class="container-spacer">
