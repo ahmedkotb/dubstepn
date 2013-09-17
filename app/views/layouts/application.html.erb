@@ -62,10 +62,14 @@
         </div>
         <div class="banner-body phone-hidden">
           <div class="container">
-            <div class="container-spacer clearfix">
-              <% for post in @banner_posts %>
-                <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_date => false, :title_link => false } %>
-              <% end %>
+            <div class="container-spacer">
+              <div class="row">
+                <% for post in @banner_posts %>
+                  <div id="nav" class="span4">
+                    <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_date => false, :title_link => false } %>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>

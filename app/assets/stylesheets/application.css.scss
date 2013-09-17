@@ -383,6 +383,7 @@ div.banner-body {
   background-color: $color-dark;
   color: $color-dark * 0.4 + #bbb;
   font-weight: 300;
+  padding: 24px 0;
 
   a {
     color: inherit;
@@ -390,13 +391,6 @@ div.banner-body {
     &:hover {
       color: #fff;
     }
-  }
-
-  .article {
-    float: left;
-    width: 33.333%;
-    padding: 20px 20px;
-    @include box-sizing(border-box);
   }
 
   h2 {
