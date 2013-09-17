@@ -279,11 +279,11 @@ private
     end
   end
 
-  # make sure the user is logged in
+  # make sure the user is logged in before continuing
   # used as a before filter
   def require_login
     if !is_logged_in
-      return redirect_to "/login"
+      return render_404
     end
   end
 
