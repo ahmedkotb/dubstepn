@@ -24,6 +24,8 @@ Dubstepn::Application.routes.draw do
   post "/create_post" => "home#create_post_action"
   post "/move_up" => "home#move_up_action"
   post "/move_down" => "home#move_down_action"
+  post "/move_top" => "home#move_top_action"
+  post "/move_bottom" => "home#move_bottom_action"
   post "/edit_post" => "home#edit_post_action"
   post "/delete_post" => "home#delete_post_action"
   post "/create_redirect" => "home#create_redirect_action"

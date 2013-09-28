@@ -42,6 +42,14 @@
             <input type="hidden" name="post_id" value="<%= post.id -%>" />
             <a href="#" onclick="$(this).parent().submit(); return false;">↓</i></a>
           <% end %>
+          <%= form_tag("/move_top", :method => "post") do %>
+            <input type="hidden" name="post_id" value="<%= post.id -%>" />
+            <a href="#" onclick="$(this).parent().submit(); return false;">⇈</a>
+          <% end %>
+          <%= form_tag("/move_bottom", :method => "post") do %>
+            <input type="hidden" name="post_id" value="<%= post.id -%>" />
+            <a href="#" onclick="$(this).parent().submit(); return false;">⇊</i></a>
+          <% end %>
           <a href="/edit_post/<%= post.id -%>">✏</a>
           <%= form_tag("/delete_post", :method => "post") do %>
             <input type="hidden" name="post_id" value="<%= post.id -%>" />

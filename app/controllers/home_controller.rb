@@ -163,6 +163,28 @@ class HomeController < ApplicationController
     return redirect_to "/admin"
   end
 
+  # move a post to the top
+  def move_top_action
+    post1 = Post.find(params[:post_id].to_i)
+    post2 = Post.order("sort_id DESC").first
+    if post1 && post2
+      post1.sort_id = post2.sort_id + 1
+      post1.save!
+    end
+    return redirect_to "/admin"
+  end
+
+  # move a post to the bottom
+  def move_bottom_action
+    post1 = Post.find(params[:post_id].to_i)
+    post2 = Post.order("sort_id ASC").first
+    if post1 && post2
+      post1.sort_id = post2.sort_id - 1
+      post1.save!
+    end
+    return redirect_to "/admin"
+  end
+
   # edit the content of a post
   def edit_post_action
     if params[:post_title].strip.size == 0
