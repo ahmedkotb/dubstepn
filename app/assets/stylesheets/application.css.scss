@@ -424,7 +424,12 @@ div.banner-body {
 
 /* Separators */
 
-div.page-separator {
+div.page-separator-top {
+  @include vertical-gradient($color-light, $color-light * 0.9);
+  height: 32px;
+}
+
+div.page-separator-bottom {
   @include vertical-gradient($color-dark + #222, $color-dark + #111);
   height: 32px;
 }
