@@ -18,7 +18,7 @@
  *  Global styles
  */
 
-$color-light: #816f9f;
+$color-light: #268d6f;
 $color-dark: #2f2f2f;
 
 $footer-color-background: $color-dark * 0.5;
@@ -425,7 +425,7 @@ div.banner-body {
 /* Separators */
 
 div.page-separator {
-  @include vertical-gradient($color-dark, $color-dark * 0.9);
+  @include vertical-gradient($color-dark + #222, $color-dark + #111);
   height: 32px;
 }
 
