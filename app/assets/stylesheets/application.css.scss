@@ -18,8 +18,8 @@
  *  Global styles
  */
 
-$color-light: #8242a0;
-$color-dark: #542A68;
+$color-light: #816f9f;
+$color-dark: #2f2f2f;
 
 $footer-color-background: $color-dark * 0.5;
 $footer-color-text: $color-dark * 0.2 + #777;
@@ -35,6 +35,17 @@ $footer-height: 128px;
   -webkit-box-sizing: $mode;
   -moz-box-sizing: $mode;
   box-sizing: $mode;
+}
+
+@mixin vertical-gradient($top, $bottom) {
+  background: $top; /* Old browsers */
+  background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+, Safari5.1+ */
+  background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 ); /* IE6-9 */
 }
 
 /* Helper styles */
@@ -320,11 +331,12 @@ form {
 
     h1 {
       font-family: inherit;
-      font-weight: inherit;
-      font-size: inherit;
+      font-weight: 400;
+      font-size: 1.4em;
       text-transform: inherit;
       line-height: inherit;
       margin: $header-link-border-width 0;
+      color: $header-text-color + #222;
 
       a {
         font-weight: 400;
@@ -381,17 +393,17 @@ form {
 /* Banner */
 
 div.banner-title {
-  background-color: $color-light;
-  line-height: 96px;
+  @include vertical-gradient($color-light, $color-light * 0.9);
+  line-height: 64px;
   color: #fff;
-  font-size: 3em;
+  font-size: 1.8em;
   text-align: center;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 div.banner-body {
-  background-color: $color-dark;
-  color: $color-dark * 0.4 + #bbb;
+  @include vertical-gradient($color-dark * 0.9, $color-dark);
+  color: $color-dark * 0.4 + #999;
   font-weight: 300;
   padding: 24px 0;
 
@@ -413,7 +425,7 @@ div.banner-body {
 /* Separators */
 
 div.page-separator {
-  background-color: $color-dark;
+  @include vertical-gradient($color-dark, $color-dark * 0.9);
   height: 32px;
 }
 
@@ -447,7 +459,7 @@ div.post-separator {
   bottom: 0;
   width: 100%;
   height: $footer-height;
-  background-color: $footer-color-background;
+  @include vertical-gradient($footer-color-background, $footer-color-background * 0.9);
   color: $footer-color-text;
   text-align: center;
 
