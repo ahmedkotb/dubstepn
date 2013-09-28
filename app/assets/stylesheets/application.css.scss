@@ -60,6 +60,10 @@ $footer-height: 128px;
   color: #999;
 }
 
+.nobr {
+  white-space: nowrap;
+}
+
 .full-width {
   width: 100%;
   @include box-sizing(border-box);

@@ -15,11 +15,25 @@
     </style>
   <% end %>
 
-  <% if title_link %>
-    <h2><a href="<%= post.canonical_uri %>"><%= post.title %></a><%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %></h2>
-  <% else %>
-    <h2><%= post.title %><%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %></h2>
-  <% end %>
+  <h2>
+    <% if title_link %>
+      <a href="<%= post.canonical_uri %>"><%= post.title %></a>
+      <% if !post.is_public %>
+        <span class="muted">(hidden)</span>
+      <% end %>
+      <% if is_logged_in %>
+        <span class="muted">(<a href="/edit_post/<%= post.id -%>">edit</a>)</span>
+      <% end %>
+    <% else %>
+      <%= post.title %>
+      <% if !post.is_public %>
+        <span class="muted">(hidden)</span>
+      <% end %>
+      <% if is_logged_in %>
+        <span class="muted">(<a href="/edit_post/<%= post.id -%>">edit</a>)</span>
+      <% end %>
+    <% end %>
+  </h2>
 
   <% if show_date %>
     <p class="muted">
