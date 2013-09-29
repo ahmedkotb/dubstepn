@@ -18,8 +18,8 @@
  *  Global styles
  */
 
-$color-light: #8e7dac;
-$color-dark: #2f2f2f;
+$color-light: #d83347;
+$color-dark: #2e2b2d;
 
 $footer-color-background: $color-dark * 0.5;
 $footer-color-text: $color-dark * 0.2 + #777;
@@ -68,7 +68,7 @@ $footer-height: 128px;
 }
 
 .muted {
-  color: #999;
+  color: #aaa;
 }
 
 .nobr {
@@ -142,7 +142,7 @@ p, ul, ol, form, table, .p {
 }
 
 h2, h3, h4, h5, h6 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Averia Serif Libre", cursive;
   font-weight: 400;
   margin: 16px 0;
 }
@@ -393,19 +393,19 @@ form {
 /* Banner */
 
 div.banner-title {
-  @include vertical-gradient($color-light, $color-light * 0.9);
+  @include vertical-gradient($color-dark, $color-dark * 0.9);
   line-height: 64px;
   color: #fff;
   font-size: 1.8em;
   text-align: center;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 div.banner-body {
-  @include vertical-gradient($color-dark * 0.9, $color-dark);
-  color: $color-dark * 0.4 + #999;
+  @include vertical-gradient($color-light * 0.9, $color-light);
+  color: #ffbdc6;
+  padding: 8px 0;
   font-weight: 300;
-  padding: 24px 0;
 
   a {
     color: inherit;
@@ -416,16 +416,21 @@ div.banner-body {
   }
 
   h2 {
+    font-family: inherit;
+    font-weight: inherit;
     font-size: 1.8em;
-    font-weight: 300;
-    color: $color-dark * 0.4 + #ddd;
+    color: #fff;
+  }
+
+  .muted {
+    color: #f07689;
   }
 }
 
 /* Separators */
 
 div.page-separator-top {
-  @include vertical-gradient($color-light, $color-light * 0.9);
+  @include vertical-gradient($color-light, $color-light * 0.95);
   height: 32px;
 }
 
