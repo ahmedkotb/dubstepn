@@ -469,6 +469,12 @@ div.post-separator {
     .next-post {
       text-align: right;
     }
+
+    @media (max-width: 767px) {
+      .previous-post, .next-post {
+        text-align: center;
+      }
+    }
   }
 }
 
