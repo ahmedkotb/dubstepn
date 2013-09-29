@@ -144,8 +144,8 @@ p, ul, ol, form, table, .p {
 }
 
 h2, h3, h4, h5, h6 {
-  font-family: "Averia Serif Libre", cursive;
-  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
   margin: 16px 0;
 }
 
@@ -455,6 +455,12 @@ div.post-separator {
 
   .article {
     margin: 48px 0 48px 0;
+
+    h2 {
+      a {
+        font-weight: 300;
+      }
+    }
 
     .previous-post {
       text-align: left;
