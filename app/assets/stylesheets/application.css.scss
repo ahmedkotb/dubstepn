@@ -18,11 +18,13 @@
  *  Global styles
  */
 
-$color-light: #e6314d;
-$color-dark: #2e2b2d;
+$color-light: #4c264a;
+$color-dark: #232022;
 
 $footer-color-background: $color-dark * 0.5;
 $footer-color-text: $color-dark * 0.2 + #777;
+
+$color-against-light: #c3b1c3;
 
 $line-height: 1.5em;
 $code-color: inherit;
@@ -404,7 +406,7 @@ div.banner-title {
 
 div.banner-body {
   @include vertical-gradient($color-light * 0.9, $color-light);
-  color: #ffbdc6;
+  color: $color-against-light;
   padding: 8px 0;
   font-weight: 300;
 
@@ -424,7 +426,7 @@ div.banner-body {
   }
 
   .muted {
-    color: #f07689;
+    color: $color-against-light * 0.8;
   }
 }
 
