@@ -18,7 +18,7 @@
  *  Global styles
  */
 
-$color-light: #d83347;
+$color-light: #e6314d;
 $color-dark: #2e2b2d;
 
 $footer-color-background: $color-dark * 0.5;
@@ -327,6 +327,7 @@ form {
     @media (max-width: 767px) {
       border-bottom: 1px solid #ccc;
       text-align: center;
+      line-height: $header-height * 1.5;
     }
 
     h1 {
@@ -448,6 +449,7 @@ div.post-separator {
 
 #content {
   padding-bottom: $footer-height;
+  overflow-x: auto;
 
   .article {
     margin: 48px 0 48px 0;

@@ -19,6 +19,7 @@ page_init = (first_time) ->
 
     # fire the callback on resize
     $(window).resize(debounce(on_resize))
+    on_resize()
 
   # make all youtube videos full-width
   $("iframe[src^='http://www.youtube.com']").load(() -> make_full_width(this))
