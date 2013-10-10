@@ -22,7 +22,7 @@ page_init = (first_time) ->
     on_resize()
 
   # make all youtube videos full-width
-  $("iframe[src^='http://www.youtube.com']").load(() -> make_full_width(this))
+  $("iframe[src*='www.youtube.com']").load(() -> make_full_width(this))
 
   # load MathJax
   if !first_time
