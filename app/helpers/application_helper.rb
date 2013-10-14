@@ -87,6 +87,8 @@ module ApplicationHelper
     result.gsub!("</h2>", "</h4>")
     result.gsub!("<h1>",  "<h3>")
     result.gsub!("</h1>", "</h3>")
+    result.gsub!("<p>", "<div class=\"p\">")
+    result.gsub!("</p>", "</div>")
 
     return result
   end
