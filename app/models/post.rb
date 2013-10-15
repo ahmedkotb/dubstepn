@@ -1,3 +1,5 @@
+include ApplicationHelper
+
 class Post < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_many :children, :class_name => "Post", :foreign_key => "parent_id"
@@ -42,5 +44,11 @@ class Post < ActiveRecord::Base
   # get the canonical URI for this post
   def canonical_uri
     return "/post/#{ self.id.to_s }/#{ URI::encode(self.title.downcase.gsub(/[\"\']/, "").gsub(/[^a-z0-9]/, "-").gsub(/-+/, "-").gsub(/\A-/, "").gsub(/-\Z/, "")) }"
+  end
+
+  # fill in the title_html and content_html fields
+  def markdown!
+    self.title_html = markdown(self.title).scan(/^(\<\s*div[^>]*\>)(.*)$/)[0][1].scan(/^(.*)(\<\s*\/\s*div[^>]*\>)$/)[0][0]
+    self.content_html = markdown(self.content)
   end
 end

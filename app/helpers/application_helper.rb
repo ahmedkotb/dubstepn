@@ -96,8 +96,7 @@ module ApplicationHelper
   # call this if the markdown(...) function above ever changes to re-markdown all existing posts
   def remarkdown_all_posts!
     for post in Post.all
-      post.title_html = markdown(post.title).scan(/^(\<\s*div[^>]*\>)(.*)$/)[0][1].scan(/^(.*)(\<\s*\/\s*div[^>]*\>)$/)[0][0]
-      post.content_html = markdown(post.content)
+      post.markdown!
       post.save
     end
   end
