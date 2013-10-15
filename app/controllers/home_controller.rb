@@ -127,7 +127,7 @@ class HomeController < ApplicationController
 
   # create a new post
   def create_post_action
-    post = Post.create(:title => "Untitled Post", :content => "", :content_html => "", :javascript => "", :css => "", :is_public => false, :sort_id => 1)
+    post = Post.create(:title => "Untitled Post", :title_html => "", :content => "", :content_html => "", :javascript => "", :css => "", :is_public => false, :sort_id => 1)
     post.tags = [Tag.get_tag_by_name("home")]
     post.sort_id = post.id
     post.save!
@@ -196,6 +196,7 @@ class HomeController < ApplicationController
       Tag.unlink_tag_from_post(post, post.tags.first)
     end
     post.title = params[:post_title]
+    post.title_html = markdown(post.title)
     post.content = params[:post_content]
     post.content_html = markdown(post.content)
     post.javascript = params[:post_javascript]
@@ -203,7 +204,7 @@ class HomeController < ApplicationController
     post.tags = params[:post_tags].downcase.split(",").map { |tag| tag.strip }.select { |tag| tag != "" }.map { |name| Tag.get_tag_by_name(name) }
     post.is_public = !!params[:post_is_public]
     post.save!
-    flash[:notice] = "The changes to the post entitled \"" + post.title + "\" have been saved."
+    flash[:notice] = "The changes to the post entitled \"" + post.title_html + "\" have been saved."
     return redirect_to "/edit_post/" + params[:post_id]
   end
 
@@ -214,7 +215,7 @@ class HomeController < ApplicationController
       Tag.unlink_tag_from_post(post, post.tags.first)
     end
     post.destroy
-    flash[:notice] = "The post entitled \"" + post.title + "\" has been deleted."
+    flash[:notice] = "The post entitled \"" + post.title_html + "\" has been deleted."
     return redirect_to "/admin"
   end
 

@@ -56,13 +56,13 @@
             <a href="#" onclick="if (window.confirm('Are you sure you want to delete post &ldquo;<%= post.title.gsub(/'/, {"'" => "\\'"}) -%>&rdquo;?')) { $(this).parent().submit(); } return false;">✗</a>
           <% end %>
           &nbsp;
-          <a href="<%= post.canonical_uri -%>"><%= post.title %></a>
+          <a href="<%= post.canonical_uri -%>"><%= raw(post.title_html) %></a>
           <%= if post.is_public then "" else raw(" <span class=\"muted\">(hidden)</span>") end %>
         </li>
       <% end %>
     </ul>
   <% else %>
-    <p>There are no posts.</p>
+    <div class="p">There are no posts.</div>
   <% end %>
 
   <h3>Tags</h3>
@@ -73,7 +73,7 @@
       <% end %>
     </ul>
   <% else %>
-    <p>There are no tags.</p>
+    <div class="p">There are no tags.</div>
   <% end %>
 
   <h3>Redirects</h3>
@@ -100,6 +100,6 @@
       <% end %>
     </ul>
   <% else %>
-    <p>There are no redirects.</p>
+    <div class="p">There are no redirects.</div>
   <% end %>
 </div>

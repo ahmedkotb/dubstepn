@@ -17,7 +17,7 @@
 
   <h2>
     <% if title_link %>
-      <a href="<%= post.canonical_uri %>"><%= post.title %></a>
+      <a href="<%= post.canonical_uri %>"><%= raw(post.title_html) %></a>
       <% if !post.is_public %>
         <span class="muted">(hidden)</span>
       <% end %>
@@ -25,7 +25,7 @@
         <span class="muted">(<a href="/edit_post/<%= post.id -%>">edit</a>)</span>
       <% end %>
     <% else %>
-      <%= post.title %>
+      <%= raw(post.title_html) %>
       <% if !post.is_public %>
         <span class="muted">(hidden)</span>
       <% end %>
@@ -36,9 +36,9 @@
   </h2>
 
   <% if show_date %>
-    <p class="muted">
+    <div class="p muted">
       Posted on <%= post.created_at.strftime("%B %e, %Y") %>.
-    </p>
+    </div>
   <% end %>
 
   <%= raw(post.content_html) %>
@@ -47,12 +47,12 @@
     <div class="row p">
       <% if previous_post %>
         <div class="span6 previous-post">
-          <a href="<%= previous_post.canonical_uri -%>">« <%= previous_post.title -%></a>
+          <a href="<%= previous_post.canonical_uri -%>">« <%= raw(previous_post.title_html) -%></a>
         </div>
       <% end %>
       <% if next_post %>
         <div class="span6 next-post <%= if previous_post then "" else "offset6" end -%>">
-          <a href="<%= next_post.canonical_uri -%>"><%= next_post.title -%> »</a>
+          <a href="<%= next_post.canonical_uri -%>"><%= raw(next_post.title_html) -%> »</a>
         </div>
       <% end %>
     </div>
@@ -78,7 +78,7 @@
       </div>
     <% end %>
   <% elsif comments_mode == :count %>
-    <p><a href="<%= "#{request.protocol}#{request.host_with_port}" %><%= post.canonical_uri %>#disqus_thread">0 Comments</a></p>
+    <div class="p"><a href="<%= "#{request.protocol}#{request.host_with_port}" %><%= post.canonical_uri %>#disqus_thread">0 Comments</a></div>
   <% end %>
 
   <% if post.javascript != "" %>

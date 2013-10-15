@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130909155758) do
+ActiveRecord::Schema.define(version: 20131014022409) do
 
   create_table "posts", force: true do |t|
     t.text     "title",        null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20130909155758) do
     t.integer  "sort_id",      null: false
     t.text     "javascript",   null: false
     t.text     "css",          null: false
+    t.text     "title_html",   null: false
   end
 
   create_table "posts_tags", id: false, force: true do |t|
@@ -31,16 +32,16 @@ ActiveRecord::Schema.define(version: 20130909155758) do
   end
 
   create_table "redirects", force: true do |t|
-    t.text     "from",       null: false
-    t.text     "to",         null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text      "from",       null: false
+    t.text      "to",         null: false
+    t.timestamp "created_at", null: false
+    t.timestamp "updated_at", null: false
   end
 
   create_table "tags", force: true do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string    "name",       null: false
+    t.timestamp "created_at", null: false
+    t.timestamp "updated_at", null: false
   end
 
 end

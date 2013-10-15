@@ -3,10 +3,10 @@
 <div class="article">
   <h2>This page requires administrative privileges.</h2>
   <%= form_tag("/login", :method => "post") do %>
-    <p>Please enter your credentials:</p>
-    <p>
+    <div class="p">Please enter your credentials:</div>
+    <div class="p">
       <input type="password" placeholder="Password" name="password" id="password-field" />
       <input type="submit" value="Log In" />
-    </p>
+    </div>
   <% end %>
 </div>

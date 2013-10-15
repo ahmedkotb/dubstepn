@@ -22,6 +22,7 @@ $color-light: #4c264a;
 $color-dark: #232022;
 $color-anchor: #a526a5;
 $color-anchor-hover: #c23b00;
+$color-selection: #ffa0fa;
 
 $footer-color-background: $color-dark * 0.5;
 $footer-color-text: $color-dark * 0.2 + #777;
@@ -81,6 +82,10 @@ $footer-height: 128px;
 
 /* Body */
 
+p {
+  background-color: red;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -88,10 +93,10 @@ html, body {
 }
 
 body {
-  font-family: "Sorts Mill Goudy", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  font-size: 1.2em;
-  line-height: 1.7em;
+  font-size: 0.95em;
+  line-height: 1.5;
   color: #333;
 }
 
@@ -104,11 +109,20 @@ body {
   padding: 0 4%;
 }
 
+::selection {
+  background: $color-selection; /* Safari */
+}
+
+::-moz-selection {
+  background: $color-selection; /* Firefox */
+}
+
 /* Anchors */
 
 a {
   color: $color-anchor;
   text-decoration: none;
+  font-weight: 700;
 
   &:hover {
     color: $color-anchor-hover;
@@ -125,7 +139,7 @@ a.tag {
   font-weight: 600;
   white-space: nowrap;
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
-  line-height: 1.6em;
+  line-height: 1.6;
 
   &:hover {
     background-color: $color-anchor-hover;
@@ -139,13 +153,13 @@ a.tag {
 }
 
 h2, h3, h4, h5, h6 {
-  font-family: "Sorts Mill Goudy", sans-serif;
   font-weight: 300;
   margin: 16px 0;
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 2.5em;
+  line-height: 1.2;
 
   a {
     color: inherit;
@@ -153,19 +167,19 @@ h2 {
 }
 
 h3 {
-  font-size: 1.3em;
+  font-size: 1.7em;
   margin-top: 48px;
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1.2em;
   margin-top: 32px;
   color: #666;
 }
 
 code, pre, .monospace {
   font-family: "Droid Sans Mono", "Monaco", "Lucida Console", "Terminal", sans-serif;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 pre {
@@ -240,11 +254,15 @@ strong {
   font-weight: 600;
 }
 
-.article > p > img, .article > p > video, .article > p > embed, .article > p > iframe {
-  display: inline-block;
-  vertical-align: middle;
-  border-width: 0;
-  width: 100%;
+.article {
+  .p {
+    img, video, embed, iframe {
+      display: inline-block;
+      vertical-align: middle;
+      border-width: 0;
+      width: 100%;
+    }
+  }
 }
 
 input[type=text], input[type=password], textarea {
@@ -309,7 +327,6 @@ form {
   $header-padding: 24px;
   $header-link-border-width: 4px;
   $header-link-border-color: #ddd;
-  font-family: "Sorts Mill Goudy", sans-serif;
   line-height: $header-height;
   padding-top: $header-padding;
   padding-bottom: $header-padding;
@@ -324,7 +341,7 @@ form {
     h1 {
       font-family: "Playball", cursive;
       font-weight: 300;
-      font-size: 1.5em;
+      font-size: 2em;
       text-transform: inherit;
       line-height: inherit;
       margin: $header-link-border-width 0;
@@ -386,7 +403,7 @@ div.banner-title {
   @include vertical-gradient($color-dark, $color-dark * 0.9);
   line-height: 64px;
   color: #fff;
-  font-size: 1.5em;
+  font-size: 1.8em;
   text-align: center;
   font-weight: 300;
 }
@@ -395,7 +412,6 @@ div.banner-body {
   @include vertical-gradient($color-light * 0.9, $color-light);
   color: $color-against-light;
   padding: 8px 0;
-  font-size: 0.9em;
   font-weight: 300;
 
   a {
@@ -477,7 +493,7 @@ div.post-separator {
   color: $footer-color-text;
   text-align: center;
 
-  #footer p {
+  #footer .p {
     line-height: ($footer-height - 32px);
     margin: 0;
   }
