@@ -18,17 +18,11 @@
  *  Global styles
  */
 
-$color-light: #4c264a;
-$color-dark: #232022;
-$color-anchor: #a526a5;
+$color-primary: #413346;
+$color-anchor: #8b398b;
 $color-anchor-hover: #c23b00;
+$color-against-light: #c3b7c3;
 $color-selection: #ffa0fa;
-
-$footer-color-background: $color-dark * 0.5;
-$footer-color-text: $color-dark * 0.2 + #777;
-
-$color-against-light: #c3b1c3;
-
 $code-background: #e9e9e9;
 $footer-height: 128px;
 
@@ -400,7 +394,7 @@ form {
 /* Banner */
 
 div.banner-title {
-  @include vertical-gradient($color-dark, $color-dark * 0.9);
+  @include vertical-gradient(#232022, #1a1719);
   line-height: 64px;
   color: #fff;
   font-size: 1.8em;
@@ -409,7 +403,7 @@ div.banner-title {
 }
 
 div.banner-body {
-  @include vertical-gradient($color-light * 0.9, $color-light);
+  @include vertical-gradient($color-primary * 0.9, $color-primary);
   color: $color-against-light;
   padding: 8px 0;
   font-weight: 300;
@@ -437,12 +431,12 @@ div.banner-body {
 /* Separators */
 
 div.page-separator-top {
-  @include vertical-gradient($color-light, $color-light * 0.95);
+  @include vertical-gradient($color-primary, $color-primary * 0.95);
   height: 32px;
 }
 
 div.page-separator-bottom {
-  @include vertical-gradient($color-dark + #222, $color-dark + #111);
+  @include vertical-gradient(#454244, #343133);
   height: 32px;
 }
 
@@ -489,8 +483,8 @@ div.post-separator {
   bottom: 0;
   width: 100%;
   height: $footer-height;
-  @include vertical-gradient($footer-color-background, $footer-color-background * 0.9);
-  color: $footer-color-text;
+  @include vertical-gradient(#121011, #0d0c0c);
+  color: #757575;
   text-align: center;
 
   #footer .p {
