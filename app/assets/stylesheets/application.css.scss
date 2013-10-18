@@ -492,32 +492,3 @@ div.post-separator {
     margin: 0;
   }
 }
-
-/* Loading screen */
-
-.loading-cover {
-  visibility: hidden;
-  background-color: #fff;
-  opacity: 0.6;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-
-  .loading-spinner-container {
-    position: absolute;
-    width: 256px;
-    height: 256px;
-    left: 50%;
-    top: 50%;
-
-    .loading-spinner {
-      position: relative;
-      width: 256px;
-      height: 256px;
-      left: -50%;
-      top: -50%;
-    }
-  }
-}

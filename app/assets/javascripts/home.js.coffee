@@ -32,5 +32,3 @@ page_init = (first_time) ->
 $(document).ready () ->
   page_init(true)
   document.addEventListener("page:change",  (() -> page_init(false)))
-  document.addEventListener("page:fetch",   (() -> $(".loading-cover").css("visibility", "visible")))
-  document.addEventListener("page:receive", (() -> $(".loading-cover").css("visibility", "hidden")))
