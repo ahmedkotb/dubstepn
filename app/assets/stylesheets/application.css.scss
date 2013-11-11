@@ -18,13 +18,12 @@
  *  Global styles
  */
 
-$color-primary: #413346;
 $color-anchor: #8b398b;
 $color-anchor-hover: #c23b00;
-$color-against-light: #c3b7c3;
 $color-selection: #ffa0fa;
 $code-background: #e9e9e9;
-$footer-height: 128px;
+$separator-height: 16px;
+$footer-height: $separator-height + 64px;
 
 /* Mixins */
 
@@ -43,6 +42,19 @@ $footer-height: 128px;
   background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
   background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin animate($properties, $duration) {
+  -webkit-transition-property: $properties;
+  -moz-transition-property:    $properties;
+  -ms-transition-property:     $properties;
+  -o-transition-property:      $properties;
+  transition-property:         $properties;
+  -webkit-transition-duration: $duration;
+  -moz-transition-duration:    $duration;
+  -ms-transition-duration:     $duration;
+  -o-transition-duration:      $duration;
+  transition-duration:         $duration;
 }
 
 /* Helper styles */
@@ -116,7 +128,8 @@ body {
 a {
   color: $color-anchor;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
+  @include animate(color, 0.3s);
 
   &:hover {
     color: $color-anchor-hover;
@@ -281,7 +294,7 @@ input[type=submit], .button-link {
   color: #fff;
   background-color: $color-anchor;
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
-  font-weight: bold;
+  font-weight: 600;
   border-style: none;
 
   &:hover {
@@ -320,10 +333,15 @@ form {
   $header-height: 32px;
   $header-padding: 24px;
   $header-link-border-width: 4px;
-  $header-link-border-color: #ddd;
+  $header-link-border-color: #eee;
   line-height: $header-height;
   padding-top: $header-padding;
   padding-bottom: $header-padding;
+  @media (max-width: 767px) {
+    padding-top: $header-padding / 2;
+    padding-bottom: $header-padding / 2;
+  }
+  color: #666;
 
   #title {
     @media (max-width: 767px) {
@@ -339,8 +357,6 @@ form {
       text-transform: inherit;
       line-height: inherit;
       margin: $header-link-border-width 0;
-      color: #666;
-
       a {
         font-weight: 400;
         display: inline-block;
@@ -393,51 +409,30 @@ form {
 
 /* Banner */
 
-div.banner-title {
-  @include vertical-gradient(#232022, #221e21);
-  line-height: 64px;
-  color: #fff;
-  font-size: 1.8em;
-  text-align: center;
-  font-weight: 300;
-}
-
 div.banner-body {
-  @include vertical-gradient($color-primary * 0.9, $color-primary);
-  color: $color-against-light;
-  padding: 8px 0;
-  font-weight: 300;
+  background: #222 image-url("diagmonds.png") repeat;
+  padding: 16px 0;
+  color: #999;
 
   a {
-    color: inherit;
+    color: #888;
 
     &:hover {
-      color: #fff;
+      color: $color-anchor-hover;
     }
   }
 
   h2 {
-    font-family: inherit;
-    font-weight: inherit;
-    font-size: 1.8em;
-    color: #fff;
-  }
-
-  .muted {
-    color: $color-against-light * 0.8;
+    font-size: 1.9em;
+    color: #ccc;
   }
 }
 
 /* Separators */
 
-div.page-separator-top {
-  @include vertical-gradient($color-primary, $color-primary * 0.95);
-  height: 32px;
-}
-
-div.page-separator-bottom {
-  @include vertical-gradient(#454244, #343133);
-  height: 32px;
+div.page-separator {
+  background-color: #eee;
+  height: $separator-height;
 }
 
 div.post-separator {
@@ -483,12 +478,11 @@ div.post-separator {
   bottom: 0;
   width: 100%;
   height: $footer-height;
-  @include vertical-gradient(#121011, #0d0c0c);
-  color: #757575;
+  color: #666;
   text-align: center;
 
   #footer .p {
-    line-height: ($footer-height - 32px);
+    line-height: $footer-height - $separator-height;
     margin: 0;
   }
 }
