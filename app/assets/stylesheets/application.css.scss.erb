@@ -15,23 +15,18 @@
  */
 
 /*
- *  Global styles
+ *  Global constants
  */
 
 $color-anchor: #8b398b;
 $color-anchor-hover: #c23b00;
 $color-selection: #ffa0fa;
+$input-height: 36px;
 $code-background: #e9e9e9;
 $separator-height: 16px;
 $footer-height: $separator-height + 64px;
 
 /* Mixins */
-
-@mixin box-sizing($mode) {
-  -webkit-box-sizing: $mode;
-  -moz-box-sizing: $mode;
-  box-sizing: $mode;
-}
 
 @mixin vertical-gradient($top, $bottom) {
   background: $top; /* Old browsers */
@@ -57,7 +52,7 @@ $footer-height: $separator-height + 64px;
   transition-duration:         $duration;
 }
 
-/* Helper styles */
+/* Helper classes */
 
 .clearfix {
   *zoom: 1;
@@ -82,15 +77,10 @@ $footer-height: $separator-height + 64px;
 
 .full-width {
   width: 100%;
-  @include box-sizing(border-box);
   /* NOTE: home.js.coffee automatically makes YouTube videos full-width and preserves their aspect ratio */
 }
 
 /* Body */
-
-p {
-  background-color: red;
-}
 
 html, body {
   margin: 0;
@@ -123,13 +113,20 @@ body {
   background: $color-selection; /* Firefox */
 }
 
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+  word-wrap: break-word;
+}
+
 /* Anchors */
 
 a {
   color: $color-anchor;
   text-decoration: none;
   font-weight: 600;
-  @include animate(color, 0.3s);
+  @include animate("color, background-color", 0.3s);
 
   &:hover {
     color: $color-anchor-hover;
@@ -217,16 +214,16 @@ label {
 }
 
 ul.pagination {
-  $page-link-width:  32px;
-  $page-link-height: 28px;
+  $page-link-width:  36px;
+  $page-link-height: 32px;
 
   padding-left: 0;
   margin: 32px auto;
 
   li {
     display: block;
-    width: $page-link-width;
-    height: $page-link-height;
+    width: $page-link-width + 1;
+    height: $page-link-height + 2;
     float: left;
     text-align: center;
     border-top: 1px solid #ddd;
@@ -235,6 +232,7 @@ ul.pagination {
 
     &:first-child {
       border-left: 1px solid #ddd;
+      width: $page-link-width + 2;
     }
 
     &.disabled a, &.disabled span {
@@ -272,30 +270,29 @@ strong {
   }
 }
 
-input[type=text], input[type=password], textarea {
+input[type=submit], input[type=text], input[type=password], textarea, .button-link {
   display: inline-block;
-  border: 1px solid #ddd;
-  padding: 2px 8px;
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
-  line-height: inherit;
+}
+
+input[type=text], input[type=password], textarea {
+  border: 1px solid #ddd;
+  padding: 2px 10px;
   color: inherit;
   background-color: #fff;
 }
 
 input[type=submit], .button-link {
-  display: inline-block;
-  padding: 3px 9px;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  line-height: inherit;
+  border-style: none;
+  padding: 0 16px;
   color: #fff;
   background-color: $color-anchor;
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
   font-weight: 600;
-  border-style: none;
+  line-height: $input-height;
+  @include animate(background-color, 0.3s);
 
   &:hover {
     background-color: $color-anchor-hover;
@@ -304,9 +301,8 @@ input[type=submit], .button-link {
 }
 
 input, .button-link {
-  height: 27px;
+  height: $input-height;
   vertical-align: middle;
-  @include box-sizing(border-box);
 }
 
 textarea {

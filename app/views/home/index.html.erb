@@ -35,7 +35,7 @@
   <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_date => true, :title_link => true } %>
 <% end %>
 
-<ul class="pagination clearfix" style="width: <%= 34 * (@pages + 2) -%>px;">
+<ul class="pagination clearfix" style="width: <%= 1 + (36 + 1) * (@pages + 2) -%>px;">
   <% if @page > 1 %>
     <% if @tag.name == "home" %>
       <li><a href="/">&laquo;</a></li>
