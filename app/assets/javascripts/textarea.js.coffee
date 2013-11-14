@@ -1,5 +1,5 @@
 # called when the DOM is ready
-$(document).ready = () ->
+$(document).ready () ->
   # make a textarea automatically adjust its height based on its content
   fit_textarea = (selector) ->
     # loop through each textarea

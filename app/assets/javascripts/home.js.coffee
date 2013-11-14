@@ -1,5 +1,5 @@
 # called when the DOM is ready
-$(document).ready = () ->
+$(document).ready () ->
   # make a particular element full-width such that aspect ratio is preserved
   make_full_width = (e) ->
     # get the aspect ratio
@@ -23,7 +23,3 @@ $(document).ready = () ->
 
   # make all youtube videos full-width
   $("iframe[src*='www.youtube.com']").load(() -> make_full_width(this))
-
-  # load MathJax
-  if !first_time
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub])

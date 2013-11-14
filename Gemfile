@@ -54,3 +54,6 @@ ruby '2.0.0'
 
 # Production web server
 gem 'unicorn'
+
+# Font Awesome
+gem 'font-awesome-sass'
