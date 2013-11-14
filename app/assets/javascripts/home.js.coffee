@@ -1,5 +1,5 @@
-# called every time a new page is loaded (see https://github.com/rails/turbolinks/)
-page_init = (first_time) ->
+# called when the DOM is ready
+$(document).ready = () ->
   # make a particular element full-width such that aspect ratio is preserved
   make_full_width = (e) ->
     # get the aspect ratio
@@ -27,8 +27,3 @@ page_init = (first_time) ->
   # load MathJax
   if !first_time
     MathJax.Hub.Queue(["Typeset", MathJax.Hub])
-
-# called once when the DOM is ready
-$(document).ready () ->
-  page_init(true)
-  document.addEventListener("page:change",  (() -> page_init(false)))

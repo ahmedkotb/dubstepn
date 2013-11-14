@@ -1,5 +1,5 @@
-# called every time a new page is loaded (see https://github.com/rails/turbolinks/)
-page_init = () ->
+# called when the DOM is ready
+$(document).ready = () ->
   # make a textarea automatically adjust its height based on its content
   fit_textarea = (selector) ->
     # loop through each textarea
@@ -78,8 +78,3 @@ page_init = () ->
       $(element).change debounced_fit_textarea
       $(element).bind "input keyup propertychange", debounced_fit_textarea
       fit_textarea(element)
-
-# called once when the DOM is ready
-$(document).ready () ->
-  page_init()
-  document.addEventListener("page:change", page_init)
