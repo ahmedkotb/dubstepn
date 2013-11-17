@@ -135,8 +135,6 @@ module ApplicationHelper
         full_url = APP_PROTOCOL + full_url[2..-1]
       elsif full_url.start_with?("/")
         full_url = APP_PROTOCOL + APP_HOST + full_url
-      else
-        full_url = APP_PROTOCOL + full_url
       end
 
       # try to fetch the URL
