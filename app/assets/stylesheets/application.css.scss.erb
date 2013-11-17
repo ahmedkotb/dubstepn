@@ -19,7 +19,7 @@
  *  Global constants
  */
 
-$color-anchor: #cb53a8;
+$color-anchor: #ac498f;
 $color-anchor-hover: #c23b00;
 $color-selection: #ffa0fa;
 $color-light-background: #f3f3f3;
@@ -135,7 +135,7 @@ a {
 
   &:hover {
     color: $color-anchor-hover;
-    text-decoration: none;
+    text-decoration: underline;
   }
 }
 
@@ -167,6 +167,10 @@ h2, h3, h4, h5, h6 {
 
   a {
     font-weight: 300;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -371,6 +375,7 @@ form {
         color: inherit;
         &:hover {
           color: $color-anchor-hover;
+          text-decoration: none;
         }
       }
 
@@ -395,7 +400,7 @@ form {
       font-weight: 400;
       display: inline-block;
       color: inherit;
-      padding: 0 20px;
+      padding: 0 16px;
       margin: $header-link-border-width 0;
       @media (max-width: ($stack-width - 1)) {
         & {
@@ -404,6 +409,7 @@ form {
       }
       &:hover {
         color: $color-anchor-hover;
+        text-decoration: none;
       }
     }
 
@@ -424,14 +430,6 @@ div.banner-body {
   padding: 16px 0;
   color: #666;
 
-  a {
-    color: #cb53a8;
-
-    &:hover {
-      color: $color-anchor-hover;
-    }
-  }
-
   .social-media-links {
     a {
       color: inherit;
@@ -439,6 +437,7 @@ div.banner-body {
 
       &:hover {
         color: $color-anchor-hover;
+        text-decoration: none;
       }
     }
   }
@@ -451,6 +450,7 @@ div.banner-body {
 
       &:hover {
         color: $color-anchor-hover;
+        text-decoration: none;
       }
     }
   }

@@ -70,12 +70,12 @@
             <div class="span8 offset2">
               <% if flash[:notice] %>
                 <div class="notice">
-                  <%= flash[:notice] %>
+                  <i class="fa fa-bell-o"></i> <%= flash[:notice].html_safe %>
                 </div>
               <% end %>
               <% if flash[:error] %>
                 <div class="error">
-                  <%= flash[:error] %>
+                  <i class="fa fa-exclamation-circle"></i> <%= flash[:error].html_safe %>
                 </div>
               <% end %>
               <%= yield %>
