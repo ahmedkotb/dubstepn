@@ -43,6 +43,10 @@
 
   <%= raw(post.content_html) %>
 
+  <div class="p">
+    <div class="fb-share-button" data-href="<%= post.canonical_uri %>" data-type="button"></div>
+  </div>
+
   <% if previous_post || next_post %>
     <div class="row p">
       <% if previous_post %>
