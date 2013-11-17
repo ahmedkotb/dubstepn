@@ -66,7 +66,7 @@
               <div class="row">
                 <% for post in @banner_posts %>
                   <div class="span4">
-                    <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_date => false, :title_link => false, :social_media => true } %>
+                    <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => nil, :show_date => false, :title_link => false, :social_media => false } %>
                   </div>
                 <% end %>
               </div>
