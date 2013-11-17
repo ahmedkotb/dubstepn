@@ -75,7 +75,7 @@ class HomeController < ApplicationController
   def robots
     robots = ""
     robots << "User-agent: *\r\n"
-    robots << "Sitemap: http://" + APP_HOST + "/sitemap\r\n"
+    robots << "Sitemap: " + APP_PROTOCOL + APP_HOST + "/sitemap\r\n"
     robots << "Disallow: /login\r\n"
     robots << "Disallow: /admin\r\n"
     robots << "Disallow: /resume\r\n"
@@ -87,19 +87,19 @@ class HomeController < ApplicationController
     sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
     sitemap << "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\r\n"
     sitemap << "  <url>\r\n"
-    sitemap << "    <loc>http://" + APP_HOST + "</loc>\r\n"
+    sitemap << "    <loc>" + APP_PROTOCOL + APP_HOST + "</loc>\r\n"
     sitemap << "  </url>\r\n"
     Tag.all.each do |tag|
       if !["home", "sidebar"].include?(tag.name)
         sitemap << "  <url>\r\n"
-        sitemap << "    <loc>http://" + APP_HOST + "/" + tag.name + "</loc>\r\n"
+        sitemap << "    <loc>" + APP_PROTOCOL + APP_HOST + "/" + tag.name + "</loc>\r\n"
         sitemap << "  </url>\r\n"
       end
     end
     Post.all.each do |post|
       if post.is_public && !(post.tags.size == 1 && post.tags.first.name == "sidebar")
         sitemap << "  <url>\r\n"
-        sitemap << "    <loc>http://" + APP_HOST + post.canonical_uri + "</loc>\r\n"
+        sitemap << "    <loc>" + APP_PROTOCOL + APP_HOST + post.canonical_uri + "</loc>\r\n"
         sitemap << "  </url>\r\n"
       end
     end
@@ -296,8 +296,8 @@ private
         return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
       end
 
-      if !use_https && request.protocol != "http://"
-        return redirect_to "http://#{request.url[(request.protocol.size)..(-1)]}"
+      if !use_https && request.protocol != APP_PROTOCOL
+        return redirect_to "#{APP_PROTOCOL}#{request.url[(request.protocol.size)..(-1)]}"
       end
     end
   end
@@ -365,19 +365,19 @@ private
       else
         xml << "    <description>" + APP_DESCRIPTION.encode(:xml => :text) + "  Category: " + tag.name + ".</description>\r\n"
       end
-      xml << "    <link>http://" + APP_HOST.encode(:xml => :text) + "/</link>\r\n"
+      xml << "    <link>" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "</link>\r\n"
       xml << "    <pubDate>" + last_modified_date.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
       if tag.name == "home"
-        xml << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+        xml << "    <atom:link href=\"" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "/rss\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
       else
-        xml << "    <atom:link href=\"http://" + APP_HOST.encode(:xml => :text) + "/rss/" + tag.name + "\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
+        xml << "    <atom:link href=\"" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "/rss/" + tag.name + "\" rel=\"self\" type=\"application/rss+xml\" />\r\n"
       end
       for post in posts
         xml << "    <item>\r\n"
         xml << "      <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
         xml << "      <description>" + post.summary.encode(:xml => :text) + "</description>\r\n"
-        xml << "      <link>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</link>\r\n"
-        xml << "      <guid>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</guid>\r\n"
+        xml << "      <link>" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</link>\r\n"
+        xml << "      <guid>" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</guid>\r\n"
         xml << "      <pubDate>" + post.created_at.to_datetime.to_formatted_s(:rfc822).encode(:xml => :text) + "</pubDate>\r\n"
         xml << "    </item>\r\n"
       end
@@ -399,18 +399,18 @@ private
         xml << "  <subtitle>" + APP_DESCRIPTION.encode(:xml => :text) + "  Category: " + tag.name + ".</subtitle>\r\n"
       end
       if tag.name == "home"
-        xml << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
+        xml << "  <link href=\"" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "/atom\" rel=\"self\" />\r\n"
       else
-        xml << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/atom/" + tag.name + "\" rel=\"self\" />\r\n"
+        xml << "  <link href=\"" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "/atom/" + tag.name + "\" rel=\"self\" />\r\n"
       end
-      xml << "  <link href=\"http://" + APP_HOST.encode(:xml => :text) + "/\" />\r\n"
-      xml << "  <id>http://" + APP_HOST.encode(:xml => :text) + "/</id>\r\n"
+      xml << "  <link href=\"" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "/\" />\r\n"
+      xml << "  <id>" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + "/</id>\r\n"
       xml << "  <updated>" + last_modified_date.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
       for post in posts
         xml << "  <entry>\r\n"
         xml << "    <title>" + post.title.encode(:xml => :text) + "</title>\r\n"
-        xml << "    <link href=\"http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "\" />\r\n"
-        xml << "    <id>http://" + APP_HOST.encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</id>\r\n"
+        xml << "    <link href=\"" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "\" />\r\n"
+        xml << "    <id>" + (APP_PROTOCOL + APP_HOST).encode(:xml => :text) + post.canonical_uri.encode(:xml => :text) + "</id>\r\n"
         xml << "    <updated>" + post.created_at.to_datetime.to_formatted_s(:rfc3339).encode(:xml => :text) + "</updated>\r\n"
         xml << "    <summary>" + post.summary.encode(:xml => :text) + "</summary>\r\n"
         xml << "    <author>\r\n"

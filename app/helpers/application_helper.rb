@@ -7,6 +7,7 @@ module ApplicationHelper
   APP_TITLE = "Stephan Boyer"
   APP_AUTHOR = "Stephan Boyer"
   APP_EMAIL = "boyers@mit.edu"
+  APP_PROTOCOL = "http://"
   if Rails.env.production?
     APP_HOST = "www.stephanboyer.com"
   else
@@ -130,11 +131,12 @@ module ApplicationHelper
       if full_url.size == 0
         full_url = "/"
       end
-      if full_url.start_with?("/")
-        full_url = APP_HOST + full_url
-      end
-      if !full_url.start_with?("http://") && !full_url.start_with?("https://")
-        full_url = "http://" + full_url
+      if full_url.start_with?("//")
+        full_url = APP_PROTOCOL + full_url[2..-1]
+      elsif full_url.start_with?("/")
+        full_url = APP_PROTOCOL + APP_HOST + full_url
+      else
+        full_url = APP_PROTOCOL + full_url
       end
 
       # try to fetch the URL

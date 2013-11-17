@@ -8,11 +8,11 @@
 
 <% content_for :head do %>
   <% if @tag.name == "home" %>
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.stephanboyer.com/rss" />
-    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="http://www.stephanboyer.com/atom" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="//<%= APP_HOST -%>/rss" />
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="//<%= APP_HOST -%>/atom" />
   <% else %>
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.stephanboyer.com/rss/<%= @tag.name -%>" />
-    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="http://www.stephanboyer.com/atom/<%= @tag.name -%>" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="//<%= APP_HOST -%>/rss/<%= @tag.name -%>" />
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="//<%= APP_HOST -%>/atom/<%= @tag.name -%>" />
   <% end %>
 <% end %>
 
