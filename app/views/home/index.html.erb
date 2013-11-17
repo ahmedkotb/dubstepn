@@ -32,7 +32,7 @@
   <% if index > 0%>
     <div class="post-separator"> </div>
   <% end %>
-  <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_date => true, :title_link => true } %>
+  <%= render :partial => "post", :locals => { :post => post, :previous_post => nil, :next_post => nil, :comments_mode => :count, :show_date => true, :title_link => true, :social_media => true } %>
 <% end %>
 
 <ul class="pagination clearfix" style="width: <%= 1 + (36 + 1) * (@pages + 2) -%>px;">

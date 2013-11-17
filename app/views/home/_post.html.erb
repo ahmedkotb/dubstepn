@@ -6,6 +6,7 @@
   #   comments_mode   :full | :count | nil
   #   show_date       boolean
   #   title_link      boolean
+  #   social_media    boolean
 %>
 
 <div class="article">
@@ -43,9 +44,11 @@
 
   <%= raw(post.content_html) %>
 
-  <div class="p">
-    <div class="fb-share-button" data-href="<%= post.canonical_uri %>" data-type="button"></div>
-  </div>
+  <% if Rails.env.production? && !is_logged_in && social_media %>
+    <div class="p">
+      <div class="fb-share-button" data-href="<%= post.canonical_uri %>" data-type="button"></div>
+    </div>
+  <% end %>
 
   <% if previous_post || next_post %>
     <div class="row p">
