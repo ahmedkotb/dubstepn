@@ -86,6 +86,12 @@ $stack-width: 900px;
   /* NOTE: home.js.coffee automatically makes YouTube videos full-width and preserves their aspect ratio */
 }
 
+@media (min-width: ($stack-width / 2)) {
+  .small-phone-visible {
+    display: none;
+  }
+}
+
 /* Body */
 
 html, body {
@@ -248,19 +254,19 @@ ul.pagination {
 
   padding-left: 0;
   margin: 32px auto;
+  max-width: 100%;
 
   li {
     display: block;
-    width: $page-link-width + 1;
+    width: $page-link-width + 2;
     height: $page-link-height + 2;
     float: left;
     text-align: center;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    border: 1px solid #ddd;
+    margin-right: -1px;
 
-    &:first-child {
-      border-left: 1px solid #ddd;
+    &:last-child {
+      margin-right: 0;
       width: $page-link-width + 2;
     }
 
@@ -404,6 +410,8 @@ form {
 
   #nav {
     text-align: right;
+    font-size: 0.85em;
+    font-weight: 400;
 
     @media (max-width: ($stack-width - 1)) {
       text-align: center;
@@ -411,8 +419,6 @@ form {
 
     a {
       text-transform: uppercase;
-      font-size: 0.85em;
-      font-weight: 400;
       display: inline-block;
       color: inherit;
       padding: 0 16px;
@@ -491,6 +497,11 @@ div.post-separator {
 
   .article {
     margin: 48px 0 48px 0;
+
+    .MathJax_Display {
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
 
     .previous-post {
       text-align: left;
