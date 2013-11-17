@@ -47,6 +47,7 @@
   <% if Rails.env.production? && !is_logged_in && social_media %>
     <div class="p">
       <div class="fb-share-button" data-href="<%= post.canonical_uri %>" data-type="button"></div>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= post.canonical_uri %>" data-count="none">Tweet</a>
     </div>
   <% end %>
 
