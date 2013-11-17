@@ -46,14 +46,7 @@
 
   <% if Rails.env.production? && !is_logged_in && social_media %>
     <div class="p social-media-share">
-      <!-- Facebook -->
-      <div class="fb-share-button" data-href="<%= post.canonical_uri %>" data-type="button"></div>
-
-      <!-- Twitter -->
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= post.canonical_uri %>" data-count="none">Tweet</a>
-
-      <!-- Google Plus -->
-      <div class="g-plus" data-action="share" data-annotation="none" data-href="<%= post.canonical_uri %>"></div>
+      <div class="fb-share-button" data-href="<%= post.canonical_uri %>" data-type="button"></div>&nbsp;<a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= post.canonical_uri %>" data-count="none">Tweet</a>&nbsp;<div class="g-plus" data-action="share" data-annotation="none" data-href="<%= post.canonical_uri %>"></div>
     </div>
   <% end %>
 
