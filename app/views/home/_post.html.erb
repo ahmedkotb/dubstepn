@@ -46,7 +46,9 @@
 
   <% if Rails.env.production? && !is_logged_in && social_media %>
     <div class="p social-media-share">
-      <div class="fb-share-button" data-href="<%= APP_PROTOCOL + APP_HOST + post.canonical_uri -%>" data-type="button"></div>&nbsp;<a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= APP_PROTOCOL + APP_HOST + post.canonical_uri -%>" data-count="none">Tweet</a>&nbsp;<div class="g-plus" data-action="share" data-annotation="none" data-href="<%= APP_PROTOCOL + APP_HOST + post.canonical_uri -%>"></div>
+      <% url = APP_PROTOCOL + APP_HOST + post.canonical_uri %>
+      <% title = @post.title + " | Stephan Boyer" %>
+      <div class="fb-share-button" data-href="<%= url -%>" data-type="button"></div>&nbsp;<a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= title -%>" data-url="<%= url -%>" data-count="none">Tweet</a>&nbsp;<div class="g-plus" data-action="share" data-annotation="none" data-href="<%= url -%>"></div>
     </div>
   <% end %>
 
