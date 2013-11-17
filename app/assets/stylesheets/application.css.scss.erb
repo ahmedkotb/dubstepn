@@ -19,13 +19,14 @@
  *  Global constants
  */
 
-$color-anchor: #8b398b;
+$color-anchor: #cb53a8;
 $color-anchor-hover: #c23b00;
 $color-selection: #ffa0fa;
 $input-height: 36px;
 $code-background: #e9e9e9;
 $separator-height: 16px;
 $footer-height: $separator-height + 64px;
+$stack-width: 900px;
 
 /* Mixins */
 
@@ -74,6 +75,10 @@ $footer-height: $separator-height + 64px;
 
 .muted {
   color: #aaa;
+}
+
+.right {
+  text-align: right;
 }
 
 .full-width {
@@ -126,7 +131,6 @@ body {
 a {
   color: $color-anchor;
   text-decoration: none;
-  font-weight: 600;
   @include animate("color, background-color", 0.3s);
 
   &:hover {
@@ -160,11 +164,16 @@ a.tag {
 h2, h3, h4, h5, h6 {
   font-weight: 300;
   margin: 16px 0;
+
+  a {
+    font-weight: 300;
+  }
 }
 
 h2 {
-  font-size: 2.5em;
+  font-size: 2em;
   line-height: 1.2;
+  text-transform: uppercase;
 
   a {
     color: inherit;
@@ -172,14 +181,16 @@ h2 {
 }
 
 h3 {
-  font-size: 1.7em;
+  font-size: 1.5em;
   margin-top: 48px;
+  text-transform: uppercase;
 }
 
 h4 {
-  font-size: 1.2em;
+  font-size: 1em;
   margin-top: 32px;
   color: #666;
+  text-transform: uppercase;
 }
 
 code, pre, .monospace {
@@ -198,7 +209,7 @@ pre {
 
 .notice, .error {
   padding: 16px 24px;
-  background-color: #eee;
+  background-color: #f3f3f3;
   margin: 32px 0;
 }
 
@@ -334,14 +345,14 @@ form {
   line-height: $header-height;
   padding-top: $header-padding;
   padding-bottom: $header-padding;
-  @media (max-width: 767px) {
+  @media (max-width: ($stack-width - 1)) {
     padding-top: $header-padding / 2;
     padding-bottom: $header-padding / 2;
   }
   color: #666;
 
   #title {
-    @media (max-width: 767px) {
+    @media (max-width: ($stack-width - 1)) {
       border-bottom: 1px solid #ccc;
       text-align: center;
       line-height: $header-height * 1.5;
@@ -374,17 +385,19 @@ form {
   #nav {
     text-align: right;
 
-    @media (max-width: 767px) {
+    @media (max-width: ($stack-width - 1)) {
       text-align: center;
     }
 
     a {
+      text-transform: uppercase;
+      font-size: 0.85em;
       font-weight: 400;
       display: inline-block;
       color: inherit;
       padding: 0 20px;
       margin: $header-link-border-width 0;
-      @media (max-width: 767px) {
+      @media (max-width: ($stack-width - 1)) {
         & {
           padding: 0 5px;
         }
@@ -407,33 +420,51 @@ form {
 /* Banner */
 
 div.banner-body {
-  background: #222 image-url("carbon_fibre.png") repeat;
+  background-color: #f3f3f3;
   padding: 16px 0;
-  color: #999;
+  color: #666;
 
   a {
-    color: #888;
+    color: #cb53a8;
 
     &:hover {
       color: $color-anchor-hover;
     }
   }
 
+  .social-media {
+    a {
+      color: inherit;
+      font-size: 1.2em;
+
+      &:hover {
+        color: $color-anchor-hover;
+      }
+    }
+  }
+
   h2 {
-    font-size: 1.9em;
-    color: #ccc;
+    font-size: 1.5em;
+
+    a {
+      color: inherit;
+
+      &:hover {
+        color: $color-anchor-hover;
+      }
+    }
   }
 }
 
 /* Separators */
 
 div.page-separator {
-  background-color: #eee;
+  background-color: #f3f3f3;
   height: $separator-height;
 }
 
 div.post-separator {
-  background-color: #eee;
+  background-color: #f3f3f3;
   height: 2px;
 }
 
@@ -446,12 +477,6 @@ div.post-separator {
   .article {
     margin: 48px 0 48px 0;
 
-    h2 {
-      a {
-        font-weight: 300;
-      }
-    }
-
     .previous-post {
       text-align: left;
     }
@@ -460,7 +485,7 @@ div.post-separator {
       text-align: right;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: ($stack-width - 1)) {
       .previous-post, .next-post {
         text-align: center;
       }

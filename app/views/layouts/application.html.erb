@@ -34,19 +34,16 @@
                 <h1>
                   <a href="/" id="title-link">Stephan Boyer</a>
                   <%= content_for :nav %>
-                  <% if is_logged_in %>
-                    <%= form_tag("/logout", :method => "post") do %>
-                      (<a href="/admin">admin</a>, <a href="#" onclick="$(this).parent().submit(); return false;">logout</a>)
-                    <% end %>
-                  <% end %>
                 </h1>
               </div>
               <div id="nav" class="span8">
-                <a <%= if (defined? @tag_name) && @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/">Home</a><span class="hidden">
-                </span><a <%= if (defined? @tag_name) && @tag_name == "theory" then "class='active'".html_safe else "" end -%> href="/theory">Theory</a><span class="hidden">
-                </span><a <%= if (defined? @tag_name) && @tag_name == "projects" then "class='active'".html_safe else "" end -%> href="/projects">Projects</a><span class="hidden">
-                </span><a <%= if (defined? @tag_name) && @tag_name == "music" then "class='active'".html_safe else "" end -%> href="/music">Music</a><span class="hidden">
-                </span><a href="/resume">Resume</a>
+                <a <%= if (defined? @tag_name) && @tag_name == "home" then "class='active'".html_safe else "" end -%> href="/"><i class="fa fa-home"></i> Home</a><span class="hidden">
+                </span><a <%= if (defined? @tag_name) && @tag_name == "theory" then "class='active'".html_safe else "" end -%> href="/theory"><i class="fa fa-flask"></i> Theory</a><span class="hidden">
+                </span><a <%= if (defined? @tag_name) && @tag_name == "projects" then "class='active'".html_safe else "" end -%> href="/projects"><i class="fa fa-cogs"></i> Projects</a><span class="hidden">
+                </span><a <%= if (defined? @tag_name) && @tag_name == "music" then "class='active'".html_safe else "" end -%> href="/music"><i class="fa fa-music"></i> Music</a><span class="hidden">
+                </span><a href="/resume"><i class="fa fa-user"></i> Resume</a><span class="hidden">
+                </span><% if is_logged_in -%><%= form_tag("/logout", :method => "post") do -%><a <%= if params[:action].to_sym == :admin then "class='active'".html_safe else "" end -%> href="/admin"><i class="fa fa-dashboard"></i> Admin</a><span class="hidden">
+                </span><a href="#" onclick="$(this).parent().submit(); return false;"><i class="fa fa-sign-out"></i> Logout</a><% end -%><% end %>
               </div>
             </div>
           </div>

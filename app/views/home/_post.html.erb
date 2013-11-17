@@ -19,25 +19,25 @@
     <% if title_link %>
       <a href="<%= post.canonical_uri %>"><%= raw(post.title_html) %></a>
       <% if !post.is_public %>
-        <span class="muted">(hidden)</span>
+        <span class="muted"><i class="fa fa-eye-slash"></i></span>
       <% end %>
       <% if is_logged_in %>
-        <span class="muted">(<a href="/edit_post/<%= post.id -%>">edit</a>)</span>
+        <span class="muted"><a href="/edit_post/<%= post.id -%>"><i class="fa fa-edit"></i></a></span>
       <% end %>
     <% else %>
       <%= raw(post.title_html) %>
       <% if !post.is_public %>
-        <span class="muted">(hidden)</span>
+        <span class="muted"><i class="fa fa-eye-slash"></i></span>
       <% end %>
       <% if is_logged_in %>
-        <span class="muted">(<a href="/edit_post/<%= post.id -%>">edit</a>)</span>
+        <span class="muted"><a href="/edit_post/<%= post.id -%>"><i class="fa fa-edit"></i></a></span>
       <% end %>
     <% end %>
   </h2>
 
   <% if show_date %>
     <div class="p muted">
-      Posted on <%= post.created_at.strftime("%B %e, %Y") %>.
+      <i class="fa fa-clock-o"></i> Posted on <%= post.created_at.strftime("%B %e, %Y") %>.
     </div>
   <% end %>
 
@@ -47,12 +47,12 @@
     <div class="row p">
       <% if previous_post %>
         <div class="span6 previous-post">
-          <a href="<%= previous_post.canonical_uri -%>">« <%= raw(previous_post.title_html) -%></a>
+          <a href="<%= previous_post.canonical_uri -%>"><i class="fa fa-arrow-circle-o-left"></i> <%= raw(previous_post.title_html) -%></a>
         </div>
       <% end %>
       <% if next_post %>
         <div class="span6 next-post <%= if previous_post then "" else "offset6" end -%>">
-          <a href="<%= next_post.canonical_uri -%>"><%= raw(next_post.title_html) -%> »</a>
+          <a href="<%= next_post.canonical_uri -%>"><%= raw(next_post.title_html) -%> <i class="fa fa-arrow-circle-o-right"></i></a>
         </div>
       <% end %>
     </div>

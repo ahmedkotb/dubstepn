@@ -38,12 +38,12 @@
 <ul class="pagination clearfix" style="width: <%= 1 + (36 + 1) * (@pages + 2) -%>px;">
   <% if @page > 1 %>
     <% if @tag.name == "home" %>
-      <li><a href="/">&laquo;</a></li>
+      <li><a href="/"><i class="fa fa-angle-double-left"></i></a></li>
     <% else %>
-      <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
+      <li><a href="/<%= @tag.name -%>/1"><i class="fa fa-angle-double-left"></i></a></li>
     <% end %>
   <% else %>
-    <li class="disabled"><span>&laquo;</span></li>
+    <li class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>
   <% end %>
   <% for page in 1..@pages %>
     <% if page == @page %>
@@ -57,8 +57,8 @@
     <% end %>
   <% end %>
   <% if @page < @pages %>
-    <li><a href="/<%= @tag.name -%>/<%= @pages -%>">&raquo;</a></li>
+    <li><a href="/<%= @tag.name -%>/<%= @pages -%>"><i class="fa fa-angle-double-right"></i></a></li>
   <% else %>
-    <li class="disabled"><span>&raquo;</span></li>
+    <li class="disabled"><span><i class="fa fa-angle-double-right"></i></span></li>
   <% end %>
 </ul>
