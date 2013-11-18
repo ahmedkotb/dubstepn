@@ -48,7 +48,7 @@
     <div class="p social-media-share">
       <% url = APP_PROTOCOL + APP_HOST + post.canonical_uri %>
       <% title = post.title + " | Stephan Boyer" %>
-      <div class="fb-share-button" data-href="<%= url -%>" data-type="button"></div>&nbsp;<a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= title -%>" data-url="<%= url -%>" data-count="none">Tweet</a>&nbsp;<div class="g-plus" data-action="share" data-annotation="none" data-href="<%= url -%>"></div>
+      <div class="fb-like" data-href="<%= url -%>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>&nbsp;<a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= title -%>" data-url="<%= url -%>" data-count="none">Tweet</a>&nbsp;<div class="g-plus" data-action="share" data-annotation="none" data-href="<%= url -%>"></div>
     </div>
   <% end %>
 
