@@ -7,13 +7,14 @@
 <!DOCTYPE html>
 <html data-ng-app>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title><%= content_for :title %></title>
     <% if (content_for :description) != "" %>
-      <meta name="description" content="<%= content_for :description %>">
+      <meta name="description" content="<%= content_for :description %>" />
     <% end %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Lovers+Quarrel|Droid+Sans+Mono|Open+Sans:300,400,600" rel="stylesheet" type="text/css">
+    <meta property="fb:admins" content="1477269179" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="<%= request.protocol -%>fonts.googleapis.com/css?family=Lovers+Quarrel|Droid+Sans+Mono|Open+Sans:300,400,600" rel="stylesheet" type="text/css" />
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
@@ -139,13 +140,7 @@
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
       <!-- Google Plus -->
-      <script type="text/javascript">
-        (function() {
-          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-          po.src = 'https://apis.google.com/js/plusone.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
-      </script>
+      <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
     <% end %>
   </body>
 </html>
