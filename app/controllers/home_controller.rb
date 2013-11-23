@@ -97,7 +97,7 @@ class HomeController < ApplicationController
       end
     end
     Post.all.each do |post|
-      if post.is_public && !(post.tags.size == 1 && post.tags.first.name == "sidebar")
+      if post.is_public && !(post.tags.size == 1 && post.tags.first.name == "sidebar") && !post.tags.empty?
         sitemap << "  <url>\r\n"
         sitemap << "    <loc>" + APP_PROTOCOL + APP_HOST + post.canonical_uri + "</loc>\r\n"
         sitemap << "  </url>\r\n"
@@ -349,14 +349,14 @@ private
     raise if !tag_name.instance_of?(String)
 
     last_modified_date = Post.order("updated_at DESC").first.try(:created_at).try(:to_datetime) || DateTime.now
+    tag = Tag.where(:name => tag_name).first
+    if !tag
+      return render_404
+    end
+    posts = tag.posts.where(:is_public => true).order("sort_id DESC")
+    xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
     case type
     when :rss
-      tag = Tag.where(:name => tag_name).first
-      if !tag
-        return render_404
-      end
-      posts = tag.posts.where(:is_public => true).order("sort_id DESC")
-      xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       xml << "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n"
       xml << "  <channel>\r\n"
       xml << "    <title>" + APP_TITLE + "</title>\r\n"
@@ -383,14 +383,7 @@ private
       end
       xml << "  </channel>\r\n"
       xml << "</rss>\r\n"
-      return render :xml => xml
     when :atom
-      tag = Tag.where(:name => tag_name).first
-      if !tag
-        return render_404
-      end
-      posts = tag.posts.where(:is_public => true).order("sort_id DESC")
-      xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
       xml << "<feed xmlns=\"http://www.w3.org/2005/Atom\">\r\n"
       xml << "  <title>" + APP_TITLE + "</title>\r\n"
       if tag.name == "home"
@@ -420,9 +413,9 @@ private
         xml << "  </entry>\r\n"
       end
       xml << "</feed>\r\n"
-      return render :xml => xml
     else
       return render_404
     end
+    return render :xml => xml
   end
 end
