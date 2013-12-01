@@ -19,6 +19,9 @@
  *  Global constants
  */
 
+$color: #444;
+$color-light: #888;
+$color-muted: #aaa;
 $color-anchor: #ac498f;
 $color-anchor-hover: #c23b00;
 $color-selection: #ffa0fa;
@@ -74,7 +77,7 @@ $stack-width: 900px;
 }
 
 .muted {
-  color: #aaa;
+  color: $color-muted;
 }
 
 .right {
@@ -105,7 +108,7 @@ body {
   font-weight: 400;
   font-size: 0.95em;
   line-height: 1.5;
-  color: #333;
+  color: $color;
 }
 
 #footer-fix-container {
@@ -200,7 +203,7 @@ h3 {
 h4 {
   font-size: 1em;
   margin-top: 32px;
-  color: #666;
+  color: $color-light;
   text-transform: uppercase;
 }
 
@@ -223,7 +226,7 @@ blockquote {
   border-left: 4px solid $color-light-background;
   padding-left: 20px;
   margin: 0 0 0 20px;
-  color: #666;
+  color: $color-light;
 }
 
 .notice, .error {
@@ -313,6 +316,10 @@ strong {
   }
 }
 
+iframe {
+  border: none;
+}
+
 input[type=submit], input[type=text], input[type=password], textarea, .button-link {
   display: inline-block;
   font-family: inherit;
@@ -382,7 +389,6 @@ form {
     padding-top: $header-padding / 2;
     padding-bottom: $header-padding / 2;
   }
-  color: #666;
 
   #title {
     @media (max-width: ($stack-width - 1)) {
@@ -457,7 +463,6 @@ form {
 div.banner-body {
   background-color: #f3f3f3;
   padding: 16px 0;
-  color: #666;
 
   .social-media-links {
     a {
@@ -540,7 +545,7 @@ div.post-separator {
   bottom: 0;
   width: 100%;
   height: $footer-height;
-  color: #666;
+  color: $color-muted;
   text-align: center;
 
   #footer .p {
