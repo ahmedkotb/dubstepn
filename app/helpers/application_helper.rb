@@ -3,17 +3,14 @@ require 'tempfile'
 
 module ApplicationHelper
   # metadata used in various places
-  APP_DESCRIPTION = "Computer science, software engineering, math, and music."
-  APP_TITLE = "Stephan Boyer"
-  APP_AUTHOR = "Stephan Boyer"
-  APP_EMAIL = "boyers@mit.edu"
-  APP_PROTOCOL = "http://"
-  if Rails.env.production?
-    APP_HOST = "www.stephanboyer.com"
-  else
-    APP_HOST = "localhost:3000"
-  end
-  APP_RESUME_URL = "http://s3.amazonaws.com/dubstepn/resume.pdf"
+  APP_DESCRIPTION = ENV['APP_DESCRIPTION']
+  APP_TITLE = ENV['APP_TITLE']
+  APP_AUTHOR = ENV['APP_AUTHOR']
+  APP_EMAIL = ENV['APP_EMAIL']
+  APP_PROTOCOL = ENV['APP_PROTOCOL']
+  APP_HOST = ENV['APP_HOST']
+  APP_RESUME_URL = ENV['APP_RESUME_URL']
+  APP_PASSWORD_HASH = ENV['APP_PASSWORD_HASH']
 
   # converts markdown into html
   # does some extra processing:
