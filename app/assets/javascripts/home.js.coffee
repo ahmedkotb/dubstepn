@@ -1,5 +1,8 @@
 # called when the DOM is ready
 $(document).ready () ->
+  # enable fastclick
+  FastClick.attach(document.body)
+
   # make a particular element full-width such that aspect ratio is preserved
   make_full_width = (e) ->
     # get the aspect ratio
