@@ -171,6 +171,18 @@ a.tag {
   margin: 16px 0;
 }
 
+ul, ol {
+  p, .p {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 h2, h3, h4, h5, h6 {
   font-weight: 300;
   margin: 16px 0;
