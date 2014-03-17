@@ -53,7 +53,7 @@
         <% if @tag.name == "home" %>
           <li><a href="/"><%= page %></a></li>
         <% else %>
-          <li><a href="/<%= @tag.name -%>">&laquo;</a></li>
+          <li><a href="/<%= @tag.name -%>"><%= page %></a></li>
         <% end %>
       <% else %>
         <li><a href="/<%= @tag.name -%>/<%= page -%>"><%= page %></a></li>
