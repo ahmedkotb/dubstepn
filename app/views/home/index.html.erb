@@ -40,7 +40,7 @@
     <% if @tag.name == "home" %>
       <li><a href="/">&laquo;</a></li>
     <% else %>
-      <li><a href="/<%= @tag.name -%>/1">&laquo;</a></li>
+      <li><a href="/<%= @tag.name -%>">&laquo;</a></li>
     <% end %>
   <% else %>
     <li class="disabled"><span>&laquo;</span></li>
