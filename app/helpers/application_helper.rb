@@ -71,7 +71,7 @@ module ApplicationHelper
       if result[pos] == '\'' && char_is_raw(result, pos)
         result = result[0...pos] + '&rsquo;' + result[(pos + 1)..result.length]
       end
-      if result[pos] == '\"' && char_is_raw(result, pos)
+      if result[pos] == '"' && char_is_raw(result, pos)
         if double_quote_parity
           result = result[0...pos] + '&rdquo;' + result[(pos + 1)..result.length]
         else
@@ -96,7 +96,7 @@ module ApplicationHelper
     result.gsub!('</h2>', '</h4>')
     result.gsub!('<h1>',  '<h3>')
     result.gsub!('</h1>', '</h3>')
-    result.gsub!('<p>', '<div class=\"p\">')
+    result.gsub!('<p>', '<div class="p">')
     result.gsub!('</p>', '</div>')
 
     return result
