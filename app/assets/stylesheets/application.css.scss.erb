@@ -19,7 +19,7 @@
  *  Global constants
  */
 
-$color: #444;
+$color: #333;
 $color-light: #888;
 $color-muted: #aaa;
 $color-anchor: #ac498f;
@@ -30,32 +30,6 @@ $input-height: 36px;
 $separator-height: 16px;
 $footer-height: $separator-height + 64px;
 $stack-width: 900px;
-
-/* Mixins */
-
-@mixin vertical-gradient($top, $bottom) {
-  background: $top; /* Old browsers */
-  background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+, Safari5.1+ */
-  background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 ); /* IE6-9 */
-}
-
-@mixin animate($properties, $duration) {
-  -webkit-transition-property: $properties;
-  -moz-transition-property:    $properties;
-  -ms-transition-property:     $properties;
-  -o-transition-property:      $properties;
-  transition-property:         $properties;
-  -webkit-transition-duration: $duration;
-  -moz-transition-duration:    $duration;
-  -ms-transition-duration:     $duration;
-  -o-transition-duration:      $duration;
-  transition-duration:         $duration;
-}
 
 /* Helper classes */
 
@@ -104,9 +78,8 @@ html, body {
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
-  font-size: 0.95em;
   line-height: 1.5;
   color: $color;
 }
@@ -140,7 +113,6 @@ body {
 a {
   color: $color-anchor;
   text-decoration: none;
-  @include animate("color, background-color", 0.3s);
 
   &:hover {
     color: $color-anchor-hover;
@@ -186,7 +158,8 @@ ul, ol {
 }
 
 h2, h3, h4, h5, h6 {
-  font-weight: 300;
+  font-family: "Bitter", "Source Sans Pro", sans-serif;
+  font-weight: 400;
   margin: 16px 0;
 
   a {
@@ -201,7 +174,6 @@ h2, h3, h4, h5, h6 {
 h2 {
   font-size: 2em;
   line-height: 1.2;
-  text-transform: uppercase;
 
   a {
     color: inherit;
@@ -211,14 +183,12 @@ h2 {
 h3 {
   font-size: 1.5em;
   margin-top: 48px;
-  text-transform: uppercase;
 }
 
 h4 {
   font-size: 1em;
   margin-top: 32px;
   color: $color-light;
-  text-transform: uppercase;
 }
 
 code, pre, .monospace {
@@ -356,7 +326,6 @@ input[type=submit], .button-link {
   text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
   font-weight: 600;
   line-height: $input-height;
-  @include animate(background-color, 0.3s);
 
   &:hover {
     background-color: $color-anchor-hover;
@@ -392,32 +361,27 @@ form {
 /* Header */
 
 #header {
-  $header-height: 32px;
-  $header-padding: 24px;
+  $header-height: 42px;
+  $header-padding: 16px;
   $header-link-border-width: 4px;
   $header-link-border-color: #eee;
   line-height: $header-height;
   padding-top: $header-padding;
   padding-bottom: $header-padding;
-  @media (max-width: ($stack-width - 1)) {
-    padding-top: $header-padding / 2;
-    padding-bottom: $header-padding / 2;
-  }
 
   #title {
     @media (max-width: ($stack-width - 1)) {
-      border-bottom: 1px solid #ccc;
       text-align: center;
-      line-height: $header-height * 1.5;
     }
 
     h1 {
       font-family: "Lovers Quarrel", cursive;
       font-weight: 300;
-      font-size: 3em;
+      font-size: 2.7em;
       text-transform: inherit;
       line-height: inherit;
       margin: $header-link-border-width 0;
+
       a {
         font-weight: 400;
         display: inline-block;
@@ -426,11 +390,11 @@ form {
           color: $color-anchor-hover;
           text-decoration: none;
         }
-      }
 
-      a#title-link {
-        &:hover {
-          color: $color-anchor-hover;
+        &#title-link {
+          &:hover {
+            color: $color-anchor-hover;
+          }
         }
       }
     }
@@ -451,11 +415,13 @@ form {
       color: inherit;
       padding: 0 16px;
       margin: $header-link-border-width 0;
+
       @media (max-width: ($stack-width - 1)) {
         & {
           padding: 0 5px;
         }
       }
+
       &:hover {
         color: $color-anchor-hover;
         text-decoration: none;
@@ -465,6 +431,7 @@ form {
     a.active {
       border-bottom: $header-link-border-width solid $header-link-border-color;
       margin-bottom: 0;
+
       &:hover {
         color: $color-anchor-hover;
       }
@@ -491,7 +458,8 @@ div.banner-body {
   }
 
   h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
+    color: #666;
 
     a {
       color: inherit;

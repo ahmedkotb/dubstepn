@@ -12,6 +12,17 @@ module ApplicationHelper
   APP_RESUME_URL = ENV['APP_RESUME_URL']
   APP_PASSWORD_HASH = ENV['APP_PASSWORD_HASH']
 
+  if !APP_DESCRIPTION ||
+     !APP_TITLE ||
+     !APP_AUTHOR ||
+     !APP_EMAIL ||
+     !APP_PROTOCOL ||
+     !APP_HOST ||
+     !APP_RESUME_URL ||
+     !APP_PASSWORD_HASH
+    raise 'Required environment variables not set.'
+  end
+
   # converts markdown into html
   # does some extra processing:
   # - replaces ' and " with their directional counterparts
@@ -21,7 +32,7 @@ module ApplicationHelper
   def markdown(s)
     raise if !s.instance_of?(String)
     
-    file = Tempfile.new "markdown"
+    file = Tempfile.new 'markdown'
     file.write(s)
     file.close
     result = `perl ./script/markdown.pl #{file.path}`
@@ -41,10 +52,10 @@ module ApplicationHelper
       math_close = left.scan(/\\\)/).length
       tag_level = 0
       (0...pos).each do |i|
-        if str[i] == "<"
+        if str[i] == '<'
           tag_level += 1
         end
-        if str[i] == ">"
+        if str[i] == '>'
           tag_level -= 1
           if tag_level < 0
             tag_level = 0
@@ -57,36 +68,36 @@ module ApplicationHelper
     pos = result.length - 1
     double_quote_parity = true
     while pos >= 0
-      if result[pos] == "\'" && char_is_raw(result, pos)
-        result = result[0...pos] + "&rsquo;" + result[(pos + 1)..result.length]
+      if result[pos] == '\'' && char_is_raw(result, pos)
+        result = result[0...pos] + '&rsquo;' + result[(pos + 1)..result.length]
       end
-      if result[pos] == "\"" && char_is_raw(result, pos)
+      if result[pos] == '\"' && char_is_raw(result, pos)
         if double_quote_parity
-          result = result[0...pos] + "&rdquo;" + result[(pos + 1)..result.length]
+          result = result[0...pos] + '&rdquo;' + result[(pos + 1)..result.length]
         else
-          result = result[0...pos] + "&ldquo;" + result[(pos + 1)..result.length]
+          result = result[0...pos] + '&ldquo;' + result[(pos + 1)..result.length]
         end
         double_quote_parity = !double_quote_parity
       end
       pos -= 1
     end
 
-    result.gsub!("<pre><code>", "<pre>")
-    result.gsub!("</code></pre>", "</pre>")
-    result.gsub!("<h6>",  "<p>")
-    result.gsub!("</h6>", "</p>")
-    result.gsub!("<h5>",  "<p>")
-    result.gsub!("</h5>", "</p>")
-    result.gsub!("<h4>",  "<h6>")
-    result.gsub!("</h4>", "</h6>")
-    result.gsub!("<h3>",  "<h5>")
-    result.gsub!("</h3>", "</h5>")
-    result.gsub!("<h2>",  "<h4>")
-    result.gsub!("</h2>", "</h4>")
-    result.gsub!("<h1>",  "<h3>")
-    result.gsub!("</h1>", "</h3>")
-    result.gsub!("<p>", "<div class=\"p\">")
-    result.gsub!("</p>", "</div>")
+    result.gsub!('<pre><code>', '<pre>')
+    result.gsub!('</code></pre>', '</pre>')
+    result.gsub!('<h6>',  '<p>')
+    result.gsub!('</h6>', '</p>')
+    result.gsub!('<h5>',  '<p>')
+    result.gsub!('</h5>', '</p>')
+    result.gsub!('<h4>',  '<h6>')
+    result.gsub!('</h4>', '</h6>')
+    result.gsub!('<h3>',  '<h5>')
+    result.gsub!('</h3>', '</h5>')
+    result.gsub!('<h2>',  '<h4>')
+    result.gsub!('</h2>', '</h4>')
+    result.gsub!('<h1>',  '<h3>')
+    result.gsub!('</h1>', '</h3>')
+    result.gsub!('<p>', '<div class=\"p\">')
+    result.gsub!('</p>', '</div>')
 
     return result
   end
@@ -108,7 +119,7 @@ module ApplicationHelper
     # URLs to crawl
     # each item in this list is of the form [url, referrer]
     # referrer is nil for the root
-    agenda = [["/", nil]]
+    agenda = [['/', nil]]
 
     # URLs we have crawled already
     # each item in this list is of the form [url, referrer, error]
@@ -121,16 +132,16 @@ module ApplicationHelper
       pair = agenda.pop
       url = pair[0]
       referrer = pair[1]
-      print "."
+      print '.'
 
       # get a complete version of the URL
       full_url = url
       if full_url.size == 0
-        full_url = "/"
+        full_url = '/'
       end
-      if full_url.start_with?("//")
+      if full_url.start_with?('//')
         full_url = APP_PROTOCOL + full_url[2..-1]
-      elsif full_url.start_with?("/")
+      elsif full_url.start_with?('/')
         full_url = APP_PROTOCOL + APP_HOST + full_url
       end
 
@@ -138,7 +149,7 @@ module ApplicationHelper
       begin
         uri = URI.parse(full_url)
         http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == "https"
+        http.use_ssl = uri.scheme == 'https'
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         res = http.get(uri.request_uri)
       rescue Exception => e
@@ -147,13 +158,13 @@ module ApplicationHelper
       end
 
       # check the response code
-      if res.code != "200"
-        visited.push([url, referrer, "response code: " + res.code])
+      if res.code != '200'
+        visited.push([url, referrer, 'response code: ' + res.code])
         next
       end
 
       # for local pages, parse the body for hyperlinks
-      if url.start_with?("/")
+      if url.start_with?('/')
         new_urls = []
         new_urls += res.body.scan(/\<a.*href\=\"([^"]*)\".*\>[^<]*\<\/a\>/).map { |result| result[0] }
         new_urls += res.body.scan(/\<a.*href\=\'([^']*)\'.*\>[^<]*\<\/a\>/).map { |result| result[0] }
@@ -175,32 +186,32 @@ module ApplicationHelper
       # add the url to the visited list and continue
       visited.push([url, referrer, nil])
     end
-    puts ""
-    puts ""
+    puts ''
+    puts ''
 
     # print the successful urls
-    puts "Successful URLs:"
-    puts ""
+    puts 'Successful URLs:'
+    puts ''
     for item in visited.sort { |a, b| a[0] <=> b[0] }
       if item[2] == nil
         if item[1] == nil
-          puts "* " + item[0]
+          puts '* ' + item[0]
         else
-          puts "* " + item[0] + " from " + item[1]
+          puts '* ' + item[0] + ' from ' + item[1]
         end
       end
     end
-    puts ""
+    puts ''
 
     # print the failed urls
-    puts "Failed URLs:"
-    puts ""
+    puts 'Failed URLs:'
+    puts ''
     for item in visited.sort { |a, b| a[0] <=> b[0] }
       if item[2] != nil
         if item[1] == nil
-          puts "* " + item[0] + ": " + item[2]
+          puts '* ' + item[0] + ': ' + item[2]
         else
-          puts "* " + item[0] + " from " + item[1] + ": " + item[2]
+          puts '* ' + item[0] + ' from ' + item[1] + ': ' + item[2]
         end
       end
     end
