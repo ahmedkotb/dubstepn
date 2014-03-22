@@ -36,7 +36,6 @@ $stack-width: 900px;
 
 /* All columns must be put in an element with the "row" class. */
 .row {
-  *zoom: 1;
   &:before, &:after {
     display: table;
     content: "";
@@ -55,7 +54,6 @@ $stack-width: 900px;
 @for $i from 1 through $num-columns {
   .span#{$i} {
     float: left;
-    *zoom: 1;
     &:before, &:after {
       display: table;
       content: "";
@@ -83,17 +81,13 @@ $stack-width: 900px;
 @for $i from 1 through $num-columns {
   .row > .span#{$i} {
     width: (100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width;
-    *width: (100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width - 50% / ($stack-width / 1px);
     margin-left: $column-gutter-width;
-    *margin-left: $column-gutter-width - 50% / ($stack-width / 1px);
     &:first-child {
       margin-left: 0;
     }
     @media (max-width: ($stack-width - 1)) {
       width: 100%;
-      *width: 100%;
       margin-left: 0;
-      *margin-left: 0;
     }
   }
 }
@@ -101,17 +95,13 @@ $stack-width: 900px;
 @for $i from 1 through $num-columns {
   .row > .offset#{$i} {
     margin-left: $column-gutter-width + (100% + $column-gutter-width) * ($i / $num-columns);
-    *margin-left: $column-gutter-width + (100% + $column-gutter-width) * ($i / $num-columns) - 50% / ($stack-width / 1px);
     &:first-child {
       margin-left: (100% + $column-gutter-width) * ($i / $num-columns);
-      *margin-left: (100% + $column-gutter-width) * ($i / $num-columns) - 50% / ($stack-width / 1px);
     }
     @media (max-width: ($stack-width - 1)) {
       margin-left: 0;
-      *margin-left: 0;
       &:first-child {
         margin-left: 0;
-        *margin-left: 0;
       }
     }
   }
@@ -122,17 +112,13 @@ $stack-width: 900px;
     .span#{$i} > .span#{$j} {
       $scale_factor: 100% / ((100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width);
       width: ((100% + $column-gutter-width) * ($j / $num-columns) - $column-gutter-width) * $scale_factor;
-      *width: ((100% + $column-gutter-width) * ($j / $num-columns) - $column-gutter-width) * $scale_factor - 50% / (($stack-width / 1px) * $num-columns / $i);
       margin-left: $column-gutter-width * $scale_factor;
-      *margin-left: $column-gutter-width * $scale_factor - 50% / (($stack-width / 1px) * $num-columns / $i);
       &:first-child {
         margin-left: 0;
       }
       @media (max-width: ($stack-width - 1)) {
         width: 100%;
-        *width: 100%;
         margin-left: 0;
-        *margin-left: 0;
       }
     }
   }
@@ -142,17 +128,13 @@ $stack-width: 900px;
     .span#{$i} > .offset#{$j} {
       $scale_factor: 100% / ((100% + $column-gutter-width) * ($i / $num-columns) - $column-gutter-width);
       margin-left: ($column-gutter-width + (100% + $column-gutter-width) * ($j / $num-columns)) * $scale_factor;
-      *margin-left: ($column-gutter-width + (100% + $column-gutter-width) * ($j / $num-columns)) * $scale_factor - 50% / (($stack-width / 1px) * $num-columns / $i);
       &:first-child {
         margin-left: (100% + $column-gutter-width) * ($j / $num-columns) * $scale_factor;
-        *margin-left: (100% + $column-gutter-width) * ($j / $num-columns) * $scale_factor - 50% / (($stack-width / 1px) * $num-columns / $i);
       }
       @media (max-width: ($stack-width - 1)) {
         margin-left: 0;
-        *margin-left: 0;
         &:first-child {
           margin-left: 0;
-          *margin-left: 0;
         }
       }
     }
